@@ -39,6 +39,4 @@ npm run test
 
 ## Deployment
 
-```bash
-npm run build
-```
+Any commit to master_branch will automatically push to Production.

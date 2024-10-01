@@ -25,7 +25,7 @@ export const getSkillsByName = async (
   }
 
   try {
-    const skill = await skillsService.getSkillsByName(name);
+    const skill = await skillsService.getSkillByName(name);
     if (skill) {
       return new ResponseData(200, skill);
     } else {
@@ -48,7 +48,7 @@ export const getSkillsByID = async (
   }
 
   try {
-    const skill = await skillsService.getSkillsByID(id);
+    const skill = await skillsService.getSkillByID(id);
     if (skill) {
       return new ResponseData(200, skill);
     } else {

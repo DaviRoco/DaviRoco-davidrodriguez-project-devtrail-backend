@@ -11,12 +11,12 @@ export class SkillsService {
     return await this.skillsRepository.getAllSkills();
   }
 
-  async getSkillsByName(name: string): Promise<Skills | null> {
-    return await this.skillsRepository.getSkillsByName(name);
+  async getSkillByName(name: string): Promise<Skills | null> {
+    return await this.skillsRepository.getSkillByName(name);
   }
 
-  async getSkillsByID(id: string): Promise<Skills | null> {
-    return await this.skillsRepository.getSkillsByID(id);
+  async getSkillByID(id: string): Promise<Skills | null> {
+    return await this.skillsRepository.getSkillByID(id);
   }
 }
 

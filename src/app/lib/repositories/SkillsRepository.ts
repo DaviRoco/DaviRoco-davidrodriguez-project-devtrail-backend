@@ -33,7 +33,7 @@ export class SkillsRepository {
     return skills;
   }
 
-  async getSkillsByName(name: string): Promise<Skills | null> {
+  async getSkillByName(name: string): Promise<Skills | null> {
     if (!name || typeof name !== "string") {
       throw new Error(
         "Invalid name provided. Name must be a non-empty string.",
@@ -67,7 +67,7 @@ export class SkillsRepository {
     return skill;
   }
 
-  async getSkillsByID(id: string): Promise<Skills | null> {
+  async getSkillByID(id: string): Promise<Skills | null> {
     if (!id || typeof id !== "string") {
       throw new Error("Invalid ID provided. ID must be a non-empty string.");
     }
@@ -93,6 +93,27 @@ export class SkillsRepository {
     );
 
     return skill;
+  }
+
+  async getSkillsByID(ids: Skills[]): Promise<Skills[]> {
+    const skills: Skills[] = [];
+
+    const q = query(skillsCollection, where("__name__", "in", ids));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      const skillData = doc.data();
+      skills.push(
+        new Skills(
+          doc.id,
+          skillData.name,
+          skillData.description,
+          skillData.level,
+        ),
+      );
+    });
+
+    return skills;
   }
 }
 

@@ -1,17 +1,26 @@
 import { ProjectsService } from "../services/ProjectsService";
 import ProjectsRepository from "../repositories/ProjectsRepository";
+import SkillsRepository from "../repositories/SkillsRepository";
 import ResponseData from "../constants/api/ResponseData";
 import Projects from "../entities/Projects";
 
 const projectsRepository = new ProjectsRepository();
-const projectsService = new ProjectsService(projectsRepository);
+const skillsRepository = new SkillsRepository();
+const projectsService = new ProjectsService(
+  projectsRepository,
+  skillsRepository,
+);
 
 export const getAllProjects = async (): Promise<
   ResponseData<Projects[]> | ResponseData<string>
 > => {
   try {
     const projects = await projectsService.getAllProjects();
-    return new ResponseData(200, projects);
+    if (projects?.length) {
+      return new ResponseData(200, projects);
+    } else {
+      return new ResponseData(200, "No Projects fetched");
+    }
   } catch (error) {
     console.error(error);
     return new ResponseData(500, "Failed to retrieve projects");

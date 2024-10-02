@@ -1,21 +1,16 @@
 import { ProjectsService } from "../services/ProjectsService";
 import ProjectsRepository from "../repositories/ProjectsRepository";
-import SkillsRepository from "../repositories/SkillsRepository";
 import ResponseData from "../constants/api/ResponseData";
 import Projects from "../entities/Projects";
 
 const projectsRepository = new ProjectsRepository();
-const skillsRepository = new SkillsRepository();
-const projectsService = new ProjectsService(
-  projectsRepository,
-  skillsRepository,
-);
+const projectsService = new ProjectsService(projectsRepository);
 
 export const getAllProjects = async (): Promise<
   ResponseData<Projects[]> | ResponseData<string>
 > => {
   try {
-    const projects = await projectsService.getAllProjects();
+    const projects = (await projectsService.getAllProjects()) as Projects[];
     if (projects?.length) {
       return new ResponseData(200, projects);
     } else {
@@ -35,7 +30,7 @@ export const getProjectsByName = async (
   }
 
   try {
-    const project = await projectsService.getProjectsByName(name);
+    const project = (await projectsService.getProjectsByName(name)) as Projects;
     if (project) {
       return new ResponseData(200, project);
     } else {
@@ -58,7 +53,7 @@ export const getProjectsByID = async (
   }
 
   try {
-    const project = await projectsService.getProjectsByID(id);
+    const project = (await projectsService.getProjectsByID(id)) as Projects;
     if (project) {
       return new ResponseData(200, project);
     } else {

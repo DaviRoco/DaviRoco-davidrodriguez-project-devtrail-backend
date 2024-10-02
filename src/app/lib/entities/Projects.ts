@@ -1,5 +1,47 @@
 import Skills from "./Skills";
-
+/**
+ * Represents a project with its details.
+ *
+ * @class Projects
+ *
+ * @property {string} _id - The unique identifier of the project.
+ * @property {string} _name - The name of the project.
+ * @property {Date} _startDate - The starting date of the project.
+ * @property {Date} _endDate - The ending date of the project.
+ * @property {string} _description - A brief description of the project.
+ * @property {URL} _url - The URL of the project.
+ * @property {Skills[]} _skills - The skills associated with the project.
+ *
+ * @constructor
+ * @param {string} id - The unique identifier of the project.
+ * @param {string} name - The name of the project.
+ * @param {Date} startDate - The starting date of the project.
+ * @param {Date} endDate - The ending date of the project.
+ * @param {string} description - A brief description of the project.
+ * @param {URL} url - The URL of the project.
+ * @param {Skills[]} skills - The skills associated with the project.
+ *
+ * @method get id
+ * @returns {string} The unique identifier of the project.
+ *
+ * @method get name
+ * @returns {string} The name of the project.
+ *
+ * @method get startDate
+ * @returns {Date} The starting date of the project.
+ *
+ * @method get endDate
+ * @returns {Date} The ending date of the project.
+ *
+ * @method get description
+ * @returns {string} A brief description of the project.
+ *
+ * @method get url
+ * @returns {URL} The URL of the project.
+ *
+ * @method get skills
+ * @returns {Skills[]} The skills associated with the project.
+ */
 class Projects {
   _id: string;
   _name: string;
@@ -27,31 +69,31 @@ class Projects {
     this._skills = skills;
   }
 
-  public get id() {
+  get id() {
     return this._id;
   }
 
-  public get name() {
+  get name() {
     return this._name;
   }
 
-  public get startDate() {
+  get startDate() {
     return this._startDate;
   }
 
-  public get endDate() {
+  get endDate() {
     return this._endDate;
   }
 
-  public get description() {
+  get description() {
     return this._description;
   }
 
-  public get url() {
+  get url() {
     return this._url;
   }
 
-  public get skills() {
+  get skills() {
     return this._skills;
   }
 }

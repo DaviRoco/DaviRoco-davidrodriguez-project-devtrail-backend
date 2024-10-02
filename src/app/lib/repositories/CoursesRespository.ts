@@ -10,7 +10,15 @@ import {
 import Courses from "../entities/Courses";
 
 const coursesCollection = collection(db, "courses");
-
+/**
+ * The `CoursesRepository` class provides methods to interact with the courses collection.
+ * It allows retrieving all courses, as well as retrieving courses by name or ID.
+ *
+ * @class CoursesRepository
+ * @method getAllCourses - Retrieves all courses from the courses collection.
+ * @method getCoursesByName - Retrieves a course by its name from the courses collection.
+ * @method getCoursesByID - Retrieves a course by its ID from the courses collection.
+ */
 export class CoursesRepository {
   async getAllCourses(): Promise<Courses[]> {
     const coursesSnapshot = await getDocs(coursesCollection);

@@ -1,18 +1,24 @@
 import { CoursesService } from "../services/CoursesService";
 import { CoursesRepository } from "../repositories/CoursesRespository";
-import SkillsRepository from "../repositories/SkillsRepository";
 import ResponseData from "../constants/api/ResponseData";
 import Courses from "../entities/Courses";
 
 const coursesRepository = new CoursesRepository();
-const skillsRepository = new SkillsRepository();
-const coursesService = new CoursesService(coursesRepository, skillsRepository);
+const coursesService = new CoursesService(coursesRepository);
 
+/**
+ * Retrieves all courses from the courses service.
+ *
+ * @returns {Promise<ResponseData<Courses[]> | ResponseData<string>>}
+ * A promise that resolves to a ResponseData object containing either an array of courses or a message indicating no courses were fetched.
+ *
+ * @throws Will return a ResponseData object with a status code of 500 and an error message if the retrieval fails.
+ */
 export const getAllCourses = async (): Promise<
   ResponseData<Courses[]> | ResponseData<string>
 > => {
   try {
-    const courses = await coursesService.getAllCourses();
+    const courses = (await coursesService.getAllCourses()) as Courses[];
     if (courses?.length) {
       return new ResponseData(200, courses);
     } else {
@@ -24,6 +30,14 @@ export const getAllCourses = async (): Promise<
   }
 };
 
+/**
+ * Retrieves courses by their name.
+ *
+ * @param {string | null} name - The name of the course to retrieve. Must be a non-null string.
+ * @returns {Promise<ResponseData<Courses | null> | ResponseData<string>>} - A promise that resolves to a ResponseData object containing either the course data or an error message.
+ *
+ * @throws {Error} - Throws an error if the retrieval process fails.
+ */
 export const getCoursesByName = async (
   name: string | null,
 ): Promise<ResponseData<Courses | null> | ResponseData<string>> => {
@@ -32,7 +46,7 @@ export const getCoursesByName = async (
   }
 
   try {
-    const course = await coursesService.getProjectsByName(name);
+    const course = (await coursesService.getProjectsByName(name)) as Courses;
     if (course) {
       return new ResponseData(200, course);
     } else {
@@ -47,6 +61,14 @@ export const getCoursesByName = async (
   }
 };
 
+/**
+ * Retrieves courses by their ID.
+ *
+ * @param {string | null} id - The ID of the course to retrieve. Must be a non-null string.
+ * @returns {Promise<ResponseData<Courses | null> | ResponseData<string>>} - A promise that resolves to a ResponseData object containing either the course data or an error message.
+ *
+ * @throws {Error} - Throws an error if the retrieval process fails.
+ */
 export const getCoursesByID = async (
   id: string | null,
 ): Promise<ResponseData<Courses | null> | ResponseData<string>> => {
@@ -55,7 +77,7 @@ export const getCoursesByID = async (
   }
 
   try {
-    const course = await coursesService.getProjectsByID(id);
+    const course = (await coursesService.getProjectsByID(id)) as Courses;
     if (course) {
       return new ResponseData(200, course);
     } else {

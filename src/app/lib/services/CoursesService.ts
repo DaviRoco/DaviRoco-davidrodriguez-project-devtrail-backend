@@ -1,80 +1,30 @@
 import Courses from "../entities/Courses";
 import { CoursesRepository } from "../repositories/CoursesRespository";
-import SkillsRepository from "../repositories/SkillsRepository";
+import SkillsFiller from "./utils/SkillsFiller";
 
 export class CoursesService {
   private coursesRepository: CoursesRepository;
-  private skillsRepository: SkillsRepository;
+  private skillsFiller: SkillsFiller<Courses>;
 
-  constructor(
-    coursesRepository: CoursesRepository,
-    skillsRepository: SkillsRepository,
-  ) {
+  constructor(coursesRepository: CoursesRepository) {
     this.coursesRepository = coursesRepository;
-    this.skillsRepository = skillsRepository;
+    this.skillsFiller = new SkillsFiller();
   }
 
-  async getAllCourses(): Promise<Courses[] | null> {
+  async getAllCourses(): Promise<Omit<Courses, "skills">[] | null> {
     const coursesData = await this.coursesRepository.getAllCourses();
-    return this.getCoursesWithSkills(coursesData);
+    return this.skillsFiller.getObjectsWithSkills(coursesData);
   }
 
-  async getProjectsByName(name: string): Promise<Courses | null> {
+  async getProjectsByName(
+    name: string,
+  ): Promise<Omit<Courses, "skills"> | null> {
     const courseData = await this.coursesRepository.getCoursesByName(name);
-    return this.getCourseWithSkills(courseData);
+    return this.skillsFiller.getObjectWithSkills(courseData);
   }
 
-  async getProjectsByID(id: string): Promise<Courses | null> {
+  async getProjectsByID(id: string): Promise<Omit<Courses, "skills"> | null> {
     const courseData = await this.coursesRepository.getCoursesByID(id);
-    return this.getCourseWithSkills(courseData);
-  }
-
-  private async getCourseWithSkills(
-    courseData: Courses | null,
-  ): Promise<Courses | null> {
-    if (courseData) {
-      const skillIds = courseData.skills;
-      const skillsArray = await this.skillsRepository.getSkillsByID(skillIds);
-
-      return new Courses(
-        courseData.id,
-        courseData.name,
-        courseData.code,
-        courseData.description,
-        courseData.institution,
-        skillsArray,
-      );
-    }
-
-    return null;
-  }
-
-  private async getCoursesWithSkills(
-    courses: Courses[] | null,
-  ): Promise<Courses[] | null> {
-    if (courses?.length) {
-      const courseResult: Courses[] = [];
-
-      for (const course of courses) {
-        const skillIds = course.skills;
-
-        const skillsArray = await this.skillsRepository.getSkillsByID(skillIds);
-
-        const result = new Courses(
-          course.id,
-          course.name,
-          course.code,
-          course.description,
-          course.institution,
-          skillsArray,
-        );
-
-        courseResult.push(result);
-      }
-
-      return courseResult;
-    }
-
-    return null;
+    return this.skillsFiller.getObjectWithSkills(courseData);
   }
 }

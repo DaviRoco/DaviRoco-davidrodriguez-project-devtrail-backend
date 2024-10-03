@@ -100,7 +100,7 @@ export class RecordsRepository {
     return records;
   }
 
-  async getExperienceRecordById(id: string): Promise<ExperienceRecords | null> {
+  async getExperienceRecordByID(id: string): Promise<ExperienceRecords | null> {
     if (!id || typeof id !== "string") {
       throw new Error("Invalid ID provided. ID must be a non-empty string.");
     }
@@ -140,7 +140,7 @@ export class RecordsRepository {
     );
   }
 
-  async getEducationalRecordById(
+  async getEducationalRecordByID(
     id: string,
   ): Promise<EducationalRecords | null> {
     if (!id || typeof id !== "string") {

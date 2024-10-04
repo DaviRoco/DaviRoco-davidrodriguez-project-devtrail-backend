@@ -17,7 +17,7 @@ export const getAllSkills = async (): Promise<
   }
 };
 
-export const getSkillsByName = async (
+export const getSkillByName = async (
   name: string | null,
 ): Promise<ResponseData<Skills | null> | ResponseData<string>> => {
   if (!name || typeof name !== "string") {
@@ -40,7 +40,7 @@ export const getSkillsByName = async (
   }
 };
 
-export const getSkillsByID = async (
+export const getSkillByID = async (
   id: string | null,
 ): Promise<ResponseData<Skills | null> | ResponseData<string>> => {
   if (!id || typeof id !== "string") {
@@ -65,8 +65,8 @@ export const getSkillsByID = async (
 
 const SkillsController = {
   getAllSkills,
-  getSkillsByName,
-  getSkillsByID,
+  getSkillByName,
+  getSkillByID,
 };
 
 export default SkillsController;

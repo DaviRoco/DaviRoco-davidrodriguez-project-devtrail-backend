@@ -24,13 +24,13 @@ export async function GET(req: Request) {
 
   const name = searchParams.get("name");
   if (name) {
-    const response = await SkillsControllers.getSkillsByName(name);
+    const response = await SkillsControllers.getSkillByName(name);
     return NextResponse.json(response.body, { status: response.status });
   }
 
   const id = searchParams.get("id");
   if (id) {
-    const response = await SkillsControllers.getSkillsByID(id);
+    const response = await SkillsControllers.getSkillByID(id);
     return NextResponse.json(response.body, { status: response.status });
   }
 

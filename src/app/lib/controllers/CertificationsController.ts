@@ -22,16 +22,16 @@ export const getAllCertifications = async (): Promise<
 > => {
   try {
     const certifications: Certifications[] =
-      ((await certificationsService.getAllCertifications()) as Certifications[]) ||
-      [];
-    if (certifications?.length) {
-      return new ResponseData(200, certifications);
-    } else {
+      (await certificationsService.getAllCertifications()) as Certifications[];
+    if (!certifications) {
       return new ResponseData(200, "No Certifications fetched");
     }
+    return new ResponseData(200, certifications);
   } catch (error) {
-    console.error(error);
-    return new ResponseData(500, "Failed to retrieve certifications");
+    return new ResponseData(
+      500,
+      "Failed to retrieve certifications - " + error,
+    );
   }
 };
 
@@ -44,7 +44,7 @@ export const getAllCertifications = async (): Promise<
  *
  * @throws {Error} If there is an issue retrieving the certification.
  */
-export const getCertificationsByName = async (
+export const getCertificationByName = async (
   name: string | null,
 ): Promise<ResponseData<Certifications | null> | ResponseData<string>> => {
   if (!name || typeof name !== "string") {
@@ -52,7 +52,7 @@ export const getCertificationsByName = async (
   }
 
   try {
-    const certification = (await certificationsService.getCertificationsByName(
+    const certification = (await certificationsService.getCertificationByName(
       name,
     )) as Certifications;
     if (certification) {
@@ -64,12 +64,12 @@ export const getCertificationsByName = async (
       );
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
       "Failed to retrieve certification with name. Name: " +
         name +
-        " is not defined",
+        " - " +
+        error,
     );
   }
 };
@@ -83,7 +83,7 @@ export const getCertificationsByName = async (
  *
  * @throws {Error} If there is an issue retrieving the certification.
  */
-export const getCertificationsByID = async (
+export const getCertificationByID = async (
   id: string | null,
 ): Promise<ResponseData<Certifications | null> | ResponseData<string>> => {
   if (!id || typeof id !== "string") {
@@ -91,7 +91,7 @@ export const getCertificationsByID = async (
   }
 
   try {
-    const certification = (await certificationsService.getCertificationsByID(
+    const certification = (await certificationsService.getCertificationByID(
       id,
     )) as Certifications;
     if (certification) {
@@ -100,10 +100,9 @@ export const getCertificationsByID = async (
       return new ResponseData(200, "No Certification fetched with ID: " + id);
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve certification with ID. ID: " + id + " is not defined",
+      "Failed to retrieve certification with ID. ID: " + id + " - " + error,
     );
   }
 };
@@ -141,20 +140,20 @@ export const getCertificationsByInstitution = async (
       );
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
       "Failed to retrieve certification with institution. Institution: " +
         institution +
-        " is not defined",
+        " - " +
+        error,
     );
   }
 };
 
 const CertificationsController = {
   getAllCertifications,
-  getCertificationsByName,
-  getCertificationsByID,
+  getCertificationByName,
+  getCertificationByID,
   getCertificationsByInstitution,
 };
 

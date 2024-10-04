@@ -25,13 +25,13 @@ export async function GET(req: Request) {
   const name = searchParams.get("name");
   if (name) {
     const response =
-      await CertificationsController.getCertificationsByName(name);
+      await CertificationsController.getCertificationByName(name);
     return NextResponse.json(response.body, { status: response.status });
   }
 
   const id = searchParams.get("id");
   if (id) {
-    const response = await CertificationsController.getCertificationsByID(id);
+    const response = await CertificationsController.getCertificationByID(id);
     return NextResponse.json(response.body, { status: response.status });
   }
 

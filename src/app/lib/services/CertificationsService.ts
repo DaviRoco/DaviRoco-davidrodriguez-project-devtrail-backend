@@ -19,7 +19,7 @@ export class CertificationsService {
     return this.skillsFiller.getObjectsWithSkills(certificationData);
   }
 
-  async getCertificationsByName(
+  async getCertificationByName(
     name: string,
   ): Promise<Omit<Certifications, "skills"> | null> {
     const certificationData =
@@ -37,7 +37,7 @@ export class CertificationsService {
     return this.skillsFiller.getObjectWithSkills(certificationData);
   }
 
-  async getCertificationsByID(
+  async getCertificationByID(
     id: string,
   ): Promise<Omit<Certifications, "skills"> | null> {
     const certificationData =

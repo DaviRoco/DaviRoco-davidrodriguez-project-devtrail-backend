@@ -12,7 +12,7 @@ export const getAllSkills = async (): Promise<
     const skills = await skillsService.getAllSkills();
     return new ResponseData(200, skills);
   } catch (error) {
-    return new ResponseData(500, "Failed to retrieve skills");
+    return new ResponseData(500, "Failed to retrieve skills - " + error);
   }
 };
 
@@ -33,7 +33,7 @@ export const getSkillByName = async (
   } catch (error) {
     return new ResponseData(
       500,
-      "Failed to retrieve skill with name. Name: " + name + " is not defined",
+      "Failed to retrieve skill with name. Name: " + name + " - " + error,
     );
   }
 };
@@ -55,7 +55,7 @@ export const getSkillByID = async (
   } catch (error) {
     return new ResponseData(
       500,
-      "Failed to retrieve skill with ID. ID: " + id + " is not defined",
+      "Failed to retrieve skill with ID. ID: " + id + " - " + error,
     );
   }
 };

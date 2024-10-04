@@ -34,13 +34,13 @@ describe("Skills Controller", () => {
 
     test("It should handle errors", async () => {
       (SkillsService.prototype.getAllSkills as jest.Mock).mockRejectedValue(
-        new Error("Failed to retrieve skills"),
+        new Error("Test"),
       );
 
       const result = await SkillsController.getAllSkills();
 
       expect(result.status).toBe(500);
-      expect(result.body).toBe("Failed to retrieve skills");
+      expect(result.body).toBe("Failed to retrieve skills - Error: Test");
     });
   });
 
@@ -87,11 +87,7 @@ describe("Skills Controller", () => {
       const testName = "Typescript";
 
       (SkillsService.prototype.getSkillByName as jest.Mock).mockRejectedValue(
-        new Error(
-          "Failed to retrieve skill with name. Name: " +
-            testName +
-            " is not defined",
-        ),
+        new Error("Test"),
       );
 
       const result = await SkillsController.getSkillByName(testName);
@@ -100,7 +96,7 @@ describe("Skills Controller", () => {
       expect(result.body).toBe(
         "Failed to retrieve skill with name. Name: " +
           testName +
-          " is not defined",
+          " - Error: Test",
       );
     });
   });
@@ -148,16 +144,14 @@ describe("Skills Controller", () => {
       const testID = "1";
 
       (SkillsService.prototype.getSkillByID as jest.Mock).mockRejectedValue(
-        new Error(
-          "Failed to retrieve skill with ID. ID: " + testID + " is not defined",
-        ),
+        new Error("Test"),
       );
 
       const result = await SkillsController.getSkillByID(testID);
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        "Failed to retrieve skill with ID. ID: " + testID + " is not defined",
+        "Failed to retrieve skill with ID. ID: " + testID + " - Error: Test",
       );
     });
   });

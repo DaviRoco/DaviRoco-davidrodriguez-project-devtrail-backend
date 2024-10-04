@@ -11,7 +11,7 @@ import Skills from "./Skills";
  * @property {string} _description - A brief description of the record.
  * @property {Skills[]} _skills - An array of skills associated with the record.
  * @property {string} _location - The location associated with the record.
-*
+ *
  * @constructor
  * @param {string} id - The unique identifier of the record.
  * @param {Date} startDate - The starting date of the record.
@@ -53,7 +53,7 @@ class Records {
     endDate: Date,
     description: string,
     skills: Skills[],
-    location: string
+    location: string,
   ) {
     this._id = id;
     this._startDate = startDate;

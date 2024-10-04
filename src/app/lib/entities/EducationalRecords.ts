@@ -22,7 +22,7 @@ import Skills from "./Skills";
  * @param {string} name - The name of the educational institution.
  * @param {string} degree - The degree obtained.
  * @param {string} location - The location associated with the record.
- * 
+ *
  * @method get name
  * @returns {string} The name of the educational institution.
  *

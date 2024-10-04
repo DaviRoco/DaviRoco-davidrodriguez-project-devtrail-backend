@@ -21,7 +21,8 @@ import Skills from "./Skills";
  * @param {Skills[]} skills - The skills associated with the record.
  * @param {string} name - The name of the educational institution.
  * @param {string} degree - The degree obtained.
- *
+ * @param {string} location - The location associated with the record.
+ * 
  * @method get name
  * @returns {string} The name of the educational institution.
  *
@@ -40,8 +41,9 @@ class EducationalRecords extends Records {
     skills: Skills[],
     name: string,
     degree: string,
+    location: string,
   ) {
-    super(id, startDate, endDate, description, skills);
+    super(id, startDate, endDate, description, skills, location);
     this._name = name;
     this._degree = degree;
   }

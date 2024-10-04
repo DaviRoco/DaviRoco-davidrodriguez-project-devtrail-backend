@@ -94,6 +94,7 @@ export class RecordsRepository {
         data.skills,
         data.name,
         data.degree,
+        data.location,
       );
     });
 
@@ -177,6 +178,7 @@ export class RecordsRepository {
       data.skills,
       data.name,
       data.degree,
+      data.location,
     );
   }
 }

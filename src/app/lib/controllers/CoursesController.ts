@@ -25,8 +25,7 @@ export const getAllCourses = async (): Promise<
       return new ResponseData(200, "No Courses fetched");
     }
   } catch (error) {
-    console.error(error);
-    return new ResponseData(500, "Failed to retrieve courses");
+    return new ResponseData(500, "Failed to retrieve courses - " + error);
   }
 };
 
@@ -38,7 +37,7 @@ export const getAllCourses = async (): Promise<
  *
  * @throws {Error} - Throws an error if the retrieval process fails.
  */
-export const getCoursesByName = async (
+export const getCourseByName = async (
   name: string | null,
 ): Promise<ResponseData<Courses | null> | ResponseData<string>> => {
   if (!name || typeof name !== "string") {
@@ -46,17 +45,16 @@ export const getCoursesByName = async (
   }
 
   try {
-    const course = (await coursesService.getProjectsByName(name)) as Courses;
+    const course = (await coursesService.getCourseByName(name)) as Courses;
     if (course) {
       return new ResponseData(200, course);
     } else {
       return new ResponseData(200, "No Course fetched with name: " + name);
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve course with name. Name: " + name + " is not defined",
+      "Failed to retrieve course with name. Name: " + name + " - " + error,
     );
   }
 };
@@ -69,7 +67,7 @@ export const getCoursesByName = async (
  *
  * @throws {Error} - Throws an error if the retrieval process fails.
  */
-export const getCoursesByID = async (
+export const getCourseByID = async (
   id: string | null,
 ): Promise<ResponseData<Courses | null> | ResponseData<string>> => {
   if (!id || typeof id !== "string") {
@@ -77,25 +75,24 @@ export const getCoursesByID = async (
   }
 
   try {
-    const course = (await coursesService.getProjectsByID(id)) as Courses;
+    const course = (await coursesService.getCourseByID(id)) as Courses;
     if (course) {
       return new ResponseData(200, course);
     } else {
       return new ResponseData(200, "No Course fetched with ID: " + id);
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve course with ID. ID: " + id + " is not defined",
+      "Failed to retrieve course with ID. ID: " + id + " - " + error,
     );
   }
 };
 
 const CoursesController = {
   getAllCourses,
-  getCoursesByName,
-  getCoursesByID,
+  getCourseByName,
+  getCourseByID,
 };
 
 export default CoursesController;

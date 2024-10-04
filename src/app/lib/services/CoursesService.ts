@@ -16,14 +16,12 @@ export class CoursesService {
     return this.skillsFiller.getObjectsWithSkills(coursesData);
   }
 
-  async getProjectsByName(
-    name: string,
-  ): Promise<Omit<Courses, "skills"> | null> {
+  async getCourseByName(name: string): Promise<Omit<Courses, "skills"> | null> {
     const courseData = await this.coursesRepository.getCoursesByName(name);
     return this.skillsFiller.getObjectWithSkills(courseData);
   }
 
-  async getProjectsByID(id: string): Promise<Omit<Courses, "skills"> | null> {
+  async getCourseByID(id: string): Promise<Omit<Courses, "skills"> | null> {
     const courseData = await this.coursesRepository.getCoursesByID(id);
     return this.skillsFiller.getObjectWithSkills(courseData);
   }

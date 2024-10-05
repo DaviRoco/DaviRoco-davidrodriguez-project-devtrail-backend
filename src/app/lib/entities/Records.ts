@@ -86,7 +86,6 @@ class Records {
   get location() {
     return this._location;
   }
-  
 }
 
 export default Records;

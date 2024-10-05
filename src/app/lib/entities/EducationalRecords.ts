@@ -30,7 +30,7 @@ import Skills from "./Skills";
  * @returns {string} The degree obtained.
  */
 class EducationalRecords extends Records {
-  _name: string;
+  _institutionName: string;
   _degree: string;
 
   constructor(
@@ -39,17 +39,17 @@ class EducationalRecords extends Records {
     endDate: Date,
     description: string,
     skills: Skills[],
-    name: string,
+    institutionName: string,
     degree: string,
     location: string,
   ) {
     super(id, startDate, endDate, description, skills, location);
-    this._name = name;
+    this._institutionName = institutionName;
     this._degree = degree;
   }
 
-  get name() {
-    return this._name;
+  get institutionName() {
+    return this._institutionName;
   }
 
   get degree() {

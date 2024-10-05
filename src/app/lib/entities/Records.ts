@@ -82,6 +82,11 @@ class Records {
   get skills() {
     return this._skills;
   }
+
+  get location() {
+    return this._location;
+  }
+  
 }
 
 export default Records;

@@ -78,7 +78,7 @@ export class RecordsRepository {
         !data.endDate ||
         !data.description ||
         !data.skills ||
-        !data.name ||
+        !data.institutionName ||
         !data.degree
       ) {
         throw new Error(
@@ -92,7 +92,7 @@ export class RecordsRepository {
         data.endDate.toDate(),
         data.description,
         data.skills,
-        data.name,
+        data.institutionName,
         data.degree,
         data.location,
       );
@@ -162,7 +162,7 @@ export class RecordsRepository {
       !data.endDate ||
       !data.description ||
       !data.skills ||
-      !data.name ||
+      !data.institutionName ||
       !data.degree
     ) {
       throw new Error(
@@ -176,7 +176,7 @@ export class RecordsRepository {
       data.endDate.toDate(),
       data.description,
       data.skills,
-      data.name,
+      data.institutionName,
       data.degree,
       data.location,
     );

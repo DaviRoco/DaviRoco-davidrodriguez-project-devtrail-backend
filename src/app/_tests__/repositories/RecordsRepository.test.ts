@@ -1,13 +1,4 @@
-import { db } from "../../firebase";
-import {
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  where,
-  query,
-  Timestamp,
-} from "firebase/firestore";
+import { getDocs, doc, getDoc, Timestamp } from "firebase/firestore";
 import { RecordsRepository } from "../../lib/repositories/RecordsRepository";
 
 jest.mock("firebase/firestore", () => ({

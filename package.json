@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "check": "prettier --write . && next lint && jest --coverage"
   },
   "dependencies": {
     "firebase": "^10.14.0",

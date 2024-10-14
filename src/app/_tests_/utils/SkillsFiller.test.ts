@@ -1,10 +1,10 @@
-import SkillsFiller from '../../../lib/utils/SkillsFiller';
-import SkillsRepository from '../../../lib/repositories/SkillsRepository';
-import Skills from '../../../lib/entities/Skills';
-import { KnowledgeLevelEnumerations } from '../../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
-import Projects from '../../../lib/entities/Projects';
+import SkillsFiller from '../../lib/utils/SkillsFiller';
+import SkillsRepository from '../../lib/repositories/SkillsRepository';
+import Skills from '../../lib/entities/Skills';
+import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
+import Projects from '../../lib/entities/Projects';
 
-jest.mock('../../../lib/repositories/SkillsRepository');
+jest.mock('../../lib/repositories/SkillsRepository');
 
 describe('SkillsFiller', () => {
   let skillsFiller: SkillsFiller<Projects>;

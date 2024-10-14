@@ -101,6 +101,10 @@ export class SkillsRepository {
     const q = query(skillsCollection, where("__name__", "in", ids));
     const querySnapshot = await getDocs(q);
 
+    if (!querySnapshot) {
+      throw new Error(`Skills are non-existent.`);
+    }
+
     querySnapshot.forEach((doc) => {
       const skillData = doc.data();
       skills.push(

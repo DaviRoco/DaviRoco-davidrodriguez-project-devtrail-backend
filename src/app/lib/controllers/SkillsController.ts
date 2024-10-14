@@ -12,12 +12,11 @@ export const getAllSkills = async (): Promise<
     const skills = await skillsService.getAllSkills();
     return new ResponseData(200, skills);
   } catch (error) {
-    console.error(error);
-    return new ResponseData(500, "Failed to retrieve skills");
+    return new ResponseData(500, "Failed to retrieve skills - " + error);
   }
 };
 
-export const getSkillsByName = async (
+export const getSkillByName = async (
   name: string | null,
 ): Promise<ResponseData<Skills | null> | ResponseData<string>> => {
   if (!name || typeof name !== "string") {
@@ -32,15 +31,14 @@ export const getSkillsByName = async (
       return new ResponseData(200, "No Skill fetched with name: " + name);
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve skill with name. Name: " + name + " is not defined",
+      "Failed to retrieve skill with name. Name: " + name + " - " + error,
     );
   }
 };
 
-export const getSkillsByID = async (
+export const getSkillByID = async (
   id: string | null,
 ): Promise<ResponseData<Skills | null> | ResponseData<string>> => {
   if (!id || typeof id !== "string") {
@@ -55,18 +53,17 @@ export const getSkillsByID = async (
       return new ResponseData(200, "No Skill fetched with ID: " + id);
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve skill with ID. ID: " + id + " is not defined",
+      "Failed to retrieve skill with ID. ID: " + id + " - " + error,
     );
   }
 };
 
 const SkillsController = {
   getAllSkills,
-  getSkillsByName,
-  getSkillsByID,
+  getSkillByName,
+  getSkillByID,
 };
 
 export default SkillsController;

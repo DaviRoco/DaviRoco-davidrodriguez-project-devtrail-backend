@@ -48,7 +48,7 @@ class Projects {
   _startDate: Date;
   _endDate: Date;
   _description: string;
-  _url: URL;
+  _url: string;
   _skills: Skills[];
 
   constructor(
@@ -57,7 +57,7 @@ class Projects {
     startDate: Date,
     endDate: Date,
     description: string,
-    url: URL,
+    url: string,
     skills: Skills[],
   ) {
     this._id = id;

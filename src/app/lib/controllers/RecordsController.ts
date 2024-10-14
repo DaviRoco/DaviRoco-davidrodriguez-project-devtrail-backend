@@ -17,8 +17,10 @@ export const getAllExperienceRecords = async (): Promise<
     }
     return new ResponseData(200, records);
   } catch (error) {
-    console.error(error);
-    return new ResponseData(500, "Failed to retrieve experience records");
+    return new ResponseData(
+      500,
+      "Failed to retrieve experience records - " + error,
+    );
   }
 };
 
@@ -35,8 +37,10 @@ export const getAllEducationalRecords = async (): Promise<
     }
     return new ResponseData(200, records);
   } catch (error) {
-    console.error(error);
-    return new ResponseData(500, "Failed to retrieve educational records");
+    return new ResponseData(
+      500,
+      "Failed to retrieve educational records - " + error,
+    );
   }
 };
 
@@ -62,10 +66,9 @@ export const getExperienceRecordByID = async (
       );
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve experience record with ID: " + id,
+      "Failed to retrieve experience record with ID: " + id + " - " + error,
     );
   }
 };
@@ -92,10 +95,9 @@ export const getEducationalRecordByID = async (
       );
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve educational record with ID: " + id,
+      "Failed to retrieve educational record with ID: " + id + " - " + error,
     );
   }
 };

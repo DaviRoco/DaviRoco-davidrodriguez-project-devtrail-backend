@@ -12,7 +12,6 @@ import Skills from "./Skills";
  * @property {Skills[]} _skills - An array of skills associated with the record.
  * @property {string} _companyName - The name of the company.
  * @property {string} _title - The title of the position.
- * @property {string} _location - The location of the position.
  *
  * @constructor
  * @param {string} id - The unique identifier of the record.
@@ -29,15 +28,11 @@ import Skills from "./Skills";
  *
  * @method get title
  * @returns {string} The title of the position.
- *
- * @method get location
- * @returns {string} The location of the position.
  */
 
 class ExperienceRecords extends Records {
   _companyName: string;
   _title: string;
-  _location: string;
 
   constructor(
     id: string,
@@ -49,10 +44,9 @@ class ExperienceRecords extends Records {
     title: string,
     location: string,
   ) {
-    super(id, startDate, endDate, description, skills);
+    super(id, startDate, endDate, description, skills, location);
     this._companyName = companyName;
     this._title = title;
-    this._location = location;
   }
 
   get companyName() {

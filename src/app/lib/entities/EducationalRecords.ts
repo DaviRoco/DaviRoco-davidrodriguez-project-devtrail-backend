@@ -21,6 +21,7 @@ import Skills from "./Skills";
  * @param {Skills[]} skills - The skills associated with the record.
  * @param {string} name - The name of the educational institution.
  * @param {string} degree - The degree obtained.
+ * @param {string} location - The location associated with the record.
  *
  * @method get name
  * @returns {string} The name of the educational institution.
@@ -29,7 +30,7 @@ import Skills from "./Skills";
  * @returns {string} The degree obtained.
  */
 class EducationalRecords extends Records {
-  _name: string;
+  _institutionName: string;
   _degree: string;
 
   constructor(
@@ -38,16 +39,17 @@ class EducationalRecords extends Records {
     endDate: Date,
     description: string,
     skills: Skills[],
-    name: string,
+    institutionName: string,
     degree: string,
+    location: string,
   ) {
-    super(id, startDate, endDate, description, skills);
-    this._name = name;
+    super(id, startDate, endDate, description, skills, location);
+    this._institutionName = institutionName;
     this._degree = degree;
   }
 
-  get name() {
-    return this._name;
+  get institutionName() {
+    return this._institutionName;
   }
 
   get degree() {

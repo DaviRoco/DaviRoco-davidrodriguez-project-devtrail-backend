@@ -24,13 +24,13 @@ export async function GET(req: Request) {
 
   const name = searchParams.get("name");
   if (name) {
-    const response = await CoursesController.getCoursesByName(name);
+    const response = await CoursesController.getCourseByName(name);
     return NextResponse.json(response.body, { status: response.status });
   }
 
   const id = searchParams.get("id");
   if (id) {
-    const response = await CoursesController.getCoursesByID(id);
+    const response = await CoursesController.getCourseByID(id);
     return NextResponse.json(response.body, { status: response.status });
   }
 

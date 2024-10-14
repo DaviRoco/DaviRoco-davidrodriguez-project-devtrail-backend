@@ -11,14 +11,12 @@ export const getAllProjects = async (): Promise<
 > => {
   try {
     const projects = (await projectsService.getAllProjects()) as Projects[];
-    if (projects?.length) {
-      return new ResponseData(200, projects);
-    } else {
+    if (!projects) {
       return new ResponseData(200, "No Projects fetched");
     }
+    return new ResponseData(200, projects);
   } catch (error) {
-    console.error(error);
-    return new ResponseData(500, "Failed to retrieve projects");
+    return new ResponseData(500, "Failed to retrieve projects - " + error);
   }
 };
 
@@ -37,10 +35,9 @@ export const getProjectsByName = async (
       return new ResponseData(200, "No Project fetched with name: " + name);
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve project with name. Name: " + name + " is not defined",
+      "Failed to retrieve project with name. Name: " + name + " - " + error,
     );
   }
 };
@@ -60,10 +57,9 @@ export const getProjectsByID = async (
       return new ResponseData(200, "No Project fetched with ID: " + id);
     }
   } catch (error) {
-    console.error(error);
     return new ResponseData(
       500,
-      "Failed to retrieve project with ID. ID: " + id + " is not defined",
+      "Failed to retrieve project with ID. ID: " + id + " - " + error,
     );
   }
 };

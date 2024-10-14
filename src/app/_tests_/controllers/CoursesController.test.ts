@@ -96,7 +96,7 @@ describe('Courses Controller', () => {
         new Error('Failed to retrieve course with name: ' + null),
       );
 
-      const result = await CoursesController.getCourseByName(null);
+      const result = await CoursesController.getCourseByName('');
 
       expect(result.status).toBe(400);
       expect(result.body).toBe('Name is required and should be a string.');
@@ -152,7 +152,7 @@ describe('Courses Controller', () => {
         new Error('Failed to retrieve course with id: ' + null),
       );
 
-      const result = await CoursesController.getCourseByID(null);
+      const result = await CoursesController.getCourseByID('');
 
       expect(result.status).toBe(400);
       expect(result.body).toBe('ID is required and should be a string.');

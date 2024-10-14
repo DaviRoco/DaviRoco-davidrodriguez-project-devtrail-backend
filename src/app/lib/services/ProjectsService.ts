@@ -1,6 +1,6 @@
 import { ProjectsRepository } from '../repositories/ProjectsRepository';
 import Projects from '../entities/Projects';
-import SkillsFiller from './utils/SkillsFiller';
+import SkillsFiller from '../utils/SkillsFiller';
 
 export class ProjectsService {
   private projectsRepository: ProjectsRepository;

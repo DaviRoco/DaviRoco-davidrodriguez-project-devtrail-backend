@@ -1,6 +1,6 @@
 import Certifications from '../entities/Certifications';
 import { CertificationsRepository } from '../repositories/CertificationsRepository';
-import SkillsFiller from './utils/SkillsFiller';
+import SkillsFiller from '../utils/SkillsFiller';
 
 export class CertificationsService {
   private certificationsRepository: CertificationsRepository;

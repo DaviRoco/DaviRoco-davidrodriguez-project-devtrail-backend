@@ -1,7 +1,7 @@
 import { RecordsRepository } from '../repositories/RecordsRepository';
 import ExperienceRecords from '../entities/ExperienceRecords';
 import EducationalRecords from '../entities/EducationalRecords';
-import SkillsFiller from './utils/SkillsFiller';
+import SkillsFiller from '../utils/SkillsFiller';
 
 export class RecordsService {
   private recordsRepository: RecordsRepository;

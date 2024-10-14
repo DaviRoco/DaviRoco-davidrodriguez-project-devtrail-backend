@@ -1,4 +1,4 @@
-import SkillsFiller from '../../../lib/services/utils/SkillsFiller';
+import SkillsFiller from '../../../lib/utils/SkillsFiller';
 import SkillsRepository from '../../../lib/repositories/SkillsRepository';
 import Skills from '../../../lib/entities/Skills';
 import { KnowledgeLevelEnumerations } from '../../../lib/constants/enumerations/KnowledgeLevelsEnumerations';

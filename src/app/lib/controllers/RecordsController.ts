@@ -3,9 +3,10 @@ import { RecordsRepository } from '../repositories/RecordsRepository';
 import ResponseData from '../constants/api/ResponseData';
 import ExperienceRecords from '../entities/ExperienceRecords';
 import EducationalRecords from '../entities/EducationalRecords';
+import ApiResponseBuilder from '../utils/ApiResponseBuilder';
 
 export const getAllExperienceRecords = async (): Promise<
-  ResponseData<ExperienceRecords[]> | ResponseData<string>
+  ResponseData<ExperienceRecords[] | string>
 > => {
   try {
     const recordsRepository = new RecordsRepository('experience');
@@ -13,19 +14,21 @@ export const getAllExperienceRecords = async (): Promise<
     const records =
       (await recordsService.getAllExperienceRecords()) as ExperienceRecords[];
     if (!records) {
-      return new ResponseData(200, 'No Experience records fetched');
+      return ApiResponseBuilder.createSuccessResponse(
+        'No Experience records fetched',
+      );
     }
-    return new ResponseData(200, records);
+    return ApiResponseBuilder.createSuccessResponse(records);
   } catch (error) {
-    return new ResponseData(
-      500,
-      'Failed to retrieve experience records - ' + error,
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      'Failed to retrieve experience records',
     );
   }
 };
 
 export const getAllEducationalRecords = async (): Promise<
-  ResponseData<EducationalRecords[]> | ResponseData<string>
+  ResponseData<EducationalRecords[] | string>
 > => {
   try {
     const recordsRepository = new RecordsRepository('education');
@@ -33,22 +36,25 @@ export const getAllEducationalRecords = async (): Promise<
     const records =
       (await recordsService.getAllEducationalRecords()) as EducationalRecords[];
     if (!records) {
-      return new ResponseData(200, 'No Educational records fetched');
+      return ApiResponseBuilder.createSuccessResponse(
+        'No Educational records fetched',
+      );
     }
-    return new ResponseData(200, records);
+    return ApiResponseBuilder.createSuccessResponse(records);
   } catch (error) {
-    return new ResponseData(
-      500,
-      'Failed to retrieve educational records - ' + error,
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      'Failed to retrieve educational records',
     );
   }
 };
 
 export const getExperienceRecordByID = async (
-  id: string | null,
-): Promise<ResponseData<ExperienceRecords | null> | ResponseData<string>> => {
-  if (!id || typeof id !== 'string') {
-    return new ResponseData(400, 'ID is required and should be a string.');
+  id: string,
+): Promise<ResponseData<ExperienceRecords | string>> => {
+  const validationError = ApiResponseBuilder.validateString(id, 'ID');
+  if (validationError) {
+    return validationError;
   }
 
   try {
@@ -58,26 +64,26 @@ export const getExperienceRecordByID = async (
       id,
     )) as ExperienceRecords;
     if (record) {
-      return new ResponseData(200, record);
+      return ApiResponseBuilder.createSuccessResponse(record);
     } else {
-      return new ResponseData(
-        200,
-        'No Experience record fetched with ID: ' + id,
+      return ApiResponseBuilder.createSuccessResponse(
+        `No Experience record fetched with ID: ${id}`,
       );
     }
   } catch (error) {
-    return new ResponseData(
-      500,
-      'Failed to retrieve experience record with ID: ' + id + ' - ' + error,
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      `Failed to retrieve experience record with ID: ${id}`,
     );
   }
 };
 
 export const getEducationalRecordByID = async (
-  id: string | null,
-): Promise<ResponseData<EducationalRecords | null> | ResponseData<string>> => {
-  if (!id || typeof id !== 'string') {
-    return new ResponseData(400, 'ID is required and should be a string.');
+  id: string,
+): Promise<ResponseData<EducationalRecords | string>> => {
+  const validationError = ApiResponseBuilder.validateString(id, 'ID');
+  if (validationError) {
+    return validationError;
   }
 
   try {
@@ -87,17 +93,16 @@ export const getEducationalRecordByID = async (
       id,
     )) as EducationalRecords;
     if (record) {
-      return new ResponseData(200, record);
+      return ApiResponseBuilder.createSuccessResponse(record);
     } else {
-      return new ResponseData(
-        200,
-        'No Educational record fetched with ID: ' + id,
+      return ApiResponseBuilder.createSuccessResponse(
+        `No Educational record fetched with ID: ${id}`,
       );
     }
   } catch (error) {
-    return new ResponseData(
-      500,
-      'Failed to retrieve educational record with ID: ' + id + ' - ' + error,
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      `Failed to retrieve educational record with ID: ${id}`,
     );
   }
 };

@@ -214,7 +214,7 @@ describe('Records Controller', () => {
         new Error('Failed to retrieve experience record with ID: ' + null),
       );
 
-      const result = await RecordsController.getExperienceRecordByID(null);
+      const result = await RecordsController.getExperienceRecordByID('');
 
       expect(result.status).toBe(400);
       expect(result.body).toBe('ID is required and should be a string.');
@@ -276,7 +276,7 @@ describe('Records Controller', () => {
         new Error('Failed to retrieve educational record with ID: ' + null),
       );
 
-      const result = await RecordsController.getEducationalRecordByID(null);
+      const result = await RecordsController.getEducationalRecordByID('');
 
       expect(result.status).toBe(400);
       expect(result.body).toBe('ID is required and should be a string.');

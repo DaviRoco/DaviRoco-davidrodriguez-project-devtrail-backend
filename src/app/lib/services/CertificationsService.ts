@@ -1,6 +1,6 @@
-import Certifications from "../entities/Certifications";
-import { CertificationsRepository } from "../repositories/CertificationsRepository";
-import SkillsFiller from "./utils/SkillsFiller";
+import Certifications from '../entities/Certifications';
+import { CertificationsRepository } from '../repositories/CertificationsRepository';
+import SkillsFiller from './utils/SkillsFiller';
 
 export class CertificationsService {
   private certificationsRepository: CertificationsRepository;
@@ -12,7 +12,7 @@ export class CertificationsService {
   }
 
   async getAllCertifications(): Promise<
-    Omit<Certifications, "skills">[] | null
+    Omit<Certifications, 'skills'>[] | null
   > {
     const certificationData =
       await this.certificationsRepository.getAllCertifications();
@@ -21,7 +21,7 @@ export class CertificationsService {
 
   async getCertificationByName(
     name: string,
-  ): Promise<Omit<Certifications, "skills"> | null> {
+  ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByName(name);
     return this.skillsFiller.getObjectWithSkills(certificationData);
@@ -29,7 +29,7 @@ export class CertificationsService {
 
   async getCertificationsByInstitution(
     institution: string,
-  ): Promise<Omit<Certifications, "skills"> | null> {
+  ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByInstitution(
         institution,
@@ -39,7 +39,7 @@ export class CertificationsService {
 
   async getCertificationByID(
     id: string,
-  ): Promise<Omit<Certifications, "skills"> | null> {
+  ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByID(id);
     return this.skillsFiller.getObjectWithSkills(certificationData);

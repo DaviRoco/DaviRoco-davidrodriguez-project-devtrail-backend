@@ -1,27 +1,27 @@
-import { KnowledgeLevelEnumerations } from "../../lib/constants/enumerations/KnowledgeLevelsEnumerations";
-import SkillsController from "../../lib/controllers/SkillsController";
-import { SkillsService } from "../../lib/services/SkillsService";
+import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
+import SkillsController from '../../lib/controllers/SkillsController';
+import { SkillsService } from '../../lib/services/SkillsService';
 
-jest.mock("../../lib/services/SkillsService");
+jest.mock('../../lib/services/SkillsService');
 
-describe("Skills Controller", () => {
+describe('Skills Controller', () => {
   const mockSkills = [
     {
-      id: "1",
-      name: "Typescript",
-      description: "Programming Language",
+      id: '1',
+      name: 'Typescript',
+      description: 'Programming Language',
       level: KnowledgeLevelEnumerations.High,
     },
     {
-      id: "2",
-      name: "C#",
-      description: "Programming Language",
+      id: '2',
+      name: 'C#',
+      description: 'Programming Language',
       level: KnowledgeLevelEnumerations.Mid,
     },
   ];
 
-  describe("getAllSkills", () => {
-    test("It should return all skills on success.", async () => {
+  describe('getAllSkills', () => {
+    test('It should return all skills on success.', async () => {
       (SkillsService.prototype.getAllSkills as jest.Mock).mockResolvedValue(
         mockSkills,
       );
@@ -32,22 +32,22 @@ describe("Skills Controller", () => {
       expect(result.body).toEqual(mockSkills);
     });
 
-    test("It should handle errors", async () => {
+    test('It should handle errors', async () => {
       (SkillsService.prototype.getAllSkills as jest.Mock).mockRejectedValue(
-        new Error("Test"),
+        new Error('Test'),
       );
 
       const result = await SkillsController.getAllSkills();
 
       expect(result.status).toBe(500);
-      expect(result.body).toBe("Failed to retrieve skills - Error: Test");
+      expect(result.body).toBe('Failed to retrieve skills - Error: Test');
     });
   });
 
-  describe("getSkillByName", () => {
+  describe('getSkillByName', () => {
     const mockSkill = mockSkills[0];
-    test("It should return the specified skill with given name on success.", async () => {
-      const testName = "Typescript";
+    test('It should return the specified skill with given name on success.', async () => {
+      const testName = 'Typescript';
 
       (SkillsService.prototype.getSkillByName as jest.Mock).mockResolvedValue(
         mockSkill,
@@ -59,8 +59,8 @@ describe("Skills Controller", () => {
       expect(result.body).toEqual(mockSkill);
     });
 
-    test("It should return a message if no skill is found with the given name.", async () => {
-      const testName = "Javascript";
+    test('It should return a message if no skill is found with the given name.', async () => {
+      const testName = 'Javascript';
 
       (SkillsService.prototype.getSkillByName as jest.Mock).mockResolvedValue(
         null,
@@ -69,42 +69,42 @@ describe("Skills Controller", () => {
       const result = await SkillsController.getSkillByName(testName);
 
       expect(result.status).toBe(200);
-      expect(result.body).toBe("No Skill fetched with name: " + testName);
+      expect(result.body).toBe('No Skill fetched with name: ' + testName);
     });
 
-    test("It should handle errors when no name parameter is specified", async () => {
+    test('It should handle errors when no name parameter is specified', async () => {
       (SkillsService.prototype.getSkillByName as jest.Mock).mockRejectedValue(
-        new Error("Failed to retrieve skills"),
+        new Error('Failed to retrieve skills'),
       );
 
-      const result = await SkillsController.getSkillByName("");
+      const result = await SkillsController.getSkillByName('');
 
       expect(result.status).toBe(400);
-      expect(result.body).toBe("Name is required and should be a string.");
+      expect(result.body).toBe('Name is required and should be a string.');
     });
 
-    test("It should handle errors", async () => {
-      const testName = "Typescript";
+    test('It should handle errors', async () => {
+      const testName = 'Typescript';
 
       (SkillsService.prototype.getSkillByName as jest.Mock).mockRejectedValue(
-        new Error("Test"),
+        new Error('Test'),
       );
 
       const result = await SkillsController.getSkillByName(testName);
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        "Failed to retrieve skill with name. Name: " +
+        'Failed to retrieve skill with name. Name: ' +
           testName +
-          " - Error: Test",
+          ' - Error: Test',
       );
     });
   });
 
-  describe("getSkillByID", () => {
+  describe('getSkillByID', () => {
     const mockSkill = mockSkills[0];
-    test("It should return the specified skill with given id on success.", async () => {
-      const testID = "1";
+    test('It should return the specified skill with given id on success.', async () => {
+      const testID = '1';
 
       (SkillsService.prototype.getSkillByID as jest.Mock).mockResolvedValue(
         mockSkill,
@@ -116,8 +116,8 @@ describe("Skills Controller", () => {
       expect(result.body).toEqual(mockSkill);
     });
 
-    test("It should return a message if no skill is found with the given id.", async () => {
-      const testID = "1";
+    test('It should return a message if no skill is found with the given id.', async () => {
+      const testID = '1';
 
       (SkillsService.prototype.getSkillByID as jest.Mock).mockResolvedValue(
         null,
@@ -126,32 +126,32 @@ describe("Skills Controller", () => {
       const result = await SkillsController.getSkillByID(testID);
 
       expect(result.status).toBe(200);
-      expect(result.body).toBe("No Skill fetched with ID: " + testID);
+      expect(result.body).toBe('No Skill fetched with ID: ' + testID);
     });
 
-    test("It should handle errors when no id parameter is specified", async () => {
+    test('It should handle errors when no id parameter is specified', async () => {
       (SkillsService.prototype.getSkillByID as jest.Mock).mockRejectedValue(
-        new Error("Failed to retrieve skills"),
+        new Error('Failed to retrieve skills'),
       );
 
-      const result = await SkillsController.getSkillByID("");
+      const result = await SkillsController.getSkillByID('');
 
       expect(result.status).toBe(400);
-      expect(result.body).toBe("ID is required and should be a string.");
+      expect(result.body).toBe('ID is required and should be a string.');
     });
 
-    test("It should handle errors", async () => {
-      const testID = "1";
+    test('It should handle errors', async () => {
+      const testID = '1';
 
       (SkillsService.prototype.getSkillByID as jest.Mock).mockRejectedValue(
-        new Error("Test"),
+        new Error('Test'),
       );
 
       const result = await SkillsController.getSkillByID(testID);
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        "Failed to retrieve skill with ID. ID: " + testID + " - Error: Test",
+        'Failed to retrieve skill with ID. ID: ' + testID + ' - Error: Test',
       );
     });
   });

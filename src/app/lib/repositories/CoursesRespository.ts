@@ -1,4 +1,4 @@
-import { db } from "../../firebase";
+import { db } from '../../firebase';
 import {
   collection,
   getDocs,
@@ -6,10 +6,10 @@ import {
   getDoc,
   where,
   query,
-} from "firebase/firestore";
-import Courses from "../entities/Courses";
+} from 'firebase/firestore';
+import Courses from '../entities/Courses';
 
-const coursesCollection = collection(db, "courses");
+const coursesCollection = collection(db, 'courses');
 /**
  * The `CoursesRepository` class provides methods to interact with the courses collection.
  * It allows retrieving all courses, as well as retrieving courses by name or ID.
@@ -51,15 +51,15 @@ export class CoursesRepository {
   }
 
   async getCoursesByName(name: string): Promise<Courses | null> {
-    if (!name || typeof name !== "string") {
+    if (!name || typeof name !== 'string') {
       throw new Error(
-        "Invalid name provided. Name must be a non-empty string.",
+        'Invalid name provided. Name must be a non-empty string.',
       );
     }
 
     const courseMatchingName = query(
       coursesCollection,
-      where("name", "==", name),
+      where('name', '==', name),
     );
 
     const querySnapshot = await getDocs(courseMatchingName);
@@ -94,8 +94,8 @@ export class CoursesRepository {
   }
 
   async getCoursesByID(id: string): Promise<Courses | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const courseDoc = doc(coursesCollection, id);

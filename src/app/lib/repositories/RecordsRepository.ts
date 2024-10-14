@@ -1,8 +1,8 @@
-import { db } from "../../firebase";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import ExperienceRecords from "../entities/ExperienceRecords";
-import EducationalRecords from "../entities/EducationalRecords";
-import { CollectionReference } from "firebase/firestore";
+import { db } from '../../firebase';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import ExperienceRecords from '../entities/ExperienceRecords';
+import EducationalRecords from '../entities/EducationalRecords';
+import { CollectionReference } from 'firebase/firestore';
 
 /**
  * The `RecordsRepository` class provides methods to interact with the experience and education records collections.
@@ -25,12 +25,12 @@ export class RecordsRepository {
   }
 
   recordTypeHandler(): void {
-    if (this.type === "experience") {
-      this.recordsCollection = collection(db, "experience");
-    } else if (this.type === "education") {
-      this.recordsCollection = collection(db, "education");
+    if (this.type === 'experience') {
+      this.recordsCollection = collection(db, 'experience');
+    } else if (this.type === 'education') {
+      this.recordsCollection = collection(db, 'education');
     } else {
-      throw new Error("Invalid record type provided.");
+      throw new Error('Invalid record type provided.');
     }
   }
 
@@ -102,8 +102,8 @@ export class RecordsRepository {
   }
 
   async getExperienceRecordByID(id: string): Promise<ExperienceRecords | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const record = doc(this.recordsCollection, id);
@@ -144,8 +144,8 @@ export class RecordsRepository {
   async getEducationalRecordByID(
     id: string,
   ): Promise<EducationalRecords | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const record = doc(this.recordsCollection, id);

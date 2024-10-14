@@ -1,4 +1,4 @@
-import { db } from "../../firebase";
+import { db } from '../../firebase';
 import {
   collection,
   getDocs,
@@ -6,10 +6,10 @@ import {
   getDoc,
   where,
   query,
-} from "firebase/firestore";
-import Certifications from "../entities/Certifications";
+} from 'firebase/firestore';
+import Certifications from '../entities/Certifications';
 
-const certificationsCollection = collection(db, "certifications");
+const certificationsCollection = collection(db, 'certifications');
 
 /**
  * The `CertificationsRepository` class provides methods to interact with the certifications collection.
@@ -55,15 +55,15 @@ export class CertificationsRepository {
   }
 
   async getCertificationsByName(name: string): Promise<Certifications | null> {
-    if (!name || typeof name !== "string") {
+    if (!name || typeof name !== 'string') {
       throw new Error(
-        "Invalid name provided. Name must be a non-empty string.",
+        'Invalid name provided. Name must be a non-empty string.',
       );
     }
 
     const certificationMatchingName = query(
       certificationsCollection,
-      where("name", "==", name),
+      where('name', '==', name),
     );
 
     const querySnapshot = await getDocs(certificationMatchingName);
@@ -90,15 +90,15 @@ export class CertificationsRepository {
   async getCertificationsByInstitution(
     institution: string,
   ): Promise<Certifications | null> {
-    if (!institution || typeof institution !== "string") {
+    if (!institution || typeof institution !== 'string') {
       throw new Error(
-        "Invalid institution provided. Institution must be a non-empty string.",
+        'Invalid institution provided. Institution must be a non-empty string.',
       );
     }
 
     const certificationMatchingInstitution = query(
       certificationsCollection,
-      where("institution", "==", institution),
+      where('institution', '==', institution),
     );
 
     const querySnapshot = await getDocs(certificationMatchingInstitution);
@@ -123,8 +123,8 @@ export class CertificationsRepository {
   }
 
   async getCertificationsByID(id: string): Promise<Certifications | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const certification = doc(certificationsCollection, id);

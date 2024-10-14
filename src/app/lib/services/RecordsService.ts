@@ -1,7 +1,7 @@
-import { RecordsRepository } from "../repositories/RecordsRepository";
-import ExperienceRecords from "../entities/ExperienceRecords";
-import EducationalRecords from "../entities/EducationalRecords";
-import SkillsFiller from "./utils/SkillsFiller";
+import { RecordsRepository } from '../repositories/RecordsRepository';
+import ExperienceRecords from '../entities/ExperienceRecords';
+import EducationalRecords from '../entities/EducationalRecords';
+import SkillsFiller from './utils/SkillsFiller';
 
 export class RecordsService {
   private recordsRepository: RecordsRepository;
@@ -13,21 +13,21 @@ export class RecordsService {
   }
 
   private getSkillsFillerForExperience(): SkillsFiller<ExperienceRecords> {
-    if (this.type !== "experience") {
-      throw new Error("Invalid method for experience record type.");
+    if (this.type !== 'experience') {
+      throw new Error('Invalid method for experience record type.');
     }
     return new SkillsFiller<ExperienceRecords>();
   }
 
   private getSkillsFillerForEducation(): SkillsFiller<EducationalRecords> {
-    if (this.type !== "education") {
-      throw new Error("Invalid method for education record type.");
+    if (this.type !== 'education') {
+      throw new Error('Invalid method for education record type.');
     }
     return new SkillsFiller<EducationalRecords>();
   }
 
   async getAllExperienceRecords(): Promise<
-    Omit<ExperienceRecords, "skills">[] | null
+    Omit<ExperienceRecords, 'skills'>[] | null
   > {
     const skillsFiller = this.getSkillsFillerForExperience();
     const recordsData = await this.recordsRepository.getAllExperienceRecords();
@@ -35,7 +35,7 @@ export class RecordsService {
   }
 
   async getAllEducationalRecords(): Promise<
-    Omit<EducationalRecords, "skills">[] | null
+    Omit<EducationalRecords, 'skills'>[] | null
   > {
     const skillsFiller = this.getSkillsFillerForEducation();
     const recordsData = await this.recordsRepository.getAllEducationalRecords();
@@ -44,7 +44,7 @@ export class RecordsService {
 
   async getExperienceRecordByID(
     id: string,
-  ): Promise<Omit<ExperienceRecords, "skills"> | null> {
+  ): Promise<Omit<ExperienceRecords, 'skills'> | null> {
     const skillsFiller = this.getSkillsFillerForExperience();
     const recordData = await this.recordsRepository.getExperienceRecordByID(id);
     return skillsFiller.getObjectWithSkills(recordData);
@@ -52,7 +52,7 @@ export class RecordsService {
 
   async getEducationalRecordByID(
     id: string,
-  ): Promise<Omit<EducationalRecords, "skills"> | null> {
+  ): Promise<Omit<EducationalRecords, 'skills'> | null> {
     const skillsFiller = this.getSkillsFillerForEducation();
     const recordData =
       await this.recordsRepository.getEducationalRecordByID(id);

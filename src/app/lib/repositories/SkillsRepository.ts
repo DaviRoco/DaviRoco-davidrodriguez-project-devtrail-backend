@@ -1,4 +1,4 @@
-import { db } from "../../firebase";
+import { db } from '../../firebase';
 import {
   collection,
   getDocs,
@@ -6,11 +6,11 @@ import {
   getDoc,
   where,
   query,
-} from "firebase/firestore";
-import Skills from "../entities/Skills";
-import { KnowledgeLevelEnumerations } from "../constants/enumerations/KnowledgeLevelsEnumerations";
+} from 'firebase/firestore';
+import Skills from '../entities/Skills';
+import { KnowledgeLevelEnumerations } from '../constants/enumerations/KnowledgeLevelsEnumerations';
 
-const skillsCollection = collection(db, "skills");
+const skillsCollection = collection(db, 'skills');
 
 export class SkillsRepository {
   async getAllSkills(): Promise<Skills[]> {
@@ -34,15 +34,15 @@ export class SkillsRepository {
   }
 
   async getSkillByName(name: string): Promise<Skills | null> {
-    if (!name || typeof name !== "string") {
+    if (!name || typeof name !== 'string') {
       throw new Error(
-        "Invalid name provided. Name must be a non-empty string.",
+        'Invalid name provided. Name must be a non-empty string.',
       );
     }
 
     const skillMatchingName = query(
       skillsCollection,
-      where("name", "==", name),
+      where('name', '==', name),
     );
     const querySnapshot = await getDocs(skillMatchingName);
 
@@ -68,8 +68,8 @@ export class SkillsRepository {
   }
 
   async getSkillByID(id: string): Promise<Skills | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const skillDoc = doc(skillsCollection, id);
@@ -98,7 +98,7 @@ export class SkillsRepository {
   async getSkillsByID(ids: Skills[]): Promise<Skills[]> {
     const skills: Skills[] = [];
 
-    const q = query(skillsCollection, where("__name__", "in", ids));
+    const q = query(skillsCollection, where('__name__', 'in', ids));
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot) {

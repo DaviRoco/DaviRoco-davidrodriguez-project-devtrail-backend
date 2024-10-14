@@ -1,5 +1,5 @@
-import Records from "./Records";
-import Skills from "./Skills";
+import Records from './Records';
+import Skills from './Skills';
 /**
  * Represents an educational record with its details.
  *

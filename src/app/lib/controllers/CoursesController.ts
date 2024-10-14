@@ -1,7 +1,7 @@
-import { CoursesService } from "../services/CoursesService";
-import { CoursesRepository } from "../repositories/CoursesRespository";
-import ResponseData from "../constants/api/ResponseData";
-import Courses from "../entities/Courses";
+import { CoursesService } from '../services/CoursesService';
+import { CoursesRepository } from '../repositories/CoursesRespository';
+import ResponseData from '../constants/api/ResponseData';
+import Courses from '../entities/Courses';
 
 const coursesRepository = new CoursesRepository();
 const coursesService = new CoursesService(coursesRepository);
@@ -22,10 +22,10 @@ export const getAllCourses = async (): Promise<
     if (courses?.length) {
       return new ResponseData(200, courses);
     } else {
-      return new ResponseData(200, "No Courses fetched");
+      return new ResponseData(200, 'No Courses fetched');
     }
   } catch (error) {
-    return new ResponseData(500, "Failed to retrieve courses - " + error);
+    return new ResponseData(500, 'Failed to retrieve courses - ' + error);
   }
 };
 
@@ -40,8 +40,8 @@ export const getAllCourses = async (): Promise<
 export const getCourseByName = async (
   name: string | null,
 ): Promise<ResponseData<Courses | null> | ResponseData<string>> => {
-  if (!name || typeof name !== "string") {
-    return new ResponseData(400, "Name is required and should be a string.");
+  if (!name || typeof name !== 'string') {
+    return new ResponseData(400, 'Name is required and should be a string.');
   }
 
   try {
@@ -49,12 +49,12 @@ export const getCourseByName = async (
     if (course) {
       return new ResponseData(200, course);
     } else {
-      return new ResponseData(200, "No Course fetched with name: " + name);
+      return new ResponseData(200, 'No Course fetched with name: ' + name);
     }
   } catch (error) {
     return new ResponseData(
       500,
-      "Failed to retrieve course with name. Name: " + name + " - " + error,
+      'Failed to retrieve course with name. Name: ' + name + ' - ' + error,
     );
   }
 };
@@ -70,8 +70,8 @@ export const getCourseByName = async (
 export const getCourseByID = async (
   id: string | null,
 ): Promise<ResponseData<Courses | null> | ResponseData<string>> => {
-  if (!id || typeof id !== "string") {
-    return new ResponseData(400, "ID is required and should be a string.");
+  if (!id || typeof id !== 'string') {
+    return new ResponseData(400, 'ID is required and should be a string.');
   }
 
   try {
@@ -79,12 +79,12 @@ export const getCourseByID = async (
     if (course) {
       return new ResponseData(200, course);
     } else {
-      return new ResponseData(200, "No Course fetched with ID: " + id);
+      return new ResponseData(200, 'No Course fetched with ID: ' + id);
     }
   } catch (error) {
     return new ResponseData(
       500,
-      "Failed to retrieve course with ID. ID: " + id + " - " + error,
+      'Failed to retrieve course with ID. ID: ' + id + ' - ' + error,
     );
   }
 };

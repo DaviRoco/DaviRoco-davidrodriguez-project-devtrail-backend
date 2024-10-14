@@ -1,5 +1,5 @@
-import Skills from "../../entities/Skills";
-import SkillsRepository from "../../repositories/SkillsRepository";
+import Skills from '../../entities/Skills';
+import SkillsRepository from '../../repositories/SkillsRepository';
 
 interface HasSkills {
   skills: Skills[];
@@ -14,7 +14,7 @@ class SkillsFiller<T extends HasSkills> {
 
   public async getObjectWithSkills(
     objectData: T | null,
-  ): Promise<Omit<T, "skills"> | null> {
+  ): Promise<Omit<T, 'skills'> | null> {
     if (objectData) {
       const skillIds = objectData.skills as unknown as Skills[];
       const skillsArray = await this.skillsRepository.getSkillsByID(skillIds);
@@ -30,9 +30,9 @@ class SkillsFiller<T extends HasSkills> {
 
   public async getObjectsWithSkills(
     objects: T[] | null,
-  ): Promise<Omit<T, "skills">[] | null> {
+  ): Promise<Omit<T, 'skills'>[] | null> {
     if (objects?.length) {
-      const objectResult: Omit<T, "skills">[] = await Promise.all(
+      const objectResult: Omit<T, 'skills'>[] = await Promise.all(
         objects.map(async (object) => {
           const skillIds = object.skills;
           const skillsArray =

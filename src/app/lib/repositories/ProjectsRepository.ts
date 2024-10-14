@@ -1,4 +1,4 @@
-import { db } from "../../firebase";
+import { db } from '../../firebase';
 import {
   collection,
   getDocs,
@@ -6,10 +6,10 @@ import {
   getDoc,
   where,
   query,
-} from "firebase/firestore";
-import Projects from "../entities/Projects";
+} from 'firebase/firestore';
+import Projects from '../entities/Projects';
 
-const projectsCollection = collection(db, "projects");
+const projectsCollection = collection(db, 'projects');
 
 export class ProjectsRepository {
   async getAllProjects(): Promise<Projects[]> {
@@ -45,15 +45,15 @@ export class ProjectsRepository {
   }
 
   async getProjectsByName(name: string): Promise<Projects | null> {
-    if (!name || typeof name !== "string") {
+    if (!name || typeof name !== 'string') {
       throw new Error(
-        "Invalid name provided. Name must be a non-empty string.",
+        'Invalid name provided. Name must be a non-empty string.',
       );
     }
 
     const projectMatchingName = query(
       projectsCollection,
-      where("name", "==", name),
+      where('name', '==', name),
     );
 
     const querySnapshot = await getDocs(projectMatchingName);
@@ -90,8 +90,8 @@ export class ProjectsRepository {
   }
 
   async getProjectsByID(id: string): Promise<Projects | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const projectDoc = doc(projectsCollection, id);

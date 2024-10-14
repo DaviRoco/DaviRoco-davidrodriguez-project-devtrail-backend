@@ -1,12 +1,38 @@
-import { CertificationsService } from "../services/CertificationsService";
-import { CertificationsRepository } from "../repositories/CertificationsRepository";
-import ResponseData from "../constants/api/ResponseData";
-import Certifications from "../entities/Certifications";
+import { CertificationsService } from '../services/CertificationsService';
+import { CertificationsRepository } from '../repositories/CertificationsRepository';
+import ResponseData from '../constants/api/ResponseData';
+import Certifications from '../entities/Certifications';
 
 const certificationsRepository = new CertificationsRepository();
 const certificationsService = new CertificationsService(
   certificationsRepository,
 );
+
+const validateString = (
+  value: string | null,
+  fieldName: string,
+): ResponseData<string> | null => {
+  if (!value || typeof value !== 'string') {
+    return new ResponseData(
+      400,
+      `${fieldName} is required and should be a string.`,
+    );
+  }
+  return null;
+};
+
+const createSuccessResponse = <T>(
+  data: T | string,
+): ResponseData<T | string> => {
+  return new ResponseData(200, data);
+};
+
+const createErrorResponse = (
+  error: Error | string,
+  message: string,
+): ResponseData<string> => {
+  return new ResponseData(500, `${message} - ${error}`);
+};
 
 /**
  * Retrieves all certifications.
@@ -18,19 +44,19 @@ const certificationsService = new CertificationsService(
  * @throws {Error} If there is an issue retrieving the certifications.
  */
 export const getAllCertifications = async (): Promise<
-  ResponseData<Certifications[]> | ResponseData<string>
+  ResponseData<Certifications[] | string>
 > => {
   try {
     const certifications: Certifications[] =
       (await certificationsService.getAllCertifications()) as Certifications[];
     if (!certifications) {
-      return new ResponseData(200, "No Certifications fetched");
+      return createSuccessResponse('No Certifications fetched');
     }
-    return new ResponseData(200, certifications);
+    return createSuccessResponse(certifications);
   } catch (error) {
-    return new ResponseData(
-      500,
-      "Failed to retrieve certifications - " + error,
+    return createErrorResponse(
+      error as Error,
+      'Failed to retrieve certifications',
     );
   }
 };
@@ -45,10 +71,11 @@ export const getAllCertifications = async (): Promise<
  * @throws {Error} If there is an issue retrieving the certification.
  */
 export const getCertificationByName = async (
-  name: string | null,
-): Promise<ResponseData<Certifications | null> | ResponseData<string>> => {
-  if (!name || typeof name !== "string") {
-    return new ResponseData(400, "Name is required and should be a string.");
+  name: string,
+): Promise<ResponseData<Certifications | string>> => {
+  const validationError = validateString(name, 'Name');
+  if (validationError) {
+    return validationError;
   }
 
   try {
@@ -56,20 +83,16 @@ export const getCertificationByName = async (
       name,
     )) as Certifications;
     if (certification) {
-      return new ResponseData(200, certification);
+      return createSuccessResponse(certification);
     } else {
-      return new ResponseData(
-        200,
-        "No Certification fetched with name: " + name,
+      return createSuccessResponse(
+        `No Certification fetched with name: ${name}`,
       );
     }
   } catch (error) {
-    return new ResponseData(
-      500,
-      "Failed to retrieve certification with name. Name: " +
-        name +
-        " - " +
-        error,
+    return createErrorResponse(
+      error as Error,
+      `Failed to retrieve certification with name. Name: ${name}`,
     );
   }
 };
@@ -84,10 +107,11 @@ export const getCertificationByName = async (
  * @throws {Error} If there is an issue retrieving the certification.
  */
 export const getCertificationByID = async (
-  id: string | null,
-): Promise<ResponseData<Certifications | null> | ResponseData<string>> => {
-  if (!id || typeof id !== "string") {
-    return new ResponseData(400, "ID is required and should be a string.");
+  id: string,
+): Promise<ResponseData<Certifications | string>> => {
+  const validationError = validateString(id, 'ID');
+  if (validationError) {
+    return validationError;
   }
 
   try {
@@ -95,14 +119,14 @@ export const getCertificationByID = async (
       id,
     )) as Certifications;
     if (certification) {
-      return new ResponseData(200, certification);
+      return createSuccessResponse(certification);
     } else {
-      return new ResponseData(200, "No Certification fetched with ID: " + id);
+      return createSuccessResponse(`No Certification fetched with ID: ${id}`);
     }
   } catch (error) {
-    return new ResponseData(
-      500,
-      "Failed to retrieve certification with ID. ID: " + id + " - " + error,
+    return createErrorResponse(
+      error as Error,
+      `Failed to retrieve certification with ID. ID: ${id}`,
     );
   }
 };
@@ -117,13 +141,11 @@ export const getCertificationByID = async (
  * @throws {Error} If there is an issue retrieving the certification.
  */
 export const getCertificationsByInstitution = async (
-  institution: string | null,
-): Promise<ResponseData<Certifications | null> | ResponseData<string>> => {
-  if (!institution || typeof institution !== "string") {
-    return new ResponseData(
-      400,
-      "Institution is required and should be a string.",
-    );
+  institution: string,
+): Promise<ResponseData<Certifications | string>> => {
+  const validationError = validateString(institution, 'Institution');
+  if (validationError) {
+    return validationError;
   }
 
   try {
@@ -132,20 +154,16 @@ export const getCertificationsByInstitution = async (
         institution,
       )) as Certifications;
     if (certification) {
-      return new ResponseData(200, certification);
+      return createSuccessResponse(certification);
     } else {
-      return new ResponseData(
-        200,
-        "No Certification fetched with institution: " + institution,
+      return createSuccessResponse(
+        `No Certification fetched with institution: ${institution}`,
       );
     }
   } catch (error) {
-    return new ResponseData(
-      500,
-      "Failed to retrieve certification with institution. Institution: " +
-        institution +
-        " - " +
-        error,
+    return createErrorResponse(
+      error as Error,
+      `Failed to retrieve certification with institution. Institution: ${institution}`,
     );
   }
 };

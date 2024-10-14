@@ -64,16 +64,16 @@ describe('Projects Controller', () => {
     });
   });
 
-  describe('getProjectsByName', () => {
+  describe('getProjectByName', () => {
     const mockProject = mockProjects[0];
     test('It should return the specified project with given name on success.', async () => {
       const testName = 'Project 1';
 
       (
-        ProjectsService.prototype.getProjectsByName as jest.Mock
+        ProjectsService.prototype.getProjectByName as jest.Mock
       ).mockResolvedValue(mockProject);
 
-      const result = await ProjectsController.getProjectsByName(testName);
+      const result = await ProjectsController.getProjectByName(testName);
 
       expect(result.status).toBe(200);
       expect(result.body).toEqual(mockProject);
@@ -83,10 +83,10 @@ describe('Projects Controller', () => {
       const testName = 'Project 2';
 
       (
-        ProjectsService.prototype.getProjectsByName as jest.Mock
+        ProjectsService.prototype.getProjectByName as jest.Mock
       ).mockResolvedValue(null);
 
-      const result = await ProjectsController.getProjectsByName(testName);
+      const result = await ProjectsController.getProjectByName(testName);
 
       expect(result.status).toBe(200);
       expect(result.body).toBe('No Project fetched with name: ' + testName);
@@ -94,12 +94,12 @@ describe('Projects Controller', () => {
 
     test('It should handle errors when no name parameter is specified', async () => {
       (
-        ProjectsService.prototype.getProjectsByName as jest.Mock
+        ProjectsService.prototype.getProjectByName as jest.Mock
       ).mockRejectedValue(
         new Error('Failed to retrieve project with name. Name: ' + null),
       );
 
-      const result = await ProjectsController.getProjectsByName(null);
+      const result = await ProjectsController.getProjectByName('');
 
       expect(result.status).toBe(400);
       expect(result.body).toBe('Name is required and should be a string.');
@@ -109,10 +109,10 @@ describe('Projects Controller', () => {
       const testName = 'Project 1';
 
       (
-        ProjectsService.prototype.getProjectsByName as jest.Mock
+        ProjectsService.prototype.getProjectByName as jest.Mock
       ).mockRejectedValue(new Error('Test'));
 
-      const result = await ProjectsController.getProjectsByName(testName);
+      const result = await ProjectsController.getProjectByName(testName);
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
@@ -128,11 +128,11 @@ describe('Projects Controller', () => {
     test('It should return the specified project with given id on success.', async () => {
       const testID = '1';
 
-      (
-        ProjectsService.prototype.getProjectsByID as jest.Mock
-      ).mockResolvedValue(mockProject);
+      (ProjectsService.prototype.getProjectByID as jest.Mock).mockResolvedValue(
+        mockProject,
+      );
 
-      const result = await ProjectsController.getProjectsByID(testID);
+      const result = await ProjectsController.getProjectByID(testID);
 
       expect(result.status).toBe(200);
       expect(result.body).toEqual(mockProject);
@@ -141,24 +141,22 @@ describe('Projects Controller', () => {
     test('It should return a message if no project is found with the given id.', async () => {
       const testID = '2';
 
-      (
-        ProjectsService.prototype.getProjectsByID as jest.Mock
-      ).mockResolvedValue(null);
+      (ProjectsService.prototype.getProjectByID as jest.Mock).mockResolvedValue(
+        null,
+      );
 
-      const result = await ProjectsController.getProjectsByID(testID);
+      const result = await ProjectsController.getProjectByID(testID);
 
       expect(result.status).toBe(200);
       expect(result.body).toBe('No Project fetched with ID: ' + testID);
     });
 
     test('It should handle errors when no id parameter is specified', async () => {
-      (
-        ProjectsService.prototype.getProjectsByID as jest.Mock
-      ).mockRejectedValue(
+      (ProjectsService.prototype.getProjectByID as jest.Mock).mockRejectedValue(
         new Error('Failed to retrieve project with ID: ' + null),
       );
 
-      const result = await ProjectsController.getProjectsByID(null);
+      const result = await ProjectsController.getProjectByID('');
 
       expect(result.status).toBe(400);
       expect(result.body).toBe('ID is required and should be a string.');
@@ -167,11 +165,11 @@ describe('Projects Controller', () => {
     test('It should handle errors', async () => {
       const testID = '1';
 
-      (
-        ProjectsService.prototype.getProjectsByID as jest.Mock
-      ).mockRejectedValue(new Error('Test'));
+      (ProjectsService.prototype.getProjectByID as jest.Mock).mockRejectedValue(
+        new Error('Test'),
+      );
 
-      const result = await ProjectsController.getProjectsByID(testID);
+      const result = await ProjectsController.getProjectByID(testID);
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(

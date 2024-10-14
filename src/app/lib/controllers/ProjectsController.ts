@@ -2,72 +2,82 @@ import { ProjectsService } from '../services/ProjectsService';
 import ProjectsRepository from '../repositories/ProjectsRepository';
 import ResponseData from '../constants/api/ResponseData';
 import Projects from '../entities/Projects';
+import ApiResponseBuilder from '../utils/ApiResponseBuilder';
 
 const projectsRepository = new ProjectsRepository();
 const projectsService = new ProjectsService(projectsRepository);
 
 export const getAllProjects = async (): Promise<
-  ResponseData<Projects[]> | ResponseData<string>
+  ResponseData<Projects[] | string>
 > => {
   try {
     const projects = (await projectsService.getAllProjects()) as Projects[];
     if (!projects) {
-      return new ResponseData(200, 'No Projects fetched');
+      return ApiResponseBuilder.createSuccessResponse('No Projects fetched');
     }
-    return new ResponseData(200, projects);
+    return ApiResponseBuilder.createSuccessResponse(projects);
   } catch (error) {
-    return new ResponseData(500, 'Failed to retrieve projects - ' + error);
-  }
-};
-
-export const getProjectsByName = async (
-  name: string | null,
-): Promise<ResponseData<Projects | null> | ResponseData<string>> => {
-  if (!name || typeof name !== 'string') {
-    return new ResponseData(400, 'Name is required and should be a string.');
-  }
-
-  try {
-    const project = (await projectsService.getProjectsByName(name)) as Projects;
-    if (project) {
-      return new ResponseData(200, project);
-    } else {
-      return new ResponseData(200, 'No Project fetched with name: ' + name);
-    }
-  } catch (error) {
-    return new ResponseData(
-      500,
-      'Failed to retrieve project with name. Name: ' + name + ' - ' + error,
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      'Failed to retrieve projects',
     );
   }
 };
 
-export const getProjectsByID = async (
-  id: string | null,
-): Promise<ResponseData<Projects | null> | ResponseData<string>> => {
-  if (!id || typeof id !== 'string') {
-    return new ResponseData(400, 'ID is required and should be a string.');
+export const getProjectByName = async (
+  name: string,
+): Promise<ResponseData<Projects | string>> => {
+  const validationError = ApiResponseBuilder.validateString(name, 'Name');
+  if (validationError) {
+    return validationError;
   }
 
   try {
-    const project = (await projectsService.getProjectsByID(id)) as Projects;
+    const project = (await projectsService.getProjectByName(name)) as Projects;
     if (project) {
-      return new ResponseData(200, project);
+      return ApiResponseBuilder.createSuccessResponse(project);
     } else {
-      return new ResponseData(200, 'No Project fetched with ID: ' + id);
+      return ApiResponseBuilder.createSuccessResponse(
+        `No Project fetched with name: ${name}`,
+      );
     }
   } catch (error) {
-    return new ResponseData(
-      500,
-      'Failed to retrieve project with ID. ID: ' + id + ' - ' + error,
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      `Failed to retrieve project with name. Name: ${name}`,
+    );
+  }
+};
+
+export const getProjectByID = async (
+  id: string,
+): Promise<ResponseData<Projects | string>> => {
+  const validationError = ApiResponseBuilder.validateString(id, 'ID');
+  if (validationError) {
+    return validationError;
+  }
+
+  try {
+    const project = (await projectsService.getProjectByID(id)) as Projects;
+    if (project) {
+      return ApiResponseBuilder.createSuccessResponse(project);
+    } else {
+      return ApiResponseBuilder.createSuccessResponse(
+        `No Project fetched with ID: ${id}`,
+      );
+    }
+  } catch (error) {
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      `Failed to retrieve project with ID. ID: ${id}`,
     );
   }
 };
 
 const ProjectsController = {
   getAllProjects,
-  getProjectsByName,
-  getProjectsByID,
+  getProjectByName,
+  getProjectByID,
 };
 
 export default ProjectsController;

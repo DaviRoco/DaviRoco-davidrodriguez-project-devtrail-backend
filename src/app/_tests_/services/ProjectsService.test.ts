@@ -136,7 +136,7 @@ describe('Projects Service', () => {
       ]);
       projectsRepository.getProjectsByName.mockResolvedValue(mockProjects[0]);
 
-      const result = await projectsService.getProjectsByName(testName);
+      const result = await projectsService.getProjectByName(testName);
 
       expect(result).toEqual(mockProjectObjects[0]);
       expect(projectsRepository.getProjectsByName).toHaveBeenCalledTimes(1);
@@ -163,7 +163,7 @@ describe('Projects Service', () => {
       ]);
       projectsRepository.getProjectsByID.mockResolvedValue(mockProjects[1]);
 
-      const result = await projectsService.getProjectsByID(testID);
+      const result = await projectsService.getProjectByID(testID);
 
       expect(result).toEqual(mockProjectObjects[1]);
       expect(projectsRepository.getProjectsByID).toHaveBeenCalledTimes(1);

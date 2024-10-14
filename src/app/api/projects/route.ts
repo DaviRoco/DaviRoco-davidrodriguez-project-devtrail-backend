@@ -24,13 +24,13 @@ export async function GET(req: Request) {
 
   const name = searchParams.get('name');
   if (name) {
-    const response = await ProjectsController.getProjectsByName(name);
+    const response = await ProjectsController.getProjectByName(name);
     return NextResponse.json(response.body, { status: response.status });
   }
 
   const id = searchParams.get('id');
   if (id) {
-    const response = await ProjectsController.getProjectsByID(id);
+    const response = await ProjectsController.getProjectByID(id);
     return NextResponse.json(response.body, { status: response.status });
   }
 

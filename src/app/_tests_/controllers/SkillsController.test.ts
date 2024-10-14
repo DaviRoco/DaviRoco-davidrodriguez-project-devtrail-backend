@@ -32,6 +32,17 @@ describe('Skills Controller', () => {
       expect(result.body).toEqual(mockSkills);
     });
 
+    test('It should return a message if no skills are found.', async () => {
+      (SkillsService.prototype.getAllSkills as jest.Mock).mockResolvedValue(
+        null,
+      );
+
+      const result = await SkillsController.getAllSkills();
+
+      expect(result.status).toBe(200);
+      expect(result.body).toBe('No Skills fetched');
+    });
+
     test('It should handle errors', async () => {
       (SkillsService.prototype.getAllSkills as jest.Mock).mockRejectedValue(
         new Error('Test'),

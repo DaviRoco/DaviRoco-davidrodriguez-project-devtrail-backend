@@ -2,37 +2,12 @@ import { CertificationsService } from '../services/CertificationsService';
 import { CertificationsRepository } from '../repositories/CertificationsRepository';
 import ResponseData from '../constants/api/ResponseData';
 import Certifications from '../entities/Certifications';
+import ApiResponseBuilder from '../utils/ApiResponseBuilder';
 
 const certificationsRepository = new CertificationsRepository();
 const certificationsService = new CertificationsService(
   certificationsRepository,
 );
-
-const validateString = (
-  value: string | null,
-  fieldName: string,
-): ResponseData<string> | null => {
-  if (!value || typeof value !== 'string') {
-    return new ResponseData(
-      400,
-      `${fieldName} is required and should be a string.`,
-    );
-  }
-  return null;
-};
-
-const createSuccessResponse = <T>(
-  data: T | string,
-): ResponseData<T | string> => {
-  return new ResponseData(200, data);
-};
-
-const createErrorResponse = (
-  error: Error | string,
-  message: string,
-): ResponseData<string> => {
-  return new ResponseData(500, `${message} - ${error}`);
-};
 
 /**
  * Retrieves all certifications.
@@ -50,11 +25,13 @@ export const getAllCertifications = async (): Promise<
     const certifications: Certifications[] =
       (await certificationsService.getAllCertifications()) as Certifications[];
     if (!certifications) {
-      return createSuccessResponse('No Certifications fetched');
+      return ApiResponseBuilder.createSuccessResponse(
+        'No Certifications fetched',
+      );
     }
-    return createSuccessResponse(certifications);
+    return ApiResponseBuilder.createSuccessResponse(certifications);
   } catch (error) {
-    return createErrorResponse(
+    return ApiResponseBuilder.createErrorResponse(
       error as Error,
       'Failed to retrieve certifications',
     );
@@ -73,7 +50,7 @@ export const getAllCertifications = async (): Promise<
 export const getCertificationByName = async (
   name: string,
 ): Promise<ResponseData<Certifications | string>> => {
-  const validationError = validateString(name, 'Name');
+  const validationError = ApiResponseBuilder.validateString(name, 'Name');
   if (validationError) {
     return validationError;
   }
@@ -83,14 +60,14 @@ export const getCertificationByName = async (
       name,
     )) as Certifications;
     if (certification) {
-      return createSuccessResponse(certification);
+      return ApiResponseBuilder.createSuccessResponse(certification);
     } else {
-      return createSuccessResponse(
+      return ApiResponseBuilder.createSuccessResponse(
         `No Certification fetched with name: ${name}`,
       );
     }
   } catch (error) {
-    return createErrorResponse(
+    return ApiResponseBuilder.createErrorResponse(
       error as Error,
       `Failed to retrieve certification with name. Name: ${name}`,
     );
@@ -109,7 +86,7 @@ export const getCertificationByName = async (
 export const getCertificationByID = async (
   id: string,
 ): Promise<ResponseData<Certifications | string>> => {
-  const validationError = validateString(id, 'ID');
+  const validationError = ApiResponseBuilder.validateString(id, 'ID');
   if (validationError) {
     return validationError;
   }
@@ -119,12 +96,14 @@ export const getCertificationByID = async (
       id,
     )) as Certifications;
     if (certification) {
-      return createSuccessResponse(certification);
+      return ApiResponseBuilder.createSuccessResponse(certification);
     } else {
-      return createSuccessResponse(`No Certification fetched with ID: ${id}`);
+      return ApiResponseBuilder.createSuccessResponse(
+        `No Certification fetched with ID: ${id}`,
+      );
     }
   } catch (error) {
-    return createErrorResponse(
+    return ApiResponseBuilder.createErrorResponse(
       error as Error,
       `Failed to retrieve certification with ID. ID: ${id}`,
     );
@@ -143,7 +122,10 @@ export const getCertificationByID = async (
 export const getCertificationsByInstitution = async (
   institution: string,
 ): Promise<ResponseData<Certifications | string>> => {
-  const validationError = validateString(institution, 'Institution');
+  const validationError = ApiResponseBuilder.validateString(
+    institution,
+    'Institution',
+  );
   if (validationError) {
     return validationError;
   }
@@ -154,14 +136,14 @@ export const getCertificationsByInstitution = async (
         institution,
       )) as Certifications;
     if (certification) {
-      return createSuccessResponse(certification);
+      return ApiResponseBuilder.createSuccessResponse(certification);
     } else {
-      return createSuccessResponse(
+      return ApiResponseBuilder.createSuccessResponse(
         `No Certification fetched with institution: ${institution}`,
       );
     }
   } catch (error) {
-    return createErrorResponse(
+    return ApiResponseBuilder.createErrorResponse(
       error as Error,
       `Failed to retrieve certification with institution. Institution: ${institution}`,
     );

@@ -29,8 +29,12 @@ class SkillsRepository {
     );
   }
 
-  async getAllSkills(): Promise<Skills[]> {
+  async getAllSkills(): Promise<Skills[] | null> {
     const skillsSnapshot = await getDocs(skillsCollection);
+
+    if (skillsSnapshot.empty) {
+      return null;
+    }
 
     return skillsSnapshot.docs.map((doc) =>
       this.validateAndMapSkill(doc.data(), doc.id),

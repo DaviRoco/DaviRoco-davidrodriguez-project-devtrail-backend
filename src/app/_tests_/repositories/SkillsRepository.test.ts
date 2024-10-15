@@ -51,9 +51,12 @@ describe('Skills Repository', () => {
       });
 
       const skills = await repository.getAllSkills();
-      expect(skills.length).toBe(2);
-      expect(skills[0].name).toBe('JavaScript');
-      expect(skills[1].name).toBe('TypeScript');
+      expect(skills?.length).toBe(2);
+
+      if (skills) {
+        expect(skills[0].name).toBe('JavaScript');
+        expect(skills[1].name).toBe('TypeScript');
+      }
     });
 
     test('It should handle errors when mandatory fields are missing.', async () => {
@@ -82,6 +85,16 @@ describe('Skills Repository', () => {
       await expect(repository.getAllSkills()).rejects.toThrow(
         new Error('Skill with ID 1 is missing mandatory fields.'),
       );
+    });
+
+    test('It should handle errors when no skills are available.', async () => {
+      (getDocs as jest.Mock).mockResolvedValueOnce({
+        empty: true,
+        docs: [],
+      });
+
+      const skills = await repository.getAllSkills();
+      expect(skills).toBeNull();
     });
   });
 

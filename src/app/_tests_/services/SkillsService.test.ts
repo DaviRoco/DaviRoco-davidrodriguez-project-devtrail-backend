@@ -42,6 +42,15 @@ describe('Skills Service', () => {
       expect(result).toEqual(mockSkills);
       expect(skillsRepository.getAllSkills).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return an empty array when repository returns an empty array', async () => {
+      skillsRepository.getAllSkills.mockResolvedValue(null);
+
+      const result = await skillsService.getAllSkills();
+
+      expect(result).toBeNull();
+      expect(skillsRepository.getAllSkills).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getSkillsByName', () => {
@@ -54,6 +63,16 @@ describe('Skills Service', () => {
       expect(result).toEqual(mockSkills[0]);
       expect(skillsRepository.getSkillByName).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return undefined when the repository does not return a skill', async () => {
+      const testName = 'Java';
+      skillsRepository.getSkillByName.mockResolvedValue(null);
+
+      const result = await skillsService.getSkillByName(testName);
+
+      expect(result).toBeNull();
+      expect(skillsRepository.getSkillByName).toHaveBeenCalledTimes(1);
+    });
   });
   describe('getSkillsByName', () => {
     test('It should return the skills when the repository returns it by ID', async () => {
@@ -63,6 +82,16 @@ describe('Skills Service', () => {
       const result = await skillsService.getSkillByID(testID);
 
       expect(result).toEqual(mockSkills[1]);
+      expect(skillsRepository.getSkillByID).toHaveBeenCalledTimes(1);
+    });
+
+    test('It should return undefined when the repository does not return a skill', async () => {
+      const testID = '3';
+      skillsRepository.getSkillByID.mockResolvedValue(null);
+
+      const result = await skillsService.getSkillByID(testID);
+
+      expect(result).toBeNull();
       expect(skillsRepository.getSkillByID).toHaveBeenCalledTimes(1);
     });
   });

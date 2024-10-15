@@ -3,7 +3,8 @@ import Skills from './Skills';
 /**
  * Represents an experience record with its details.
  *
- * @class ExperienceRecords with Records as it's parent class
+ * @class ExperienceRecords
+ * @extends {Records}
  *
  * @property {string} _id - The unique identifier of the record.
  * @property {Date} _startDate - The start date of the record.
@@ -12,6 +13,7 @@ import Skills from './Skills';
  * @property {Skills[]} _skills - An array of skills associated with the record.
  * @property {string} _companyName - The name of the company.
  * @property {string} _title - The title of the position.
+ * @property {string} _location - The location of the position.
  *
  * @constructor
  * @param {string} id - The unique identifier of the record.
@@ -28,6 +30,9 @@ import Skills from './Skills';
  *
  * @method get title
  * @returns {string} The title of the position.
+ *
+ * @method get location
+ * @returns {string} The location of the position.
  */
 
 class ExperienceRecords extends Records {

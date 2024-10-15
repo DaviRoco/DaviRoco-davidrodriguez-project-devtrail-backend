@@ -28,6 +28,7 @@ import { KnowledgeLevelEnumerations } from '../constants/enumerations/KnowledgeL
  * @method get level
  * @returns {KnowledgeLevelEnumerations} The knowledge level of the skill.
  */
+
 class Skills {
   _id: string;
   _name: string;

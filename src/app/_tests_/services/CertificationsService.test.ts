@@ -118,6 +118,17 @@ describe('Certifications Service', () => {
         certificationsRepository.getAllCertifications,
       ).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return null when repository returns no certifications', async () => {
+      certificationsRepository.getAllCertifications.mockResolvedValue([]);
+
+      const result = await certificationsService.getAllCertifications();
+
+      expect(result).toBeNull();
+      expect(
+        certificationsRepository.getAllCertifications,
+      ).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getCertificationByName', () => {
@@ -146,6 +157,19 @@ describe('Certifications Service', () => {
         await certificationsService.getCertificationByName(testName);
 
       expect(result).toEqual(mockCertificationsObjects[0]);
+      expect(
+        certificationsRepository.getCertificationsByName,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test('It should return null when the repository returns no certification', async () => {
+      const testName = 'Certification 3';
+      certificationsRepository.getCertificationsByName.mockResolvedValue(null);
+
+      const result =
+        await certificationsService.getCertificationByName(testName);
+
+      expect(result).toBeNull();
       expect(
         certificationsRepository.getCertificationsByName,
       ).toHaveBeenCalledTimes(1);
@@ -184,6 +208,23 @@ describe('Certifications Service', () => {
         certificationsRepository.getCertificationsByInstitution,
       ).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return null when the repository returns no certification', async () => {
+      const testInstitution = 'Institution 3';
+      certificationsRepository.getCertificationsByInstitution.mockResolvedValue(
+        null,
+      );
+
+      const result =
+        await certificationsService.getCertificationsByInstitution(
+          testInstitution,
+        );
+
+      expect(result).toBeNull();
+      expect(
+        certificationsRepository.getCertificationsByInstitution,
+      ).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getCertificationByID', () => {
@@ -211,6 +252,18 @@ describe('Certifications Service', () => {
       const result = await certificationsService.getCertificationByID(testID);
 
       expect(result).toEqual(mockCertificationsObjects[1]);
+      expect(
+        certificationsRepository.getCertificationsByID,
+      ).toHaveBeenCalledTimes(1);
+    });
+
+    test('It should return null when the repository returns no certification', async () => {
+      const testID = '3';
+      certificationsRepository.getCertificationsByID.mockResolvedValue(null);
+
+      const result = await certificationsService.getCertificationByID(testID);
+
+      expect(result).toBeNull();
       expect(
         certificationsRepository.getCertificationsByID,
       ).toHaveBeenCalledTimes(1);

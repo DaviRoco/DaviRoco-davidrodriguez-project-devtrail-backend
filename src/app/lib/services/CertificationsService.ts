@@ -14,9 +14,12 @@ export class CertificationsService {
   async getAllCertifications(): Promise<
     Omit<Certifications, 'skills'>[] | null
   > {
-    const certificationData =
+    const certificationsData =
       await this.certificationsRepository.getAllCertifications();
-    return this.skillsFiller.getObjectsWithSkills(certificationData);
+    if (!certificationsData || certificationsData.length === 0) {
+      return null;
+    }
+    return this.skillsFiller.getObjectsWithSkills(certificationsData);
   }
 
   async getCertificationByName(
@@ -24,6 +27,9 @@ export class CertificationsService {
   ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByName(name);
+    if (!certificationData) {
+      return null;
+    }
     return this.skillsFiller.getObjectWithSkills(certificationData);
   }
 
@@ -34,6 +40,9 @@ export class CertificationsService {
       await this.certificationsRepository.getCertificationsByInstitution(
         institution,
       );
+    if (!certificationData) {
+      return null;
+    }
     return this.skillsFiller.getObjectWithSkills(certificationData);
   }
 
@@ -42,6 +51,9 @@ export class CertificationsService {
   ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByID(id);
+    if (!certificationData) {
+      return null;
+    }
     return this.skillsFiller.getObjectWithSkills(certificationData);
   }
 }

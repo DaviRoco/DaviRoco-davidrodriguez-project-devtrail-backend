@@ -114,6 +114,15 @@ describe('Projects Service', () => {
       expect(result).toEqual(mockProjectObjects);
       expect(projectsRepository.getAllProjects).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return null when repository returns no projects', async () => {
+      projectsRepository.getAllProjects.mockResolvedValue([]);
+
+      const result = await projectsService.getAllProjects();
+
+      expect(result).toBeNull();
+      expect(projectsRepository.getAllProjects).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getProjectsByName', () => {
@@ -141,6 +150,16 @@ describe('Projects Service', () => {
       expect(result).toEqual(mockProjectObjects[0]);
       expect(projectsRepository.getProjectsByName).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return null when the repository returns no project', async () => {
+      const testName = 'Project 3';
+      projectsRepository.getProjectsByName.mockResolvedValue(null);
+
+      const result = await projectsService.getProjectByName(testName);
+
+      expect(result).toBeNull();
+      expect(projectsRepository.getProjectsByName).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getProjectsByID', () => {
@@ -166,6 +185,16 @@ describe('Projects Service', () => {
       const result = await projectsService.getProjectByID(testID);
 
       expect(result).toEqual(mockProjectObjects[1]);
+      expect(projectsRepository.getProjectsByID).toHaveBeenCalledTimes(1);
+    });
+
+    test('It should return null when the repository returns no project', async () => {
+      const testID = '3';
+      projectsRepository.getProjectsByID.mockResolvedValue(null);
+
+      const result = await projectsService.getProjectByID(testID);
+
+      expect(result).toBeNull();
       expect(projectsRepository.getProjectsByID).toHaveBeenCalledTimes(1);
     });
   });

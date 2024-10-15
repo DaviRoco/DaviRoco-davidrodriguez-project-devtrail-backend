@@ -1,6 +1,30 @@
 import { NextResponse } from 'next/server';
 import CertificationsController from '../../lib/controllers/CertificationsController';
 
+/**
+ * Handles GET requests for certifications.
+ *
+ * This function processes the incoming request, validates query parameters,
+ * and fetches certifications based on the provided parameters. It supports
+ * fetching certifications by name, ID, or institution. If no parameters are
+ * provided, it fetches all certifications.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Promise<Response>} - A promise that resolves to the response object.
+ *
+ * @throws {Error} - If an error occurs while fetching certifications.
+ *
+ * Query Parameters:
+ * - `name` (optional): The name of the certification to fetch.
+ * - `id` (optional): The ID of the certification to fetch.
+ * - `institution` (optional): The institution of the certifications to fetch.
+ *
+ * Response:
+ * - 200: Successfully fetched the certifications.
+ * - 400: Invalid query parameters were provided.
+ * - 500: An error occurred while fetching certifications.
+ */
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 

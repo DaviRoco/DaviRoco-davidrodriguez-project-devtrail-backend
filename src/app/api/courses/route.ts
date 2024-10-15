@@ -1,6 +1,29 @@
 import { NextResponse } from 'next/server';
 import CoursesController from '../../lib/controllers/CoursesController';
 
+/**
+ * Handles GET requests for courses.
+ *
+ * This function processes the incoming request, validates query parameters,
+ * and fetches courses based on the provided parameters. It supports
+ * fetching courses by name or ID. If no parameters are provided, it fetches all courses.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Promise<Response>} - A promise that resolves to the response object.
+ *
+ * @throws {Error} - If an error occurs while fetching courses.
+ *
+ * Query Parameters:
+ * - `name` (optional): The name of the course to fetch.
+ * - `id` (optional): The ID of the course to fetch.
+ *
+ * Response:
+ * - 200: Successfully fetched the courses.
+ * - 400: Invalid query parameters were provided.
+ * - 500: An error occurred while fetching courses.
+ */
+
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 

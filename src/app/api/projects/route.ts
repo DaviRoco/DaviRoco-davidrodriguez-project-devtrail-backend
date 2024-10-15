@@ -1,6 +1,29 @@
 import { NextResponse } from 'next/server';
 import ProjectsController from '../../lib/controllers/ProjectsController';
 
+/**
+ * Handles GET requests for projects.
+ *
+ * This function processes the incoming request, validates query parameters,
+ * and fetches projects based on the provided parameters. It supports
+ * fetching projects by name or ID. If no parameters are provided, it fetches all projects.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Promise<Response>} - A promise that resolves to the response object.
+ *
+ * @throws {Error} - If an error occurs while fetching projects.
+ *
+ * Query Parameters:
+ * - `name` (optional): The name of the project to fetch.
+ * - `id` (optional): The ID of the project to fetch.
+ *
+ * Response:
+ * - 200: Successfully fetched the projects.
+ * - 400: Invalid query parameters were provided.
+ * - 500: An error occurred while fetching projects.
+ */
+
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 

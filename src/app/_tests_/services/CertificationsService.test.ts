@@ -1,30 +1,30 @@
 /**
  * @fileoverview Unit tests for the CertificationsService class.
- * 
- * This file contains unit tests for the CertificationsService, responsible for 
- * managing certification-related data and interacting with the CertificationsRepository 
+ *
+ * This file contains unit tests for the CertificationsService, responsible for
+ * managing certification-related data and interacting with the CertificationsRepository
  * and SkillsRepository to retrieve and process certification and skills information.
- * 
- * The tests validate the functionality of the service methods, ensuring they 
- * handle the data correctly, interact with the repositories as expected, and 
+ *
+ * The tests validate the functionality of the service methods, ensuring they
+ * handle the data correctly, interact with the repositories as expected, and
  * return the appropriate results based on various scenarios.
- * 
+ *
  * The tests cover the following methods:
- * 
+ *
  * - **getAllCertifications**: Retrieves all certifications from the repository.
  * - **getCertificationByName**: Retrieves a certification by its name.
  * - **getCertificationsByInstitution**: Retrieves a certification by its institution.
  * - **getCertificationByID**: Retrieves a certification by its ID.
- * 
+ *
  * Each test verifies the following aspects:
  * - Successful retrieval of certifications.
  * - Correct handling of skills associated with certifications.
  * - Proper handling of scenarios where certifications or skills are missing or invalid.
  * - Accurate return values based on the provided inputs, including cases where no data is found.
- * 
- * The tests utilize Jest to mock repository dependencies, ensuring isolated and 
+ *
+ * The tests utilize Jest to mock repository dependencies, ensuring isolated and
  * focused unit testing without needing to interact with the actual database.
- * 
+ *
  * @module CertificationsServiceTest
  */
 

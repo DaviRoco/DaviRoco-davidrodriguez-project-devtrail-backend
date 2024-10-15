@@ -1,26 +1,26 @@
 /**
  * @fileoverview Unit tests for the SkillsRepository class.
- * 
- * This file contains unit tests for the SkillsRepository, which is responsible 
- * for interacting with the Firebase Firestore to manage skill records. 
- * The tests validate the functionality of the repository methods, ensuring they 
+ *
+ * This file contains unit tests for the SkillsRepository, which is responsible
+ * for interacting with the Firebase Firestore to manage skill records.
+ * The tests validate the functionality of the repository methods, ensuring they
  * correctly retrieve, handle errors, and validate the data related to skills.
- * 
+ *
  * The tests cover the following methods:
- * 
+ *
  * - **getAllSkills**: Retrieves all skills from Firestore.
  * - **getSkillByName**: Retrieves a skill by its name.
  * - **getSkillByID**: Retrieves a skill by its ID.
  * - **getSkillsByIDs**: Retrieves multiple skills by their IDs.
- * 
+ *
  * Each test verifies the following aspects:
  * - Successful retrieval of skills.
  * - Proper handling of scenarios when mandatory fields are missing or invalid.
  * - Accurate return values based on the provided inputs.
- * 
- * The tests utilize mocking to isolate the repository's functionality from the 
+ *
+ * The tests utilize mocking to isolate the repository's functionality from the
  * Firestore implementation, allowing for focused unit testing.
- * 
+ *
  * @module SkillsRepositoryTest
  */
 

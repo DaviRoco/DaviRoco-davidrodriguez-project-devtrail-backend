@@ -1,17 +1,17 @@
 /**
  * @fileoverview Unit tests for the SkillsController.
- * 
+ *
  * This file contains unit tests for the SkillsController, which is responsible for handling
  * skill-related requests. The tests cover the following functionalities:
- * 
+ *
  * - getAllSkills: Retrieves all skills.
  * - getSkillByName: Retrieves a skill by its name.
  * - getSkillByID: Retrieves a skill by its ID.
- * 
+ *
  * The tests use Jest to mock the SkillsService and verify the behavior of the controller methods,
  * ensuring that appropriate responses are returned under various conditions, including success,
  * no results found, and error scenarios.
- * 
+ *
  * @module SkillsControllerTest
  */
 

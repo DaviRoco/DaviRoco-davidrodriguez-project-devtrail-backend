@@ -1,25 +1,25 @@
 /**
  * @fileoverview Unit tests for the ProjectsRepository class.
- * 
- * This file contains unit tests for the ProjectsRepository, which is responsible 
- * for interacting with the Firebase Firestore to manage project data. 
- * The tests validate the functionality of the repository methods, ensuring they 
+ *
+ * This file contains unit tests for the ProjectsRepository, which is responsible
+ * for interacting with the Firebase Firestore to manage project data.
+ * The tests validate the functionality of the repository methods, ensuring they
  * correctly retrieve, handle errors, and validate the data related to projects.
- * 
+ *
  * The tests cover the following methods:
- * 
+ *
  * - **getAllProjects**: Retrieves all projects from Firestore.
  * - **getProjectByName**: Retrieves a project by its name.
  * - **getProjectByID**: Retrieves a project by its ID.
- * 
+ *
  * Each test verifies the following aspects:
  * - Successful retrieval of projects.
  * - Proper handling of scenarios when mandatory fields are missing or invalid.
  * - Accurate return values based on the provided inputs.
- * 
- * The tests utilize mocking to isolate the repository's functionality from the 
+ *
+ * The tests utilize mocking to isolate the repository's functionality from the
  * Firestore implementation, allowing for focused unit testing.
- * 
+ *
  * @module ProjectsRepositoryTest
  */
 

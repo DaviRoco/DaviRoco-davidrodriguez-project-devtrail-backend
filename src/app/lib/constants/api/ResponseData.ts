@@ -1,3 +1,8 @@
+/**
+ * A generic class representing the response data structure.
+ *
+ * @template T - The type of the response body.
+ */
 class ResponseData<T> {
   private _status: number;
   private _body: T;

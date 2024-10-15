@@ -1,15 +1,15 @@
 import ResponseData from '../../../lib/constants/api/ResponseData';
 /**
  * @fileoverview Unit tests for the ResponseData constant.
- * 
+ *
  * This file contains unit tests for the ResponseData class, which is responsible for encapsulating
  * the structure of the API response data. The tests cover the following functionalities:
- * 
+ *
  * - Creation of a ResponseData object: Verifies that the object is defined and initialized correctly.
  * - Modification of ResponseData properties: Ensures that the status and body properties can be set and retrieved accurately.
- * 
+ *
  * The tests use Jest to validate the behavior and integrity of the ResponseData object.
- * 
+ *
  * @module ResponseDataTest
  */
 

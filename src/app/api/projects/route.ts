@@ -23,7 +23,6 @@ import ProjectsController from '../../lib/controllers/ProjectsController';
  * - 500: An error occurred while fetching projects.
  */
 
-
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 

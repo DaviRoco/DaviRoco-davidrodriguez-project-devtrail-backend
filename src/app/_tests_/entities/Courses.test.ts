@@ -1,17 +1,17 @@
 /**
  * @fileoverview Unit tests for the Courses entity.
- * 
- * This file contains unit tests for the Courses entity, which represents an educational course 
- * associated with certain skills. The tests validate the creation of a Courses object and ensure 
+ *
+ * This file contains unit tests for the Courses entity, which represents an educational course
+ * associated with certain skills. The tests validate the creation of a Courses object and ensure
  * that all properties are correctly assigned during instantiation.
- * 
+ *
  * The tests cover the following aspects:
- * 
+ *
  * - Creation of a Courses object with valid parameters.
- * 
+ *
  * The tests verify that the object is defined and that all properties match the expected values
  * based on the input provided during the object's creation.
- * 
+ *
  * @module CoursesEntityTest
  */
 

@@ -1,18 +1,18 @@
 /**
  * @fileoverview Unit tests for the Skills entity.
- * 
- * This file contains unit tests for the Skills entity, which represents 
- * an individual's skill, including its ID, name, description, and 
- * knowledge level. The tests verify the correct instantiation of a 
+ *
+ * This file contains unit tests for the Skills entity, which represents
+ * an individual's skill, including its ID, name, description, and
+ * knowledge level. The tests verify the correct instantiation of a
  * Skills object and ensure that all properties are accurately assigned.
- * 
+ *
  * The tests cover the following aspects:
- * 
+ *
  * - Creation of a Skills object with valid parameters.
- * 
- * The tests ensure that the object is defined and that each property matches 
+ *
+ * The tests ensure that the object is defined and that each property matches
  * the expected values provided during the creation of the Skills instance.
- * 
+ *
  * @module SkillsEntityTest
  */
 

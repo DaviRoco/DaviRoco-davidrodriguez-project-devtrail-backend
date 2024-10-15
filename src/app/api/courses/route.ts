@@ -23,7 +23,6 @@ import CoursesController from '../../lib/controllers/CoursesController';
  * - 500: An error occurred while fetching courses.
  */
 
-
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 

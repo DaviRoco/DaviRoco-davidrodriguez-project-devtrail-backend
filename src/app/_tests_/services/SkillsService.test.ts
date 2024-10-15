@@ -1,31 +1,30 @@
 /**
  * @fileoverview Unit tests for the SkillsService class.
- * 
- * This file contains unit tests for the SkillsService, responsible for 
- * managing skill-related data and interacting with the SkillsRepository 
+ *
+ * This file contains unit tests for the SkillsService, responsible for
+ * managing skill-related data and interacting with the SkillsRepository
  * to retrieve and process skills.
- * 
- * The tests validate the functionality of the service methods, ensuring they 
- * handle the data correctly, interact with the repository as expected, and 
+ *
+ * The tests validate the functionality of the service methods, ensuring they
+ * handle the data correctly, interact with the repository as expected, and
  * return the appropriate results based on various scenarios.
- * 
+ *
  * The tests cover the following methods:
- * 
+ *
  * - **getAllSkills**: Retrieves all skills from the repository.
  * - **getSkillByName**: Retrieves a skill by its name.
  * - **getSkillByID**: Retrieves a skill by its ID.
- * 
+ *
  * Each test verifies the following aspects:
  * - Successful retrieval of skills.
  * - Proper handling of scenarios where skills are missing or invalid.
  * - Accurate return values based on the provided inputs, including cases where no data is found.
- * 
- * The tests utilize Jest to mock repository dependencies, ensuring isolated and 
+ *
+ * The tests utilize Jest to mock repository dependencies, ensuring isolated and
  * focused unit testing without needing to interact with the actual database.
- * 
+ *
  * @module SkillsServiceTest
  */
-
 
 import { SkillsService } from '../../lib/services/SkillsService';
 import SkillsRepository from '../../lib/repositories/SkillsRepository';

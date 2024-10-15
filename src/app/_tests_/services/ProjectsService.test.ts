@@ -1,29 +1,29 @@
 /**
  * @fileoverview Unit tests for the ProjectsService class.
- * 
- * This file contains unit tests for the ProjectsService, responsible for 
- * managing project-related data and interacting with the ProjectsRepository 
+ *
+ * This file contains unit tests for the ProjectsService, responsible for
+ * managing project-related data and interacting with the ProjectsRepository
  * and SkillsRepository to retrieve and process project and skills information.
- * 
- * The tests validate the functionality of the service methods, ensuring they 
- * handle the data correctly, interact with the repositories as expected, and 
+ *
+ * The tests validate the functionality of the service methods, ensuring they
+ * handle the data correctly, interact with the repositories as expected, and
  * return the appropriate results based on various scenarios.
- * 
+ *
  * The tests cover the following methods:
- * 
+ *
  * - **getAllProjects**: Retrieves all projects from the repository.
  * - **getProjectByName**: Retrieves a project by its name.
  * - **getProjectByID**: Retrieves a project by its ID.
- * 
+ *
  * Each test verifies the following aspects:
  * - Successful retrieval of projects.
  * - Correct handling of skills associated with projects.
  * - Proper handling of scenarios where projects or skills are missing or invalid.
  * - Accurate return values based on the provided inputs, including cases where no data is found.
- * 
- * The tests utilize Jest to mock repository dependencies, ensuring isolated and 
+ *
+ * The tests utilize Jest to mock repository dependencies, ensuring isolated and
  * focused unit testing without needing to interact with the actual database.
- * 
+ *
  * @module ProjectsServiceTest
  */
 

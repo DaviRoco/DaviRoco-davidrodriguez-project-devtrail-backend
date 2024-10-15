@@ -1,26 +1,26 @@
 /**
  * @fileoverview Unit tests for the CertificationsRepository class.
- * 
- * This file contains unit tests for the CertificationsRepository, which is responsible 
- * for interacting with the Firebase Firestore to manage certifications data. 
- * The tests validate the functionality of the repository methods, ensuring they 
+ *
+ * This file contains unit tests for the CertificationsRepository, which is responsible
+ * for interacting with the Firebase Firestore to manage certifications data.
+ * The tests validate the functionality of the repository methods, ensuring they
  * correctly retrieve, handle errors, and validate the data related to certifications.
- * 
+ *
  * The tests cover the following methods:
- * 
+ *
  * - **getAllCertifications**: Retrieves all certifications from Firestore.
  * - **getCertificationsByName**: Retrieves a certification by its name.
  * - **getCertificationsByInstitution**: Retrieves certifications by their institution.
  * - **getCertificationsByID**: Retrieves a certification by its ID.
- * 
+ *
  * Each test verifies the following aspects:
  * - Successful retrieval of certifications.
  * - Proper handling of scenarios when mandatory fields are missing or invalid.
  * - Accurate return values based on the provided inputs.
- * 
- * The tests utilize mocking to isolate the repository's functionality from the 
+ *
+ * The tests utilize mocking to isolate the repository's functionality from the
  * Firestore implementation, allowing for focused unit testing.
- * 
+ *
  * @module CertificationsRepositoryTest
  */
 

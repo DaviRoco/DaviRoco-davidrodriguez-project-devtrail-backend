@@ -1,28 +1,28 @@
 /**
  * @fileoverview Unit tests for the SkillsFiller class.
- * 
- * This file contains unit tests for the SkillsFiller, responsible for 
- * managing skill-related data and interacting with the SkillsRepository 
+ *
+ * This file contains unit tests for the SkillsFiller, responsible for
+ * managing skill-related data and interacting with the SkillsRepository
  * to retrieve and process skills associated with projects.
- * 
- * The tests validate the functionality of the service methods, ensuring they 
- * handle the data correctly, interact with the repository as expected, and 
+ *
+ * The tests validate the functionality of the service methods, ensuring they
+ * handle the data correctly, interact with the repository as expected, and
  * return the appropriate results based on various scenarios.
- * 
+ *
  * The tests cover the following methods:
- * 
+ *
  * - **getObjectWithSkills**: Retrieves a project object with its associated skills.
  * - **getObjectsWithSkills**: Retrieves an array of project objects with their associated skills.
- * 
+ *
  * Each test verifies the following aspects:
  * - Successful retrieval of skills.
  * - Correct handling of skills associated with projects.
  * - Proper handling of scenarios where projects or skills are missing or invalid.
  * - Accurate return values based on the provided inputs, including cases where no data is found.
- * 
- * The tests utilize Jest to mock repository dependencies, ensuring isolated and 
+ *
+ * The tests utilize Jest to mock repository dependencies, ensuring isolated and
  * focused unit testing without needing to interact with the actual database.
- * 
+ *
  * @module SkillsFillerTest
  */
 

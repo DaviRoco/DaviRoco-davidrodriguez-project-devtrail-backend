@@ -22,7 +22,6 @@ import SkillsControllers from '../../lib/controllers/SkillsController';
  * - 500: An error occurred while fetching skills.
  */
 
-
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 

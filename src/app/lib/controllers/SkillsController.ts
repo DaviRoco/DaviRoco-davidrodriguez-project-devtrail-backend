@@ -1,3 +1,11 @@
+/**
+ * SkillsController module.
+ *
+ * This module provides functions to interact with the skills service and retrieve skill records.
+ *
+ * @module SkillsController
+ */
+
 import SkillsService from '../services/SkillsService';
 import SkillsRepository from '../repositories/SkillsRepository';
 import Skills from '../entities/Skills';
@@ -6,6 +14,15 @@ import ApiResponseBuilder from '../utils/ApiResponseBuilder';
 
 const skillsRepository = new SkillsRepository();
 const skillsService = new SkillsService(skillsRepository);
+
+/**
+ * Retrieves all skill records.
+ *
+ * @returns {Promise<ResponseData<Skills[] | string>>}
+ * - A promise that resolves to a ResponseData object containing either the skill records data or an error message.
+ *
+ * @throws {Error} If there is an issue retrieving the skill records.
+ */
 
 export const getAllSkills = async (): Promise<
   ResponseData<Skills[] | string>
@@ -24,6 +41,15 @@ export const getAllSkills = async (): Promise<
   }
 };
 
+/**
+ * Retrieves a skill record by name.
+ *
+ * @param {string} name - The name of the skill to retrieve.
+ * @returns {Promise<ResponseData<Skills | string>>}
+ * - A promise that resolves to a ResponseData object containing either the skill data or an error message.
+ *
+ * @throws {Error} If there is an issue retrieving the skill record.
+ */
 export const getSkillByName = async (
   name: string,
 ): Promise<ResponseData<Skills | string>> => {
@@ -49,6 +75,15 @@ export const getSkillByName = async (
   }
 };
 
+/**
+ * Retrieves a skill record by ID.
+ *
+ * @param {string} id - The ID of the skill to retrieve.
+ * @returns {Promise<ResponseData<Skills | string>>}
+ * - A promise that resolves to a ResponseData object containing either the skill data or an error message.
+ *
+ * @throws {Error} If there is an issue retrieving the skill record.
+ */
 export const getSkillByID = async (
   id: string,
 ): Promise<ResponseData<Skills | string>> => {

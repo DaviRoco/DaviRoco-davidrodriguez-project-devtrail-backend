@@ -23,27 +23,34 @@ export async function GET(req: Request) {
   }
 
   const name = searchParams.get('name');
-  if (name) {
-    const response =
-      await CertificationsController.getCertificationByName(name);
-    return NextResponse.json(response.body, { status: response.status });
-  }
-
   const id = searchParams.get('id');
-  if (id) {
-    const response = await CertificationsController.getCertificationByID(id);
-    return NextResponse.json(response.body, { status: response.status });
-  }
-
   const institution = searchParams.get('institution');
-  if (institution) {
-    const response =
-      await CertificationsController.getCertificationsByInstitution(
-        institution,
-      );
-    return NextResponse.json(response.body, { status: response.status });
-  }
+  try {
+    let response;
 
-  const response = await CertificationsController.getAllCertifications();
-  return NextResponse.json(response.body, { status: response.status });
+    if (name) {
+      response = await CertificationsController.getCertificationByName(name);
+    } else if (id) {
+      response = await CertificationsController.getCertificationByID(id);
+    } else if (institution) {
+      response =
+        await CertificationsController.getCertificationsByInstitution(
+          institution,
+        );
+    } else {
+      response = await CertificationsController.getAllCertifications();
+    }
+
+    return NextResponse.json(response.body, { status: response.status });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json(
+      {
+        message: 'An error occurred while fetching certifications.',
+        error: errorMessage,
+      },
+      { status: 500 },
+    );
+  }
 }

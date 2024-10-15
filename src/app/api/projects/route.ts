@@ -23,17 +23,28 @@ export async function GET(req: Request) {
   }
 
   const name = searchParams.get('name');
-  if (name) {
-    const response = await ProjectsController.getProjectByName(name);
-    return NextResponse.json(response.body, { status: response.status });
-  }
-
   const id = searchParams.get('id');
-  if (id) {
-    const response = await ProjectsController.getProjectByID(id);
-    return NextResponse.json(response.body, { status: response.status });
-  }
 
-  const response = await ProjectsController.getAllProjects();
-  return NextResponse.json(response.body, { status: response.status });
+  try {
+    let response;
+
+    if (name) {
+      response = await ProjectsController.getProjectByName(name);
+    } else if (id) {
+      response = await ProjectsController.getProjectByID(id);
+    } else {
+      response = await ProjectsController.getAllProjects();
+    }
+
+    return NextResponse.json(response.body, { status: response.status });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json(
+      {
+        message: 'An error occurred while fetching projects.',
+        error: errorMessage,
+      },
+      { status: 500 },
+    );
+  }
 }

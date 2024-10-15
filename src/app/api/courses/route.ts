@@ -23,17 +23,28 @@ export async function GET(req: Request) {
   }
 
   const name = searchParams.get('name');
-  if (name) {
-    const response = await CoursesController.getCourseByName(name);
-    return NextResponse.json(response.body, { status: response.status });
-  }
-
   const id = searchParams.get('id');
-  if (id) {
-    const response = await CoursesController.getCourseByID(id);
-    return NextResponse.json(response.body, { status: response.status });
-  }
 
-  const response = await CoursesController.getAllCourses();
-  return NextResponse.json(response.body, { status: response.status });
+  try {
+    let response;
+
+    if (name) {
+      response = await CoursesController.getCourseByName(name);
+    } else if (id) {
+      response = await CoursesController.getCourseByID(id);
+    } else {
+      response = await CoursesController.getAllCourses();
+    }
+
+    return NextResponse.json(response.body, { status: response.status });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json(
+      {
+        message: 'An error occurred while fetching courses.',
+        error: errorMessage,
+      },
+      { status: 500 },
+    );
+  }
 }

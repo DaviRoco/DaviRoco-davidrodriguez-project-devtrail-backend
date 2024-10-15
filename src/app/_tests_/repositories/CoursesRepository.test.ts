@@ -1,3 +1,28 @@
+/**
+ * @fileoverview Unit tests for the CoursesRepository class.
+ * 
+ * This file contains unit tests for the CoursesRepository, which is responsible 
+ * for interacting with the Firebase Firestore to manage course data. 
+ * The tests validate the functionality of the repository methods, ensuring they 
+ * correctly retrieve, handle errors, and validate the data related to courses.
+ * 
+ * The tests cover the following methods:
+ * 
+ * - **getAllCourses**: Retrieves all courses from Firestore.
+ * - **getCourseByName**: Retrieves a course by its name.
+ * - **getCourseByID**: Retrieves a course by its ID.
+ * 
+ * Each test verifies the following aspects:
+ * - Successful retrieval of courses.
+ * - Proper handling of scenarios when mandatory fields are missing or invalid.
+ * - Accurate return values based on the provided inputs.
+ * 
+ * The tests utilize mocking to isolate the repository's functionality from the 
+ * Firestore implementation, allowing for focused unit testing.
+ * 
+ * @module CoursesRepositoryTest
+ */
+
 import CoursesRepository from '../../lib/repositories/CoursesRespository';
 import { getDocs, getDoc } from 'firebase/firestore';
 import Courses from '../../lib/entities/Courses';

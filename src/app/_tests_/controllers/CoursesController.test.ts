@@ -1,3 +1,20 @@
+/**
+ * @fileoverview Unit tests for the CoursesController.
+ * 
+ * This file contains unit tests for the CoursesController, which is responsible for handling
+ * course-related requests. The tests cover the following functionalities:
+ * 
+ * - getAllCourses: Retrieves all courses.
+ * - getCourseByName: Retrieves a course by its name.
+ * - getCourseByID: Retrieves a course by its ID.
+ * 
+ * The tests use Jest to mock the CoursesService and verify the behavior of the controller methods,
+ * ensuring that appropriate responses are returned under various conditions, including success,
+ * no results found, and error scenarios.
+ * 
+ * @module CoursesControllerTest
+ */
+
 import { CoursesService } from '../../lib/services/CoursesService';
 import CoursesController from '../../lib/controllers/CoursesController';
 

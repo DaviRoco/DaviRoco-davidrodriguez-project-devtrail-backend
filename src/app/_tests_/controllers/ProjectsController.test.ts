@@ -1,3 +1,21 @@
+/**
+ * @fileoverview Unit tests for the ProjectsController.
+ * 
+ * This file contains unit tests for the ProjectsController, which is responsible for handling
+ * project-related requests. The tests cover the following functionalities:
+ * 
+ * - getAllProjects: Retrieves all projects from the database.
+ * - getProjectByName: Retrieves a project by its name.
+ * - getProjectByID: Retrieves a project by its ID.
+ * 
+ * The tests use Jest to mock the ProjectsService and verify the behavior of the controller methods,
+ * ensuring that appropriate responses are returned under various conditions, including success,
+ * no results found, and error scenarios.
+ * 
+ * @module ProjectsControllerTest
+ */
+
+
 import ProjectsController from '../../lib/controllers/ProjectsController';
 import { ProjectsService } from '../../lib/services/ProjectsService';
 

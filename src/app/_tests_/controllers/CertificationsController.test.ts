@@ -1,3 +1,21 @@
+/**
+ * @fileoverview Unit tests for the CertificationsController.
+ * 
+ * This file contains unit tests for the CertificationsController, which is responsible for handling
+ * certification-related requests. The tests cover the following functionalities:
+ * 
+ * - getAllCertifications: Retrieves all certifications.
+ * - getCertificationByName: Retrieves a certification by its name.
+ * - getCertificationByID: Retrieves a certification by its ID.
+ * - getCertificationsByInstitution: Retrieves certifications by the institution name.
+ * 
+ * The tests use Jest to mock the CertificationsService and verify the behavior of the controller methods,
+ * ensuring that appropriate responses are returned under various conditions, including success,
+ * no results found, and error scenarios.
+ * 
+ * @module CertificationsControllerTest
+ */
+
 import CertificationsController from '../../lib/controllers/CertificationsController';
 import { CertificationsService } from '../../lib/services/CertificationsService';
 

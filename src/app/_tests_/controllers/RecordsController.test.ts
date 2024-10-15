@@ -1,3 +1,21 @@
+/**
+ * @fileoverview Unit tests for the RecordsController.
+ * 
+ * This file contains unit tests for the RecordsController, which is responsible for handling
+ * requests related to experience and educational records. The tests cover the following functionalities:
+ * 
+ * - getAllExperienceRecords: Retrieves all experience records.
+ * - getAllEducationalRecords: Retrieves all educational records.
+ * - getExperienceRecordByID: Retrieves a specific experience record by its ID.
+ * - getEducationalRecordByID: Retrieves a specific educational record by its ID.
+ * 
+ * The tests use Jest to mock the RecordsService and verify the behavior of the controller methods,
+ * ensuring that appropriate responses are returned under various conditions, including success,
+ * no records found, and error scenarios.
+ * 
+ * @module RecordsControllerTest
+*/
+
 import { RecordsService } from '../../lib/services/RecordsService';
 import RecordsController from '../../lib/controllers/RecordsController';
 

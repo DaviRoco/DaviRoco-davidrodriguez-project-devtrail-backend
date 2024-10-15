@@ -1,3 +1,35 @@
+/**
+ * @fileoverview Unit tests for the RecordsService class.
+ * 
+ * This file contains unit tests for the RecordsService, responsible for 
+ * managing record-related data and interacting with the RecordsRepository 
+ * and SkillsRepository to retrieve and process experience and educational records.
+ * 
+ * The tests validate the functionality of the service methods, ensuring they 
+ * handle the data correctly, interact with the repositories as expected, and 
+ * return the appropriate results based on various scenarios.
+ * 
+ * The tests cover the following methods:
+ * 
+ * - **getAllExperienceRecords**: Retrieves all experience records from the repository.
+ * - **getAllEducationalRecords**: Retrieves all educational records from the repository.
+ * - **getExperienceRecordByID**: Retrieves an experience record by its ID.
+ * - **getEducationalRecordByID**: Retrieves an educational record by its ID.
+ * 
+ * Each test verifies the following aspects:
+ * - Successful retrieval of records.
+ * - Correct handling of skills associated with records.
+ * - Proper handling of scenarios where records or skills are missing or invalid.
+ * - Accurate return values based on the provided inputs, including cases where no data is found.
+ * 
+ * The tests utilize Jest to mock repository dependencies, ensuring isolated and 
+ * focused unit testing without needing to interact with the actual database.
+ * 
+ * @module RecordsServiceTest
+ */
+
+
+
 import { RecordsService } from '../../lib/services/RecordsService';
 import RecordsRepository from '../../lib/repositories/RecordsRepository';
 import ExperienceRecords from '../../lib/entities/ExperienceRecords';

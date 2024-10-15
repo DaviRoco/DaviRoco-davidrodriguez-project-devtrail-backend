@@ -33,19 +33,19 @@ export async function GET(req: Request) {
   }
 
   const id = searchParams.get('id');
-  const type = searchParams.get('type') as keyof typeof recordHandlers || '';
+  const type = (searchParams.get('type') as keyof typeof recordHandlers) || '';
 
   if (!(type in recordHandlers)) {
     return NextResponse.json(
       { message: 'Invalid record type provided' },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   try {
     const handler = recordHandlers[type];
     const response = id ? await handler.getByID(id) : await handler.getAll();
-    
+
     return NextResponse.json(response.body, { status: response.status });
   } catch (error) {
     const errorMessage =

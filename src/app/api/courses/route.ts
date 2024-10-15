@@ -38,7 +38,8 @@ export async function GET(req: Request) {
 
     return NextResponse.json(response.body, { status: response.status });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
       {
         message: 'An error occurred while fetching courses.',

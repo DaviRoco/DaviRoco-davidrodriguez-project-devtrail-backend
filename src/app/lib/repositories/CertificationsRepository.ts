@@ -6,6 +6,7 @@ import {
   getDoc,
   where,
   query,
+  DocumentData,
 } from 'firebase/firestore';
 import Certifications from '../entities/Certifications';
 
@@ -22,36 +23,35 @@ const certificationsCollection = collection(db, 'certifications');
  * @method getCertificationsByID - Retrieves a certification by its ID from the certifications collection.
  */
 class CertificationsRepository {
+  private validateAndMapCertification(
+    docData: DocumentData,
+    id: string,
+  ): Certifications {
+    const { name, institution, date, credentialID, url, skills } = docData;
+
+    if (!name || !institution || !date || !credentialID || !url || !skills) {
+      throw new Error(
+        `Certification with ID ${id} is missing mandatory fields.`,
+      );
+    }
+
+    return new Certifications(
+      id,
+      name,
+      institution,
+      date.toDate(),
+      credentialID,
+      url,
+      skills,
+    );
+  }
+
   async getAllCertifications(): Promise<Certifications[]> {
     const certificationsSnapshot = await getDocs(certificationsCollection);
-    const certifications = certificationsSnapshot.docs.map((doc) => {
-      const data = doc.data();
 
-      if (
-        !data.name ||
-        !data.institution ||
-        !data.date ||
-        !data.credentialID ||
-        !data.url ||
-        !data.skills
-      ) {
-        throw new Error(
-          `Certification with ID ${doc.id} is missing mandatory fields.`,
-        );
-      }
-
-      return new Certifications(
-        doc.id,
-        data.name,
-        data.institution,
-        data.date.toDate(),
-        data.credentialID,
-        data.url,
-        data.skills,
-      );
-    });
-
-    return certifications;
+    return certificationsSnapshot.docs.map((doc) =>
+      this.validateAndMapCertification(doc.data(), doc.id),
+    );
   }
 
   async getCertificationsByName(name: string): Promise<Certifications | null> {
@@ -72,18 +72,9 @@ class CertificationsRepository {
       return null;
     }
 
-    const doc = querySnapshot.docs[0];
-
-    const data = doc.data();
-
-    return new Certifications(
-      doc.id,
-      data.name,
-      data.institution,
-      data.date.toDate(),
-      data.credentialID,
-      data.url,
-      data.skills,
+    return this.validateAndMapCertification(
+      querySnapshot.docs[0].data(),
+      querySnapshot.docs[0].id,
     );
   }
 
@@ -107,18 +98,9 @@ class CertificationsRepository {
       return null;
     }
 
-    const doc = querySnapshot.docs[0];
-
-    const data = doc.data();
-
-    return new Certifications(
-      doc.id,
-      data.name,
-      data.institution,
-      data.date.toDate(),
-      data.credentialID,
-      data.url,
-      data.skills,
+    return this.validateAndMapCertification(
+      querySnapshot.docs[0].data(),
+      querySnapshot.docs[0].id,
     );
   }
 
@@ -134,29 +116,9 @@ class CertificationsRepository {
       return null;
     }
 
-    const data = certificationSnapshot.data();
-
-    if (
-      !data.name ||
-      !data.institution ||
-      !data.date ||
-      !data.credentialID ||
-      !data.url ||
-      !data.skills
-    ) {
-      throw new Error(
-        `Certification with ID ${id} is missing mandatory fields.`,
-      );
-    }
-
-    return new Certifications(
+    return this.validateAndMapCertification(
+      certificationSnapshot.data(),
       certificationSnapshot.id,
-      data.name,
-      data.institution,
-      data.date.toDate(),
-      data.credentialID,
-      data.url,
-      data.skills,
     );
   }
 }

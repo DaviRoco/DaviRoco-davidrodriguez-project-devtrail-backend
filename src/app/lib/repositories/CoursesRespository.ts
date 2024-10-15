@@ -6,6 +6,7 @@ import {
   getDoc,
   where,
   query,
+  DocumentData,
 } from 'firebase/firestore';
 import Courses from '../entities/Courses';
 
@@ -20,34 +21,21 @@ const coursesCollection = collection(db, 'courses');
  * @method getCoursesByID - Retrieves a course by its ID from the courses collection.
  */
 class CoursesRepository {
+  private validateAndMapCourse(docData: DocumentData, id: string): Courses {
+    const { name, code, description, institution, skills } = docData;
+
+    if (!name || !code || !description || !institution || !skills) {
+      throw new Error(`Course with ID ${id} is missing mandatory fields.`);
+    }
+
+    return new Courses(id, name, code, description, institution, skills);
+  }
+
   async getAllCourses(): Promise<Courses[]> {
     const coursesSnapshot = await getDocs(coursesCollection);
-    const courses = coursesSnapshot.docs.map((doc) => {
-      const data = doc.data();
-
-      if (
-        !data.name ||
-        !data.code ||
-        !data.description ||
-        !data.institution ||
-        !data.skills
-      ) {
-        throw new Error(
-          `Course with ID ${doc.id} is missing mandatory fields.`,
-        );
-      }
-
-      return new Courses(
-        doc.id,
-        data.name,
-        data.code,
-        data.description,
-        data.institution,
-        data.skills,
-      );
-    });
-
-    return courses;
+    return coursesSnapshot.docs.map((doc) =>
+      this.validateAndMapCourse(doc.data(), doc.id),
+    );
   }
 
   async getCoursesByName(name: string): Promise<Courses | null> {
@@ -68,29 +56,10 @@ class CoursesRepository {
       return null;
     }
 
-    const docSnapshot = querySnapshot.docs[0];
-    const docData = docSnapshot.data();
-
-    if (
-      !docData.name ||
-      !docData.code ||
-      !docData.description ||
-      !docData.institution ||
-      !docData.skills
-    ) {
-      throw new Error(`Course with name ${name} is missing mandatory fields.`);
-    }
-
-    const course = new Courses(
-      docSnapshot.id,
-      docData.name,
-      docData.code,
-      docData.description,
-      docData.institution,
-      docData.skills,
+    return this.validateAndMapCourse(
+      querySnapshot.docs[0].data(),
+      querySnapshot.docs[0].id,
     );
-
-    return course;
   }
 
   async getCoursesByID(id: string): Promise<Courses | null> {
@@ -105,28 +74,7 @@ class CoursesRepository {
       return null;
     }
 
-    const docData = docSnapshot.data();
-
-    if (
-      !docData.name ||
-      !docData.code ||
-      !docData.description ||
-      !docData.institution ||
-      !docData.skills
-    ) {
-      throw new Error(`Course with ID ${id} is missing mandatory fields.`);
-    }
-
-    const course = new Courses(
-      docSnapshot.id,
-      docData.name,
-      docData.code,
-      docData.description,
-      docData.institution,
-      docData.skills,
-    );
-
-    return course;
+    return this.validateAndMapCourse(docSnapshot.data(), docSnapshot.id);
   }
 }
 

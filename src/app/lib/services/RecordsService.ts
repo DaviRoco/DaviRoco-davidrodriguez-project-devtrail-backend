@@ -31,6 +31,9 @@ export class RecordsService {
   > {
     const skillsFiller = this.getSkillsFillerForExperience();
     const recordsData = await this.recordsRepository.getAllExperienceRecords();
+    if (!recordsData || recordsData.length === 0) {
+      return null;
+    }
     return skillsFiller.getObjectsWithSkills(recordsData);
   }
 
@@ -39,6 +42,9 @@ export class RecordsService {
   > {
     const skillsFiller = this.getSkillsFillerForEducation();
     const recordsData = await this.recordsRepository.getAllEducationalRecords();
+    if (!recordsData || recordsData.length === 0) {
+      return null;
+    }
     return skillsFiller.getObjectsWithSkills(recordsData);
   }
 
@@ -47,6 +53,9 @@ export class RecordsService {
   ): Promise<Omit<ExperienceRecords, 'skills'> | null> {
     const skillsFiller = this.getSkillsFillerForExperience();
     const recordData = await this.recordsRepository.getExperienceRecordByID(id);
+    if (!recordData) {
+      return null;
+    }
     return skillsFiller.getObjectWithSkills(recordData);
   }
 
@@ -56,6 +65,9 @@ export class RecordsService {
     const skillsFiller = this.getSkillsFillerForEducation();
     const recordData =
       await this.recordsRepository.getEducationalRecordByID(id);
+    if (!recordData) {
+      return null;
+    }
     return skillsFiller.getObjectWithSkills(recordData);
   }
 }

@@ -205,6 +205,22 @@ describe('Records Service', () => {
         'Invalid method for experience record type.',
       );
     });
+
+    test('It should return null when repository returns no records', async () => {
+      recordsRepository = new RecordsRepository(
+        'experience',
+      ) as jest.Mocked<RecordsRepository>;
+      recordsService = new RecordsService(recordsRepository, 'experience');
+
+      recordsRepository.getAllExperienceRecords.mockResolvedValue([]);
+
+      const result = await recordsService.getAllExperienceRecords();
+
+      expect(result).toBeNull();
+      expect(recordsRepository.getAllExperienceRecords).toHaveBeenCalledTimes(
+        1,
+      );
+    });
   });
 
   describe('getAllEducationalRecords', () => {
@@ -252,6 +268,22 @@ describe('Records Service', () => {
 
       expect(() => recordsService.getAllEducationalRecords()).rejects.toThrow(
         'Invalid method for education record type.',
+      );
+    });
+
+    test('It should return null when repository returns no records', async () => {
+      recordsRepository = new RecordsRepository(
+        'education',
+      ) as jest.Mocked<RecordsRepository>;
+      recordsService = new RecordsService(recordsRepository, 'education');
+
+      recordsRepository.getAllEducationalRecords.mockResolvedValue([]);
+
+      const result = await recordsService.getAllEducationalRecords();
+
+      expect(result).toBeNull();
+      expect(recordsRepository.getAllEducationalRecords).toHaveBeenCalledTimes(
+        1,
       );
     });
   });
@@ -303,6 +335,22 @@ describe('Records Service', () => {
         'Invalid method for experience record type.',
       );
     });
+
+    test('It should return null when repository returns no record', async () => {
+      recordsRepository = new RecordsRepository(
+        'experience',
+      ) as jest.Mocked<RecordsRepository>;
+      recordsService = new RecordsService(recordsRepository, 'experience');
+
+      recordsRepository.getExperienceRecordByID.mockResolvedValue(null);
+
+      const result = await recordsService.getExperienceRecordByID('1');
+
+      expect(result).toBeNull();
+      expect(recordsRepository.getExperienceRecordByID).toHaveBeenCalledTimes(
+        1,
+      );
+    });
   });
 
   describe('getEducationalRecordByID', () => {
@@ -351,6 +399,22 @@ describe('Records Service', () => {
       expect(() =>
         recordsService.getEducationalRecordByID('1'),
       ).rejects.toThrow('Invalid method for education record type.');
+    });
+
+    test('It should return null when repository returns no record', async () => {
+      recordsRepository = new RecordsRepository(
+        'education',
+      ) as jest.Mocked<RecordsRepository>;
+      recordsService = new RecordsService(recordsRepository, 'education');
+
+      recordsRepository.getEducationalRecordByID.mockResolvedValue(null);
+
+      const result = await recordsService.getEducationalRecordByID('1');
+
+      expect(result).toBeNull();
+      expect(recordsRepository.getEducationalRecordByID).toHaveBeenCalledTimes(
+        1,
+      );
     });
   });
 });

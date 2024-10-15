@@ -1,6 +1,6 @@
-import Certifications from "../entities/Certifications";
-import { CertificationsRepository } from "../repositories/CertificationsRepository";
-import SkillsFiller from "./utils/SkillsFiller";
+import Certifications from '../entities/Certifications';
+import CertificationsRepository from '../repositories/CertificationsRepository';
+import SkillsFiller from '../utils/SkillsFiller';
 
 export class CertificationsService {
   private certificationsRepository: CertificationsRepository;
@@ -12,36 +12,48 @@ export class CertificationsService {
   }
 
   async getAllCertifications(): Promise<
-    Omit<Certifications, "skills">[] | null
+    Omit<Certifications, 'skills'>[] | null
   > {
-    const certificationData =
+    const certificationsData =
       await this.certificationsRepository.getAllCertifications();
-    return this.skillsFiller.getObjectsWithSkills(certificationData);
+    if (!certificationsData || certificationsData.length === 0) {
+      return null;
+    }
+    return this.skillsFiller.getObjectsWithSkills(certificationsData);
   }
 
   async getCertificationByName(
     name: string,
-  ): Promise<Omit<Certifications, "skills"> | null> {
+  ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByName(name);
+    if (!certificationData) {
+      return null;
+    }
     return this.skillsFiller.getObjectWithSkills(certificationData);
   }
 
   async getCertificationsByInstitution(
     institution: string,
-  ): Promise<Omit<Certifications, "skills"> | null> {
+  ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByInstitution(
         institution,
       );
+    if (!certificationData) {
+      return null;
+    }
     return this.skillsFiller.getObjectWithSkills(certificationData);
   }
 
   async getCertificationByID(
     id: string,
-  ): Promise<Omit<Certifications, "skills"> | null> {
+  ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
       await this.certificationsRepository.getCertificationsByID(id);
+    if (!certificationData) {
+      return null;
+    }
     return this.skillsFiller.getObjectWithSkills(certificationData);
   }
 }

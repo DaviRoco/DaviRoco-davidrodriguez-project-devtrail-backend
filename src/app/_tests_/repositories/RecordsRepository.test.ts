@@ -1,11 +1,11 @@
-import { getDocs, doc, getDoc, Timestamp } from "firebase/firestore";
-import { RecordsRepository } from "../../lib/repositories/RecordsRepository";
+import { getDocs, doc, getDoc, Timestamp } from 'firebase/firestore';
+import RecordsRepository from '../../lib/repositories/RecordsRepository';
 
-jest.mock("firebase/firestore", () => ({
+jest.mock('firebase/firestore', () => ({
   initializeApp: jest.fn(),
 }));
 
-jest.mock("firebase/firestore", () => ({
+jest.mock('firebase/firestore', () => ({
   getFirestore: jest.fn(),
   collection: jest.fn(),
   getDocs: jest.fn(),
@@ -20,108 +20,108 @@ jest.mock("firebase/firestore", () => ({
   },
 }));
 
-describe("Records Repository", () => {
+describe('Records Repository', () => {
   let repository: RecordsRepository;
 
   const mockExperienceRecords = [
     {
-      id: "1",
-      startDate: Timestamp.fromDate(new Date("2021-01-01")),
-      endDate: Timestamp.fromDate(new Date("2021-12-31")),
-      description: "A description of the experience record.",
+      id: '1',
+      startDate: Timestamp.fromDate(new Date('2021-01-01')),
+      endDate: Timestamp.fromDate(new Date('2021-12-31')),
+      description: 'A description of the experience record.',
       skills: [
         {
-          id: "1",
-          name: "JavaScript",
+          id: '1',
+          name: 'JavaScript',
           description:
-            "A programming language that conforms to the ECMAScript specification.",
-          level: "High",
+            'A programming language that conforms to the ECMAScript specification.',
+          level: 'High',
         },
         {
-          id: "2",
-          name: "TypeScript",
-          description: "A strict syntactical superset of JavaScript.",
-          level: "High",
+          id: '2',
+          name: 'TypeScript',
+          description: 'A strict syntactical superset of JavaScript.',
+          level: 'High',
         },
       ],
-      companyName: "Company Name",
-      title: "Job Title",
-      location: "Location",
+      companyName: 'Company Name',
+      title: 'Job Title',
+      location: 'Location',
     },
     {
-      id: "2",
-      startDate: Timestamp.fromDate(new Date("2021-01-01")),
-      endDate: Timestamp.fromDate(new Date("2021-12-31")),
-      description: "A description of the experience record.",
+      id: '2',
+      startDate: Timestamp.fromDate(new Date('2021-01-01')),
+      endDate: Timestamp.fromDate(new Date('2021-12-31')),
+      description: 'A description of the experience record.',
       skills: [
         {
-          id: "1",
-          name: "JavaScript",
+          id: '1',
+          name: 'JavaScript',
           description:
-            "A programming language that conforms to the ECMAScript specification.",
-          level: "High",
+            'A programming language that conforms to the ECMAScript specification.',
+          level: 'High',
         },
         {
-          id: "2",
-          name: "TypeScript",
-          description: "A strict syntactical superset of JavaScript.",
-          level: "High",
+          id: '2',
+          name: 'TypeScript',
+          description: 'A strict syntactical superset of JavaScript.',
+          level: 'High',
         },
       ],
-      companyName: "Company Name",
-      title: "Job Title",
-      location: "Location",
+      companyName: 'Company Name',
+      title: 'Job Title',
+      location: 'Location',
     },
   ];
 
   const mockEducationalRecords = [
     {
-      id: "1",
-      startDate: Timestamp.fromDate(new Date("2021-01-01")),
-      endDate: Timestamp.fromDate(new Date("2021-12-31")),
-      description: "A description of the educational record.",
+      id: '1',
+      startDate: Timestamp.fromDate(new Date('2021-01-01')),
+      endDate: Timestamp.fromDate(new Date('2021-12-31')),
+      description: 'A description of the educational record.',
       skills: [
         {
-          id: "1",
-          name: "JavaScript",
+          id: '1',
+          name: 'JavaScript',
           description:
-            "A programming language that conforms to the ECMAScript specification.",
-          level: "High",
+            'A programming language that conforms to the ECMAScript specification.',
+          level: 'High',
         },
         {
-          id: "2",
-          name: "TypeScript",
-          description: "A strict syntactical superset of JavaScript.",
-          level: "High",
+          id: '2',
+          name: 'TypeScript',
+          description: 'A strict syntactical superset of JavaScript.',
+          level: 'High',
         },
       ],
-      institutionName: "Institution Name",
-      degree: "Degree",
-      location: "Location",
+      institutionName: 'Institution Name',
+      degree: 'Degree',
+      location: 'Location',
     },
     {
-      id: "2",
-      startDate: Timestamp.fromDate(new Date("2021-01-01")),
-      endDate: Timestamp.fromDate(new Date("2021-12-31")),
-      description: "A description of the educational record.",
+      id: '2',
+      startDate: Timestamp.fromDate(new Date('2021-01-01')),
+      endDate: Timestamp.fromDate(new Date('2021-12-31')),
+      description: 'A description of the educational record.',
       skills: [
         {
-          id: "1",
-          name: "JavaScript",
+          id: '1',
+          name: 'JavaScript',
           description:
-            "A programming language that conforms to the ECMAScript specification.",
-          level: "High",
+            'A programming language that conforms to the ECMAScript specification.',
+          level: 'High',
         },
         {
-          id: "2",
-          name: "TypeScript",
-          description: "A strict syntactical superset of JavaScript.",
-          level: "High",
+          id: '2',
+          name: 'TypeScript',
+          description: 'A strict syntactical superset of JavaScript.',
+          level: 'High',
         },
       ],
-      institutionName: "Institution Name",
-      degree: "Degree",
-      location: "Location",
+      institutionName: 'Institution Name',
+      degree: 'Degree',
+      location: 'Location',
     },
   ];
 
@@ -129,14 +129,14 @@ describe("Records Repository", () => {
     jest.resetAllMocks();
   });
 
-  test("It should not allow an unknown record collection name.", () => {
+  test('It should not allow an unknown record collection name.', () => {
     expect(() => {
-      repository = new RecordsRepository("Work");
-    }).toThrow("Invalid record type provided.");
+      repository = new RecordsRepository('Work');
+    }).toThrow('Invalid record type provided.');
   });
 
-  describe("getAllExperienceRecords", () => {
-    test("It should retrieve all experience records.", async () => {
+  describe('getAllExperienceRecords', () => {
+    test('It should retrieve all experience records.', async () => {
       (getDocs as jest.Mock).mockResolvedValueOnce({
         docs: mockExperienceRecords.map((record) => ({
           id: record.id,
@@ -144,62 +144,62 @@ describe("Records Repository", () => {
         })),
       });
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       const records = await repository.getAllExperienceRecords();
       expect(records.length).toBe(2);
-      expect(records[0].companyName).toBe("Company Name");
-      expect(records[1].title).toBe("Job Title");
+      expect(records[0].companyName).toBe('Company Name');
+      expect(records[1].title).toBe('Job Title');
     });
 
-    test("It should handle errors when mandatory fields are missing.", async () => {
+    test('It should handle errors when mandatory fields are missing.', async () => {
       const incompleteRecords = [
         {
-          id: "1",
-          startDate: Timestamp.fromDate(new Date("2021-01-01")),
-          endDate: Timestamp.fromDate(new Date("2021-12-31")),
-          description: "A description of the experience record.",
+          id: '1',
+          startDate: Timestamp.fromDate(new Date('2021-01-01')),
+          endDate: Timestamp.fromDate(new Date('2021-12-31')),
+          description: 'A description of the experience record.',
           skills: [
             {
-              id: "1",
-              name: "JavaScript",
+              id: '1',
+              name: 'JavaScript',
               description:
-                "A programming language that conforms to the ECMAScript specification.",
-              level: "High",
+                'A programming language that conforms to the ECMAScript specification.',
+              level: 'High',
             },
             {
-              id: "2",
-              name: "TypeScript",
-              description: "A strict syntactical superset of JavaScript.",
-              level: "High",
+              id: '2',
+              name: 'TypeScript',
+              description: 'A strict syntactical superset of JavaScript.',
+              level: 'High',
             },
           ],
-          companyName: "",
-          title: "Job Title",
-          location: "Location",
+          companyName: '',
+          title: 'Job Title',
+          location: 'Location',
         },
         {
-          id: "2",
-          startDate: Timestamp.fromDate(new Date("2021-01-01")),
-          endDate: Timestamp.fromDate(new Date("2021-12-31")),
-          description: "A description of the experience record.",
+          id: '2',
+          startDate: Timestamp.fromDate(new Date('2021-01-01')),
+          endDate: Timestamp.fromDate(new Date('2021-12-31')),
+          description: 'A description of the experience record.',
           skills: [
             {
-              id: "1",
-              name: "JavaScript",
+              id: '1',
+              name: 'JavaScript',
               description:
-                "A programming language that conforms to the ECMAScript specification.",
-              level: "High",
+                'A programming language that conforms to the ECMAScript specification.',
+              level: 'High',
             },
             {
-              id: "2",
-              name: "TypeScript",
-              description: "A strict syntactical superset of JavaScript.",
-              level: "High",
+              id: '2',
+              name: 'TypeScript',
+              description: 'A strict syntactical superset of JavaScript.',
+              level: 'High',
             },
           ],
-          companyName: "Company Name",
-          title: "",
-          location: "Location",
+          companyName: 'Company Name',
+          title: '',
+          location: 'Location',
         },
       ];
 
@@ -210,15 +210,15 @@ describe("Records Repository", () => {
         })),
       });
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       await expect(repository.getAllExperienceRecords()).rejects.toThrow(
-        "Experience record with ID 1 is missing mandatory fields.",
+        'Experience record with ID 1 is missing mandatory fields.',
       );
     });
   });
 
-  describe("getAllEducationalRecords", () => {
-    test("It should retrieve all educational records.", async () => {
+  describe('getAllEducationalRecords', () => {
+    test('It should retrieve all educational records.', async () => {
       (getDocs as jest.Mock).mockResolvedValueOnce({
         docs: mockEducationalRecords.map((record) => ({
           id: record.id,
@@ -226,62 +226,62 @@ describe("Records Repository", () => {
         })),
       });
 
-      repository = new RecordsRepository("education");
+      repository = new RecordsRepository('education');
       const records = await repository.getAllEducationalRecords();
       expect(records.length).toBe(2);
-      expect(records[0].institutionName).toBe("Institution Name");
-      expect(records[1].degree).toBe("Degree");
+      expect(records[0].institutionName).toBe('Institution Name');
+      expect(records[1].degree).toBe('Degree');
     });
 
-    test("It should handle errors when mandatory fields are missing.", async () => {
+    test('It should handle errors when mandatory fields are missing.', async () => {
       const incompleteRecords = [
         {
-          id: "1",
-          startDate: Timestamp.fromDate(new Date("2021-01-01")),
-          endDate: Timestamp.fromDate(new Date("2021-12-31")),
-          description: "A description of the educational record.",
+          id: '1',
+          startDate: Timestamp.fromDate(new Date('2021-01-01')),
+          endDate: Timestamp.fromDate(new Date('2021-12-31')),
+          description: 'A description of the educational record.',
           skills: [
             {
-              id: "1",
-              name: "JavaScript",
+              id: '1',
+              name: 'JavaScript',
               description:
-                "A programming language that conforms to the ECMAScript specification.",
-              level: "High",
+                'A programming language that conforms to the ECMAScript specification.',
+              level: 'High',
             },
             {
-              id: "2",
-              name: "TypeScript",
-              description: "A strict syntactical superset of JavaScript.",
-              level: "High",
+              id: '2',
+              name: 'TypeScript',
+              description: 'A strict syntactical superset of JavaScript.',
+              level: 'High',
             },
           ],
-          institutionName: "",
-          degree: "Degree",
-          location: "Location",
+          institutionName: '',
+          degree: 'Degree',
+          location: 'Location',
         },
         {
-          id: "2",
-          startDate: Timestamp.fromDate(new Date("2021-01-01")),
-          endDate: Timestamp.fromDate(new Date("2021-12-31")),
-          description: "A description of the educational record.",
+          id: '2',
+          startDate: Timestamp.fromDate(new Date('2021-01-01')),
+          endDate: Timestamp.fromDate(new Date('2021-12-31')),
+          description: 'A description of the educational record.',
           skills: [
             {
-              id: "1",
-              name: "JavaScript",
+              id: '1',
+              name: 'JavaScript',
               description:
-                "A programming language that conforms to the ECMAScript specification.",
-              level: "High",
+                'A programming language that conforms to the ECMAScript specification.',
+              level: 'High',
             },
             {
-              id: "2",
-              name: "TypeScript",
-              description: "A strict syntactical superset of JavaScript.",
-              level: "High",
+              id: '2',
+              name: 'TypeScript',
+              description: 'A strict syntactical superset of JavaScript.',
+              level: 'High',
             },
           ],
-          institutionName: "Institution Name",
-          degree: "",
-          location: "Location",
+          institutionName: 'Institution Name',
+          degree: '',
+          location: 'Location',
         },
       ];
 
@@ -292,16 +292,16 @@ describe("Records Repository", () => {
         })),
       });
 
-      repository = new RecordsRepository("education");
+      repository = new RecordsRepository('education');
       await expect(repository.getAllEducationalRecords()).rejects.toThrow(
-        "Educational record with ID 1 is missing mandatory fields.",
+        'Educational record with ID 1 is missing mandatory fields.',
       );
     });
   });
 
-  describe("getExperienceRecordByID", () => {
-    test("It should retrieve an experience record by ID.", async () => {
-      const testID = "1";
+  describe('getExperienceRecordByID', () => {
+    test('It should retrieve an experience record by ID.', async () => {
+      const testID = '1';
 
       (doc as jest.Mock).mockReturnValueOnce(testID);
       (getDoc as jest.Mock).mockResolvedValueOnce({
@@ -310,36 +310,36 @@ describe("Records Repository", () => {
         data: () => mockExperienceRecords[0],
       });
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       const record = await repository.getExperienceRecordByID(testID);
-      expect(record?.companyName).toBe("Company Name");
-      expect(record?.title).toBe("Job Title");
+      expect(record?.companyName).toBe('Company Name');
+      expect(record?.title).toBe('Job Title');
     });
 
-    test("It should return null when the record does not exist.", async () => {
-      const testID = "3";
+    test('It should return null when the record does not exist.', async () => {
+      const testID = '3';
 
       (doc as jest.Mock).mockReturnValueOnce(testID);
       (getDoc as jest.Mock).mockResolvedValueOnce({
         exists: () => false,
       });
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       const record = await repository.getExperienceRecordByID(testID);
       expect(record).toBeNull();
     });
 
-    test("It should handle errors when an invalid ID is provided.", async () => {
-      const testID = "";
+    test('It should handle errors when an invalid ID is provided.', async () => {
+      const testID = '';
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       await expect(repository.getExperienceRecordByID(testID)).rejects.toThrow(
-        "Invalid ID provided. ID must be a non-empty string.",
+        'Invalid ID provided. ID must be a non-empty string.',
       );
     });
 
-    test("It should handle errors when mandatory fields are missing.", async () => {
-      const testID = "2";
+    test('It should handle errors when mandatory fields are missing.', async () => {
+      const testID = '2';
 
       (doc as jest.Mock).mockReturnValueOnce(testID);
       (getDoc as jest.Mock).mockResolvedValueOnce({
@@ -347,40 +347,40 @@ describe("Records Repository", () => {
         id: testID,
         data: () => ({
           id: testID,
-          startDate: Timestamp.fromDate(new Date("2021-01-01")),
-          endDate: Timestamp.fromDate(new Date("2021-12-31")),
-          description: "A description of the experience record.",
+          startDate: Timestamp.fromDate(new Date('2021-01-01')),
+          endDate: Timestamp.fromDate(new Date('2021-12-31')),
+          description: 'A description of the experience record.',
           skills: [
             {
-              id: "1",
-              name: "JavaScript",
+              id: '1',
+              name: 'JavaScript',
               description:
-                "A programming language that conforms to the ECMAScript specification.",
-              level: "High",
+                'A programming language that conforms to the ECMAScript specification.',
+              level: 'High',
             },
             {
-              id: "2",
-              name: "TypeScript",
-              description: "A strict syntactical superset of JavaScript.",
-              level: "High",
+              id: '2',
+              name: 'TypeScript',
+              description: 'A strict syntactical superset of JavaScript.',
+              level: 'High',
             },
           ],
-          companyName: "",
-          title: "Job Title",
-          location: "Location",
+          companyName: '',
+          title: 'Job Title',
+          location: 'Location',
         }),
       });
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       await expect(repository.getExperienceRecordByID(testID)).rejects.toThrow(
-        "Experience record with ID 2 is missing mandatory fields.",
+        'Experience record with ID 2 is missing mandatory fields.',
       );
     });
   });
 
-  describe("getEducationalRecordByID", () => {
-    test("It should retrieve an educational record by ID.", async () => {
-      const testID = "1";
+  describe('getEducationalRecordByID', () => {
+    test('It should retrieve an educational record by ID.', async () => {
+      const testID = '1';
 
       (doc as jest.Mock).mockReturnValueOnce(testID);
       (getDoc as jest.Mock).mockResolvedValueOnce({
@@ -389,36 +389,36 @@ describe("Records Repository", () => {
         data: () => mockEducationalRecords[0],
       });
 
-      repository = new RecordsRepository("education");
+      repository = new RecordsRepository('education');
       const record = await repository.getEducationalRecordByID(testID);
-      expect(record?.institutionName).toBe("Institution Name");
-      expect(record?.degree).toBe("Degree");
+      expect(record?.institutionName).toBe('Institution Name');
+      expect(record?.degree).toBe('Degree');
     });
 
-    test("It should return null when the record does not exist.", async () => {
-      const testID = "3";
+    test('It should return null when the record does not exist.', async () => {
+      const testID = '3';
 
       (doc as jest.Mock).mockReturnValueOnce(testID);
       (getDoc as jest.Mock).mockResolvedValueOnce({
         exists: () => false,
       });
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       const record = await repository.getEducationalRecordByID(testID);
       expect(record).toBeNull();
     });
 
-    test("It should handle errors when an invalid ID is provided.", async () => {
-      const testID = "";
+    test('It should handle errors when an invalid ID is provided.', async () => {
+      const testID = '';
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       await expect(repository.getEducationalRecordByID(testID)).rejects.toThrow(
-        "Invalid ID provided. ID must be a non-empty string.",
+        'Invalid ID provided. ID must be a non-empty string.',
       );
     });
 
-    test("It should handle errors when mandatory fields are missing.", async () => {
-      const testID = "2";
+    test('It should handle errors when mandatory fields are missing.', async () => {
+      const testID = '2';
 
       (doc as jest.Mock).mockReturnValueOnce(testID);
       (getDoc as jest.Mock).mockResolvedValueOnce({
@@ -426,33 +426,33 @@ describe("Records Repository", () => {
         id: testID,
         data: () => ({
           id: testID,
-          startDate: Timestamp.fromDate(new Date("2021-01-01")),
-          endDate: Timestamp.fromDate(new Date("2021-12-31")),
-          description: "A description of the educational record.",
+          startDate: Timestamp.fromDate(new Date('2021-01-01')),
+          endDate: Timestamp.fromDate(new Date('2021-12-31')),
+          description: 'A description of the educational record.',
           skills: [
             {
-              id: "1",
-              name: "JavaScript",
+              id: '1',
+              name: 'JavaScript',
               description:
-                "A programming language that conforms to the ECMAScript specification.",
-              level: "High",
+                'A programming language that conforms to the ECMAScript specification.',
+              level: 'High',
             },
             {
-              id: "2",
-              name: "TypeScript",
-              description: "A strict syntactical superset of JavaScript.",
-              level: "High",
+              id: '2',
+              name: 'TypeScript',
+              description: 'A strict syntactical superset of JavaScript.',
+              level: 'High',
             },
           ],
-          institutionName: "",
-          degree: "Degree",
-          location: "Location",
+          institutionName: '',
+          degree: 'Degree',
+          location: 'Location',
         }),
       });
 
-      repository = new RecordsRepository("experience");
+      repository = new RecordsRepository('experience');
       await expect(repository.getEducationalRecordByID(testID)).rejects.toThrow(
-        "Educational record with ID 2 is missing mandatory fields.",
+        'Educational record with ID 2 is missing mandatory fields.',
       );
     });
   });

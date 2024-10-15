@@ -1,12 +1,12 @@
-import SkillsFiller from "../../../lib/services/utils/SkillsFiller";
-import SkillsRepository from "../../../lib/repositories/SkillsRepository";
-import Skills from "../../../lib/entities/Skills";
-import { KnowledgeLevelEnumerations } from "../../../lib/constants/enumerations/KnowledgeLevelsEnumerations";
-import Projects from "../../../lib/entities/Projects";
+import SkillsFiller from '../../lib/utils/SkillsFiller';
+import SkillsRepository from '../../lib/repositories/SkillsRepository';
+import Skills from '../../lib/entities/Skills';
+import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
+import Projects from '../../lib/entities/Projects';
 
-jest.mock("../../../lib/repositories/SkillsRepository");
+jest.mock('../../lib/repositories/SkillsRepository');
 
-describe("SkillsFiller", () => {
+describe('SkillsFiller', () => {
   let skillsFiller: SkillsFiller<Projects>;
   let mockSkillsRepository: jest.Mocked<SkillsRepository>;
 
@@ -21,45 +21,45 @@ describe("SkillsFiller", () => {
   });
   const mockProjects = [
     new Projects(
-      "1",
-      "Project 1",
-      new Date("2021-01-01"),
-      new Date("2021-01-02"),
-      "Description of Project 1",
-      "url1",
+      '1',
+      'Project 1',
+      new Date('2021-01-01'),
+      new Date('2021-01-02'),
+      'Description of Project 1',
+      'url1',
       [
         new Skills(
-          "1",
-          "TypeScript",
-          "Strong in TypeScript",
+          '1',
+          'TypeScript',
+          'Strong in TypeScript',
           KnowledgeLevelEnumerations.High,
         ),
         new Skills(
-          "2",
-          "JavaScript",
-          "Experienced in JavaScript",
+          '2',
+          'JavaScript',
+          'Experienced in JavaScript',
           KnowledgeLevelEnumerations.Mid,
         ),
       ],
     ),
     new Projects(
-      "2",
-      "Project 2",
-      new Date("2021-01-01"),
-      new Date("2021-01-02"),
-      "Description of Project 2",
-      "url2",
+      '2',
+      'Project 2',
+      new Date('2021-01-01'),
+      new Date('2021-01-02'),
+      'Description of Project 2',
+      'url2',
       [
         new Skills(
-          "1",
-          "TypeScript",
-          "Strong in TypeScript",
+          '1',
+          'TypeScript',
+          'Strong in TypeScript',
           KnowledgeLevelEnumerations.High,
         ),
         new Skills(
-          "2",
-          "JavaScript",
-          "Experienced in JavaScript",
+          '2',
+          'JavaScript',
+          'Experienced in JavaScript',
           KnowledgeLevelEnumerations.Mid,
         ),
       ],
@@ -74,7 +74,7 @@ describe("SkillsFiller", () => {
       _endDate: mockProjects[0].endDate,
       _description: mockProjects[0].description,
       _url: mockProjects[0].url,
-    } as Omit<Projects, "skills">,
+    } as Omit<Projects, 'skills'>,
     {
       _id: mockProjects[1].id,
       _name: mockProjects[1].name,
@@ -82,27 +82,27 @@ describe("SkillsFiller", () => {
       _endDate: mockProjects[1].endDate,
       _description: mockProjects[1].description,
       _url: mockProjects[1].url,
-    } as Omit<Projects, "skills">,
+    } as Omit<Projects, 'skills'>,
   ];
 
-  describe("getObjectWithSkills", () => {
-    test("it should return an object with skills when object data is provided", async () => {
+  describe('getObjectWithSkills', () => {
+    test('it should return an object with skills when object data is provided', async () => {
       const mockSkills = [
         new Skills(
-          "1",
-          "TypeScript",
-          "Strong in TypeScript",
+          '1',
+          'TypeScript',
+          'Strong in TypeScript',
           KnowledgeLevelEnumerations.High,
         ),
         new Skills(
-          "2",
-          "JavaScript",
-          "Experienced in JavaScript",
+          '2',
+          'JavaScript',
+          'Experienced in JavaScript',
           KnowledgeLevelEnumerations.Mid,
         ),
       ];
 
-      mockSkillsRepository.getSkillsByID = jest
+      mockSkillsRepository.getSkillsByIDs = jest
         .fn()
         .mockResolvedValue(mockSkills);
 
@@ -113,38 +113,38 @@ describe("SkillsFiller", () => {
       });
     });
 
-    it("should return null when objectData is null", async () => {
+    it('should return null when objectData is null', async () => {
       const result = await skillsFiller.getObjectWithSkills(null);
 
       expect(result).toBeNull();
     });
   });
 
-  describe("getObjectsWithSkills", () => {
-    it("should return an array of objects with skills when objects are provided", async () => {
+  describe('getObjectsWithSkills', () => {
+    it('should return an array of objects with skills when objects are provided', async () => {
       const mockSkills1 = [
         new Skills(
-          "1",
-          "TypeScript",
-          "Strong in TypeScript",
+          '1',
+          'TypeScript',
+          'Strong in TypeScript',
           KnowledgeLevelEnumerations.High,
         ),
         new Skills(
-          "2",
-          "JavaScript",
-          "Experienced in JavaScript",
+          '2',
+          'JavaScript',
+          'Experienced in JavaScript',
           KnowledgeLevelEnumerations.Mid,
         ),
       ];
       const mockSkills2 = [
         new Skills(
-          "3",
-          "Java",
-          "Strong in Java",
+          '3',
+          'Java',
+          'Strong in Java',
           KnowledgeLevelEnumerations.High,
         ),
       ];
-      mockSkillsRepository.getSkillsByID = jest
+      mockSkillsRepository.getSkillsByIDs = jest
         .fn()
         .mockImplementation((ids) => {
           if (ids.includes(1) || ids.includes(2))
@@ -161,7 +161,7 @@ describe("SkillsFiller", () => {
       ]);
     });
 
-    it("should return null when objects are null or empty", async () => {
+    it('should return null when objects are null or empty', async () => {
       const result1 = await skillsFiller.getObjectsWithSkills(null);
       const result2 = await skillsFiller.getObjectsWithSkills([]);
 

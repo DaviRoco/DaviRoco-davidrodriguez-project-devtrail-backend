@@ -1,5 +1,5 @@
 export enum KnowledgeLevelEnumerations {
-  Low = "Basic understanding of coding concepts",
-  Mid = "Proficient in intermediate coding skills",
-  High = "Advanced proficiency in coding",
+  Low = 'Basic understanding of concepts and fundamentals',
+  Mid = 'Proficient with intermediate skills and practical application',
+  High = 'Advanced expertise with deep knowledge and experience',
 }

@@ -1,13 +1,13 @@
-import SkillsRepository from "../../lib/repositories/SkillsRepository";
-import { KnowledgeLevelEnumerations } from "../../lib/constants/enumerations/KnowledgeLevelsEnumerations";
-import { getDocs, getDoc } from "firebase/firestore";
-import Skills from "../../lib/entities/Skills";
+import SkillsRepository from '../../lib/repositories/SkillsRepository';
+import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
+import { getDocs, getDoc } from 'firebase/firestore';
+import Skills from '../../lib/entities/Skills';
 
-jest.mock("firebase/firestore", () => ({
+jest.mock('firebase/firestore', () => ({
   initializeApp: jest.fn(),
 }));
 
-jest.mock("firebase/firestore", () => ({
+jest.mock('firebase/firestore', () => ({
   getFirestore: jest.fn(),
   collection: jest.fn(),
   getDocs: jest.fn(),
@@ -17,21 +17,21 @@ jest.mock("firebase/firestore", () => ({
   doc: jest.fn(),
 }));
 
-describe("Skills Repository", () => {
+describe('Skills Repository', () => {
   let repository: SkillsRepository;
 
   const mockSkills = [
     {
-      id: "1",
-      name: "JavaScript",
+      id: '1',
+      name: 'JavaScript',
       description:
-        "A programming language that conforms to the ECMAScript specification.",
+        'A programming language that conforms to the ECMAScript specification.',
       level: KnowledgeLevelEnumerations.High,
     },
     {
-      id: "2",
-      name: "TypeScript",
-      description: "A strict syntactical superset of JavaScript.",
+      id: '2',
+      name: 'TypeScript',
+      description: 'A strict syntactical superset of JavaScript.',
       level: KnowledgeLevelEnumerations.High,
     },
   ];
@@ -41,8 +41,8 @@ describe("Skills Repository", () => {
     jest.resetAllMocks();
   });
 
-  describe("getSkills", () => {
-    test("It should retrieve all skills.", async () => {
+  describe('getSkills', () => {
+    test('It should retrieve all skills.', async () => {
       (getDocs as jest.Mock).mockResolvedValueOnce({
         docs: mockSkills.map((skill) => ({
           id: skill.id,
@@ -51,23 +51,26 @@ describe("Skills Repository", () => {
       });
 
       const skills = await repository.getAllSkills();
-      expect(skills.length).toBe(2);
-      expect(skills[0].name).toBe("JavaScript");
-      expect(skills[1].name).toBe("TypeScript");
+      expect(skills?.length).toBe(2);
+
+      if (skills) {
+        expect(skills[0].name).toBe('JavaScript');
+        expect(skills[1].name).toBe('TypeScript');
+      }
     });
 
-    test("It should handle errors when mandatory fields are missing.", async () => {
+    test('It should handle errors when mandatory fields are missing.', async () => {
       const incompleteSkills = [
         {
-          id: "1",
-          name: "",
-          description: "Programming Language",
+          id: '1',
+          name: '',
+          description: 'Programming Language',
           level: KnowledgeLevelEnumerations.High,
         },
         {
-          id: "",
-          name: "C#",
-          description: "Programming Language",
+          id: '',
+          name: 'C#',
+          description: 'Programming Language',
           level: KnowledgeLevelEnumerations.High,
         },
       ];
@@ -80,22 +83,32 @@ describe("Skills Repository", () => {
       });
 
       await expect(repository.getAllSkills()).rejects.toThrow(
-        new Error("Skill with ID 1 is missing mandatory fields."),
+        new Error('Skill with ID 1 is missing mandatory fields.'),
       );
+    });
+
+    test('It should handle errors when no skills are available.', async () => {
+      (getDocs as jest.Mock).mockResolvedValueOnce({
+        empty: true,
+        docs: [],
+      });
+
+      const skills = await repository.getAllSkills();
+      expect(skills).toBeNull();
     });
   });
 
-  describe("getSkillsByName", () => {
-    test("It should retrieve the skill with the specified name.", async () => {
-      const testName = "C#";
+  describe('getSkillByName', () => {
+    test('It should retrieve the skill with the specified name.', async () => {
+      const testName = 'C#';
       (getDocs as jest.Mock).mockResolvedValueOnce({
         docs: [
           {
-            id: "2",
+            id: '2',
             data: () => ({
-              id: "2",
-              name: "C#",
-              description: "Programming Language",
+              id: '2',
+              name: 'C#',
+              description: 'Programming Language',
               level: KnowledgeLevelEnumerations.Mid,
             }),
           },
@@ -104,31 +117,31 @@ describe("Skills Repository", () => {
 
       const skill = await repository.getSkillByName(testName);
       expect(skill).toBeDefined();
-      expect(skill?.name).toBe("C#");
+      expect(skill?.name).toBe('C#');
     });
 
-    test("It should handle errors when name is a non-empty string", async () => {
+    test('It should handle errors when name is a non-empty string', async () => {
       (getDocs as jest.Mock).mockResolvedValueOnce({
         docs: [
           {
-            id: "2",
+            id: '2',
             data: () => ({
-              id: "2",
-              name: "C#",
-              description: "Programming Language",
+              id: '2',
+              name: 'C#',
+              description: 'Programming Language',
               level: KnowledgeLevelEnumerations.Mid,
             }),
           },
         ],
       });
 
-      await expect(repository.getSkillByName("")).rejects.toThrow(
-        new Error("Invalid name provided. Name must be a non-empty string."),
+      await expect(repository.getSkillByName('')).rejects.toThrow(
+        new Error('Invalid name provided. Name must be a non-empty string.'),
       );
     });
 
-    test("It should retrieve no skills when the name does not match any available skills", async () => {
-      const testName = "Java";
+    test('It should retrieve no skills when the name does not match any available skills', async () => {
+      const testName = 'Java';
       (getDocs as jest.Mock).mockResolvedValueOnce({
         empty: true,
         docs: [],
@@ -138,38 +151,38 @@ describe("Skills Repository", () => {
       expect(skill).toBeNull();
     });
 
-    test("It should handle errors when mandatory fields are missing.", async () => {
-      const testName = "C#";
+    test('It should handle errors when mandatory fields are missing.', async () => {
+      const testName = 'C#';
       (getDocs as jest.Mock).mockResolvedValueOnce({
         docs: [
           {
-            id: "2",
+            id: '2',
             data: () => ({
-              id: "2",
-              name: "C#",
-              description: "Programming Language",
-              level: "",
+              id: '2',
+              name: 'C#',
+              description: 'Programming Language',
+              level: '',
             }),
           },
         ],
       });
 
       await expect(repository.getSkillByName(testName)).rejects.toThrow(
-        new Error(`Skill with name ${testName} is missing mandatory fields.`),
+        new Error(`Skill with ID 2 is missing mandatory fields.`),
       );
     });
   });
 
-  describe("getSkillsByID", () => {
-    test("It should retrieve the skill with the specified ID.", async () => {
-      const testID = "2";
+  describe('getSkillByID', () => {
+    test('It should retrieve the skill with the specified ID.', async () => {
+      const testID = '2';
       (getDoc as jest.Mock).mockResolvedValueOnce({
         exists: () => true,
-        id: "2",
+        id: '2',
         data: () => ({
-          id: "2",
-          name: "C#",
-          description: "Programming Language",
+          id: '2',
+          name: 'C#',
+          description: 'Programming Language',
           level: KnowledgeLevelEnumerations.Mid,
         }),
       });
@@ -177,33 +190,33 @@ describe("Skills Repository", () => {
       const skill = await repository.getSkillByID(testID);
 
       expect(skill).toBeDefined();
-      expect(skill?.name).toBe("C#");
-      expect(skill?.description).toBe("Programming Language");
+      expect(skill?.name).toBe('C#');
+      expect(skill?.description).toBe('Programming Language');
       expect(skill?.level).toBe(KnowledgeLevelEnumerations.Mid);
     });
 
-    test("It should handle errors when ID is a non-empty string", async () => {
+    test('It should handle errors when ID is a non-empty string', async () => {
       (getDoc as jest.Mock).mockResolvedValueOnce({
         exists: () => true,
-        id: "2",
+        id: '2',
         data: () => ({
-          id: "2",
-          name: "C#",
-          description: "Programming Language",
+          id: '2',
+          name: 'C#',
+          description: 'Programming Language',
           level: KnowledgeLevelEnumerations.Mid,
         }),
       });
 
-      await expect(repository.getSkillByID("")).rejects.toThrow(
-        new Error("Invalid ID provided. ID must be a non-empty string."),
+      await expect(repository.getSkillByID('')).rejects.toThrow(
+        new Error('Invalid ID provided. ID must be a non-empty string.'),
       );
     });
 
-    test("It should retrieve no skills when the name does not match any available skills", async () => {
-      const testID = "3";
+    test('It should retrieve no skills when the name does not match any available skills', async () => {
+      const testID = '3';
       (getDoc as jest.Mock).mockResolvedValueOnce({
         exists: () => false,
-        id: "",
+        id: '',
         data: () => ({}),
       });
 
@@ -211,16 +224,16 @@ describe("Skills Repository", () => {
       expect(skill).toBeNull();
     });
 
-    test("It should handle errors when mandatory fields are missing.", async () => {
-      const testID = "2";
+    test('It should handle errors when mandatory fields are missing.', async () => {
+      const testID = '2';
       (getDoc as jest.Mock).mockResolvedValueOnce({
         exists: () => true,
-        id: "2",
+        id: '2',
         data: () => ({
-          id: "2",
-          name: "",
-          description: "Programming Language",
-          level: "",
+          id: '2',
+          name: '',
+          description: 'Programming Language',
+          level: '',
         }),
       });
 
@@ -230,54 +243,54 @@ describe("Skills Repository", () => {
     });
   });
 
-  describe("getSkillsByID", () => {
+  describe('getSkillByID', () => {
     const testSkillIDs = [
       new Skills(
-        "1",
-        "JavaScript",
-        "A programming language that conforms to the ECMAScript specification.",
+        '1',
+        'JavaScript',
+        'A programming language that conforms to the ECMAScript specification.',
         KnowledgeLevelEnumerations.High,
       ),
       new Skills(
-        "2",
-        "TypeScript",
-        "A strict syntactical superset of JavaScript.",
+        '2',
+        'TypeScript',
+        'A strict syntactical superset of JavaScript.',
         KnowledgeLevelEnumerations.High,
       ),
     ];
-    test("It should retrieve the skills with the specified IDs.", async () => {
+    test('It should retrieve the skills with the specified IDs.', async () => {
       (getDocs as jest.Mock).mockResolvedValueOnce(
         testSkillIDs.map((skill) => ({
           id: skill.id,
           data: () => skill,
         })),
       );
-      const skills = await repository.getSkillsByID(testSkillIDs);
+      const skills = await repository.getSkillsByIDs(testSkillIDs);
 
       expect(skills.length).toBe(2);
-      expect(skills[0].name).toBe("JavaScript");
-      expect(skills[1].name).toBe("TypeScript");
+      expect(skills[0].name).toBe('JavaScript');
+      expect(skills[1].name).toBe('TypeScript');
     });
 
-    test("It should handle errors when IDs are non-empty strings.", async () => {
+    test('It should handle errors when IDs are non-empty strings.', async () => {
       const invalidTestIDs = [
         new Skills(
-          "",
-          "JavaScript",
-          "A programming language that conforms to the ECMAScript specification.",
+          '',
+          'JavaScript',
+          'A programming language that conforms to the ECMAScript specification.',
           KnowledgeLevelEnumerations.High,
         ),
         new Skills(
-          "",
-          "TypeScript",
-          "A strict syntactical superset of JavaScript.",
+          '',
+          'TypeScript',
+          'A strict syntactical superset of JavaScript.',
           KnowledgeLevelEnumerations.High,
         ),
       ];
       (getDocs as jest.Mock).mockResolvedValueOnce(null);
 
-      await expect(repository.getSkillsByID(invalidTestIDs)).rejects.toThrow(
-        new Error("Skills are non-existent."),
+      await expect(repository.getSkillsByIDs(invalidTestIDs)).rejects.toThrow(
+        new Error('Skills are non-existent.'),
       );
     });
   });

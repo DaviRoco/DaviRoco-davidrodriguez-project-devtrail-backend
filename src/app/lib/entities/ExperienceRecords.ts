@@ -1,5 +1,5 @@
-import Records from "./Records";
-import Skills from "./Skills";
+import Records from './Records';
+import Skills from './Skills';
 /**
  * Represents an experience record with its details.
  *

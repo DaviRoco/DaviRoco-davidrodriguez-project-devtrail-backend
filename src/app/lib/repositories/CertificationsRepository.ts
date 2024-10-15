@@ -1,4 +1,4 @@
-import { db } from "../../firebase";
+import { db } from '../../firebase';
 import {
   collection,
   getDocs,
@@ -6,10 +6,11 @@ import {
   getDoc,
   where,
   query,
-} from "firebase/firestore";
-import Certifications from "../entities/Certifications";
+  DocumentData,
+} from 'firebase/firestore';
+import Certifications from '../entities/Certifications';
 
-const certificationsCollection = collection(db, "certifications");
+const certificationsCollection = collection(db, 'certifications');
 
 /**
  * The `CertificationsRepository` class provides methods to interact with the certifications collection.
@@ -21,49 +22,48 @@ const certificationsCollection = collection(db, "certifications");
  * @method getCertificationsByInstitution - Retrieves a certification by its institution from the certifications collection.
  * @method getCertificationsByID - Retrieves a certification by its ID from the certifications collection.
  */
-export class CertificationsRepository {
+class CertificationsRepository {
+  private validateAndMapCertification(
+    docData: DocumentData,
+    id: string,
+  ): Certifications {
+    const { name, institution, date, credentialID, url, skills } = docData;
+
+    if (!name || !institution || !date || !credentialID || !url || !skills) {
+      throw new Error(
+        `Certification with ID ${id} is missing mandatory fields.`,
+      );
+    }
+
+    return new Certifications(
+      id,
+      name,
+      institution,
+      date.toDate(),
+      credentialID,
+      url,
+      skills,
+    );
+  }
+
   async getAllCertifications(): Promise<Certifications[]> {
     const certificationsSnapshot = await getDocs(certificationsCollection);
-    const certifications = certificationsSnapshot.docs.map((doc) => {
-      const data = doc.data();
 
-      if (
-        !data.name ||
-        !data.institution ||
-        !data.date ||
-        !data.credentialID ||
-        !data.url ||
-        !data.skills
-      ) {
-        throw new Error(
-          `Certification with ID ${doc.id} is missing mandatory fields.`,
-        );
-      }
-
-      return new Certifications(
-        doc.id,
-        data.name,
-        data.institution,
-        data.date.toDate(),
-        data.credentialID,
-        data.url,
-        data.skills,
-      );
-    });
-
-    return certifications;
+    return certificationsSnapshot.docs.map((doc) =>
+      this.validateAndMapCertification(doc.data(), doc.id),
+    );
   }
 
   async getCertificationsByName(name: string): Promise<Certifications | null> {
-    if (!name || typeof name !== "string") {
+    if (!name || typeof name !== 'string') {
       throw new Error(
-        "Invalid name provided. Name must be a non-empty string.",
+        'Invalid name provided. Name must be a non-empty string.',
       );
     }
 
     const certificationMatchingName = query(
       certificationsCollection,
-      where("name", "==", name),
+      where('name', '==', name),
     );
 
     const querySnapshot = await getDocs(certificationMatchingName);
@@ -72,33 +72,24 @@ export class CertificationsRepository {
       return null;
     }
 
-    const doc = querySnapshot.docs[0];
-
-    const data = doc.data();
-
-    return new Certifications(
-      doc.id,
-      data.name,
-      data.institution,
-      data.date.toDate(),
-      data.credentialID,
-      data.url,
-      data.skills,
+    return this.validateAndMapCertification(
+      querySnapshot.docs[0].data(),
+      querySnapshot.docs[0].id,
     );
   }
 
   async getCertificationsByInstitution(
     institution: string,
   ): Promise<Certifications | null> {
-    if (!institution || typeof institution !== "string") {
+    if (!institution || typeof institution !== 'string') {
       throw new Error(
-        "Invalid institution provided. Institution must be a non-empty string.",
+        'Invalid institution provided. Institution must be a non-empty string.',
       );
     }
 
     const certificationMatchingInstitution = query(
       certificationsCollection,
-      where("institution", "==", institution),
+      where('institution', '==', institution),
     );
 
     const querySnapshot = await getDocs(certificationMatchingInstitution);
@@ -107,24 +98,15 @@ export class CertificationsRepository {
       return null;
     }
 
-    const doc = querySnapshot.docs[0];
-
-    const data = doc.data();
-
-    return new Certifications(
-      doc.id,
-      data.name,
-      data.institution,
-      data.date.toDate(),
-      data.credentialID,
-      data.url,
-      data.skills,
+    return this.validateAndMapCertification(
+      querySnapshot.docs[0].data(),
+      querySnapshot.docs[0].id,
     );
   }
 
   async getCertificationsByID(id: string): Promise<Certifications | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const certification = doc(certificationsCollection, id);
@@ -134,29 +116,11 @@ export class CertificationsRepository {
       return null;
     }
 
-    const data = certificationSnapshot.data();
-
-    if (
-      !data.name ||
-      !data.institution ||
-      !data.date ||
-      !data.credentialID ||
-      !data.url ||
-      !data.skills
-    ) {
-      throw new Error(
-        `Certification with ID ${id} is missing mandatory fields.`,
-      );
-    }
-
-    return new Certifications(
+    return this.validateAndMapCertification(
+      certificationSnapshot.data(),
       certificationSnapshot.id,
-      data.name,
-      data.institution,
-      data.date.toDate(),
-      data.credentialID,
-      data.url,
-      data.skills,
     );
   }
 }
+
+export default CertificationsRepository;

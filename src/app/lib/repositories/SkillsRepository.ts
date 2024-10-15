@@ -1,4 +1,4 @@
-import { db } from "../../firebase";
+import { db } from '../../firebase';
 import {
   collection,
   getDocs,
@@ -6,43 +6,51 @@ import {
   getDoc,
   where,
   query,
-} from "firebase/firestore";
-import Skills from "../entities/Skills";
-import { KnowledgeLevelEnumerations } from "../constants/enumerations/KnowledgeLevelsEnumerations";
+  DocumentData,
+} from 'firebase/firestore';
+import Skills from '../entities/Skills';
+import { KnowledgeLevelEnumerations } from '../constants/enumerations/KnowledgeLevelsEnumerations';
 
-const skillsCollection = collection(db, "skills");
+const skillsCollection = collection(db, 'skills');
 
-export class SkillsRepository {
-  async getAllSkills(): Promise<Skills[]> {
+class SkillsRepository {
+  private validateAndMapSkill(docData: DocumentData, id: string): Skills {
+    const { name, description, level } = docData;
+
+    if (!name || !description || !level) {
+      throw new Error(`Skill with ID ${id} is missing mandatory fields.`);
+    }
+
+    return new Skills(
+      id,
+      name,
+      description,
+      level as KnowledgeLevelEnumerations,
+    );
+  }
+
+  async getAllSkills(): Promise<Skills[] | null> {
     const skillsSnapshot = await getDocs(skillsCollection);
-    const skills = skillsSnapshot.docs.map((doc) => {
-      const data = doc.data();
 
-      if (!data.name || !data.level || !data.description) {
-        throw new Error(`Skill with ID ${doc.id} is missing mandatory fields.`);
-      }
+    if (skillsSnapshot.empty) {
+      return null;
+    }
 
-      return new Skills(
-        doc.id,
-        data.name,
-        data.description,
-        data.level as KnowledgeLevelEnumerations,
-      );
-    });
-
-    return skills;
+    return skillsSnapshot.docs.map((doc) =>
+      this.validateAndMapSkill(doc.data(), doc.id),
+    );
   }
 
   async getSkillByName(name: string): Promise<Skills | null> {
-    if (!name || typeof name !== "string") {
+    if (!name || typeof name !== 'string') {
       throw new Error(
-        "Invalid name provided. Name must be a non-empty string.",
+        'Invalid name provided. Name must be a non-empty string.',
       );
     }
 
     const skillMatchingName = query(
       skillsCollection,
-      where("name", "==", name),
+      where('name', '==', name),
     );
     const querySnapshot = await getDocs(skillMatchingName);
 
@@ -51,25 +59,13 @@ export class SkillsRepository {
     }
 
     const docSnapshot = querySnapshot.docs[0];
-    const docData = docSnapshot.data();
 
-    if (!docData.name || !docData.level || !docData.description) {
-      throw new Error(`Skill with name ${name} is missing mandatory fields.`);
-    }
-
-    const skill = new Skills(
-      docSnapshot.id,
-      docData.name,
-      docData.description,
-      docData.level as KnowledgeLevelEnumerations,
-    );
-
-    return skill;
+    return this.validateAndMapSkill(docSnapshot.data(), docSnapshot.id);
   }
 
   async getSkillByID(id: string): Promise<Skills | null> {
-    if (!id || typeof id !== "string") {
-      throw new Error("Invalid ID provided. ID must be a non-empty string.");
+    if (!id || typeof id !== 'string') {
+      throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }
 
     const skillDoc = doc(skillsCollection, id);
@@ -79,26 +75,13 @@ export class SkillsRepository {
       return null;
     }
 
-    const docData = docSnapshot.data();
-
-    if (!docData.name || !docData.level || !docData.description) {
-      throw new Error(`Skill with ID ${id} is missing mandatory fields.`);
-    }
-
-    const skill = new Skills(
-      docSnapshot.id,
-      docData.name,
-      docData.description,
-      docData.level as KnowledgeLevelEnumerations,
-    );
-
-    return skill;
+    return this.validateAndMapSkill(docSnapshot.data(), docSnapshot.id);
   }
 
-  async getSkillsByID(ids: Skills[]): Promise<Skills[]> {
+  async getSkillsByIDs(ids: Skills[]): Promise<Skills[]> {
     const skills: Skills[] = [];
 
-    const q = query(skillsCollection, where("__name__", "in", ids));
+    const q = query(skillsCollection, where('__name__', 'in', ids));
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot) {
@@ -106,15 +89,7 @@ export class SkillsRepository {
     }
 
     querySnapshot.forEach((doc) => {
-      const skillData = doc.data();
-      skills.push(
-        new Skills(
-          doc.id,
-          skillData.name,
-          skillData.description,
-          skillData.level,
-        ),
-      );
+      skills.push(this.validateAndMapSkill(doc.data(), doc.id));
     });
 
     return skills;

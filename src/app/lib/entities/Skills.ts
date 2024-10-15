@@ -1,4 +1,4 @@
-import { KnowledgeLevelEnumerations } from "../constants/enumerations/KnowledgeLevelsEnumerations";
+import { KnowledgeLevelEnumerations } from '../constants/enumerations/KnowledgeLevelsEnumerations';
 
 /**
  * Represents a skill with its details.

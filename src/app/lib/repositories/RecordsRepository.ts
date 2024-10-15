@@ -1,5 +1,11 @@
 import { db } from '../../firebase';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  DocumentData,
+} from 'firebase/firestore';
 import ExperienceRecords from '../entities/ExperienceRecords';
 import EducationalRecords from '../entities/EducationalRecords';
 import { CollectionReference } from 'firebase/firestore';
@@ -34,71 +40,99 @@ class RecordsRepository {
     }
   }
 
+  private validateAndMapExperienceRecord(
+    docData: DocumentData,
+    id: string,
+  ): ExperienceRecords {
+    const {
+      startDate,
+      endDate,
+      description,
+      skills,
+      companyName,
+      title,
+      location,
+    } = docData;
+
+    if (
+      !startDate ||
+      !endDate ||
+      !description ||
+      !skills ||
+      !companyName ||
+      !title ||
+      !location
+    ) {
+      throw new Error(
+        `Experience record with ID ${id} is missing mandatory fields.`,
+      );
+    }
+
+    return new ExperienceRecords(
+      id,
+      startDate.toDate(),
+      endDate.toDate(),
+      description,
+      skills,
+      companyName,
+      title,
+      location,
+    );
+  }
+
+  private validateAndMapEducationalRecord(
+    docData: DocumentData,
+    id: string,
+  ): EducationalRecords {
+    const {
+      startDate,
+      endDate,
+      description,
+      skills,
+      institutionName,
+      degree,
+      location,
+    } = docData;
+
+    if (
+      !startDate ||
+      !endDate ||
+      !description ||
+      !skills ||
+      !institutionName ||
+      !degree
+    ) {
+      throw new Error(
+        `Educational record with ID ${id} is missing mandatory fields.`,
+      );
+    }
+
+    return new EducationalRecords(
+      id,
+      startDate.toDate(),
+      endDate.toDate(),
+      description,
+      skills,
+      institutionName,
+      degree,
+      location,
+    );
+  }
+
   async getAllExperienceRecords(): Promise<ExperienceRecords[]> {
     const recordsSnapshot = await getDocs(this.recordsCollection);
-    const records = recordsSnapshot.docs.map((doc) => {
-      const data = doc.data();
 
-      if (
-        !data.startDate ||
-        !data.endDate ||
-        !data.description ||
-        !data.skills ||
-        !data.companyName ||
-        !data.title ||
-        !data.location
-      ) {
-        throw new Error(
-          `Experience record with ID ${doc.id} is missing mandatory fields.`,
-        );
-      }
-
-      return new ExperienceRecords(
-        doc.id,
-        data.startDate.toDate(),
-        data.endDate.toDate(),
-        data.description,
-        data.skills,
-        data.companyName,
-        data.title,
-        data.location,
-      );
-    });
-
-    return records;
+    return recordsSnapshot.docs.map((doc) =>
+      this.validateAndMapExperienceRecord(doc.data(), doc.id),
+    );
   }
 
   async getAllEducationalRecords(): Promise<EducationalRecords[]> {
     const recordsSnapshot = await getDocs(this.recordsCollection);
-    const records = recordsSnapshot.docs.map((doc) => {
-      const data = doc.data();
 
-      if (
-        !data.startDate ||
-        !data.endDate ||
-        !data.description ||
-        !data.skills ||
-        !data.institutionName ||
-        !data.degree
-      ) {
-        throw new Error(
-          `Educational record with ID ${doc.id} is missing mandatory fields.`,
-        );
-      }
-
-      return new EducationalRecords(
-        doc.id,
-        data.startDate.toDate(),
-        data.endDate.toDate(),
-        data.description,
-        data.skills,
-        data.institutionName,
-        data.degree,
-        data.location,
-      );
-    });
-
-    return records;
+    return recordsSnapshot.docs.map((doc) =>
+      this.validateAndMapEducationalRecord(doc.data(), doc.id),
+    );
   }
 
   async getExperienceRecordByID(id: string): Promise<ExperienceRecords | null> {
@@ -113,31 +147,9 @@ class RecordsRepository {
       return null;
     }
 
-    const data = recordSnapshot.data();
-
-    if (
-      !data.startDate ||
-      !data.endDate ||
-      !data.description ||
-      !data.skills ||
-      !data.companyName ||
-      !data.title ||
-      !data.location
-    ) {
-      throw new Error(
-        `Experience record with ID ${id} is missing mandatory fields.`,
-      );
-    }
-
-    return new ExperienceRecords(
+    return this.validateAndMapExperienceRecord(
+      recordSnapshot.data(),
       recordSnapshot.id,
-      data.startDate.toDate(),
-      data.endDate.toDate(),
-      data.description,
-      data.skills,
-      data.companyName,
-      data.title,
-      data.location,
     );
   }
 
@@ -155,30 +167,9 @@ class RecordsRepository {
       return null;
     }
 
-    const data = recordSnapshot.data();
-
-    if (
-      !data.startDate ||
-      !data.endDate ||
-      !data.description ||
-      !data.skills ||
-      !data.institutionName ||
-      !data.degree
-    ) {
-      throw new Error(
-        `Educational record with ID ${id} is missing mandatory fields.`,
-      );
-    }
-
-    return new EducationalRecords(
+    return this.validateAndMapEducationalRecord(
+      recordSnapshot.data(),
       recordSnapshot.id,
-      data.startDate.toDate(),
-      data.endDate.toDate(),
-      data.description,
-      data.skills,
-      data.institutionName,
-      data.degree,
-      data.location,
     );
   }
 }

@@ -92,7 +92,7 @@ describe('Certifications Service', () => {
 
   describe('getAllCertifications', () => {
     test('It should return all certifications when repository returns certifications', async () => {
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -123,7 +123,7 @@ describe('Certifications Service', () => {
   describe('getCertificationByName', () => {
     test('It should return the certification when the repository returns it by name', async () => {
       const testName = 'Certification 1';
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -155,7 +155,7 @@ describe('Certifications Service', () => {
   describe('getCertificationsByInstitution', () => {
     test('It should return the certification when the repository returns it by institution', async () => {
       const testInstitution = 'Institution 2';
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -189,7 +189,7 @@ describe('Certifications Service', () => {
   describe('getCertificationByID', () => {
     test('It should return the certification when the repository returns it by ID', async () => {
       const testID = '2';
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',

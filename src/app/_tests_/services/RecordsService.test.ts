@@ -167,7 +167,7 @@ describe('Records Service', () => {
       ) as jest.Mocked<RecordsRepository>;
       recordsService = new RecordsService(recordsRepository, 'experience');
 
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -216,7 +216,7 @@ describe('Records Service', () => {
       ) as jest.Mocked<RecordsRepository>;
       recordsService = new RecordsService(recordsRepository, 'education');
 
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -265,7 +265,7 @@ describe('Records Service', () => {
       ) as jest.Mocked<RecordsRepository>;
       recordsService = new RecordsService(recordsRepository, 'experience');
 
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -314,7 +314,7 @@ describe('Records Service', () => {
       ) as jest.Mocked<RecordsRepository>;
       recordsService = new RecordsService(recordsRepository, 'education');
 
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',

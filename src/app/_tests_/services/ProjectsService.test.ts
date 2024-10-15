@@ -92,7 +92,7 @@ describe('Projects Service', () => {
 
   describe('getAllProjects', () => {
     test('It should return all projects when repository returns projects', async () => {
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -119,7 +119,7 @@ describe('Projects Service', () => {
   describe('getProjectsByName', () => {
     test('It should return the project when the repository returns it by name', async () => {
       const testName = 'Project 1';
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',
@@ -146,7 +146,7 @@ describe('Projects Service', () => {
   describe('getProjectsByID', () => {
     test('It should return the project when the repository returns it by ID', async () => {
       const testID = '2';
-      skillsRepository.getSkillsByID = jest.fn().mockResolvedValue([
+      skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
         {
           id: '1',
           name: 'JavaScript',

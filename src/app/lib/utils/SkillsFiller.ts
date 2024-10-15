@@ -17,7 +17,7 @@ class SkillsFiller<T extends HasSkills> {
   ): Promise<Omit<T, 'skills'> | null> {
     if (objectData) {
       const skillIds = objectData.skills as unknown as Skills[];
-      const skillsArray = await this.skillsRepository.getSkillsByID(skillIds);
+      const skillsArray = await this.skillsRepository.getSkillsByIDs(skillIds);
       const result = {
         ...objectData,
         _skills: skillsArray,
@@ -36,7 +36,7 @@ class SkillsFiller<T extends HasSkills> {
         objects.map(async (object) => {
           const skillIds = object.skills;
           const skillsArray =
-            await this.skillsRepository.getSkillsByID(skillIds);
+            await this.skillsRepository.getSkillsByIDs(skillIds);
 
           const result = {
             ...object,

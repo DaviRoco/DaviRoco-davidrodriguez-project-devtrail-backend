@@ -102,7 +102,7 @@ describe('SkillsFiller', () => {
         ),
       ];
 
-      mockSkillsRepository.getSkillsByID = jest
+      mockSkillsRepository.getSkillsByIDs = jest
         .fn()
         .mockResolvedValue(mockSkills);
 
@@ -144,7 +144,7 @@ describe('SkillsFiller', () => {
           KnowledgeLevelEnumerations.High,
         ),
       ];
-      mockSkillsRepository.getSkillsByID = jest
+      mockSkillsRepository.getSkillsByIDs = jest
         .fn()
         .mockImplementation((ids) => {
           if (ids.includes(1) || ids.includes(2))

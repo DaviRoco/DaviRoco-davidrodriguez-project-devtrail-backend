@@ -155,7 +155,7 @@ describe('Skills Repository', () => {
       });
 
       await expect(repository.getSkillByName(testName)).rejects.toThrow(
-        new Error(`Skill with name ${testName} is missing mandatory fields.`),
+        new Error(`Skill with ID 2 is missing mandatory fields.`),
       );
     });
   });
@@ -252,7 +252,7 @@ describe('Skills Repository', () => {
           data: () => skill,
         })),
       );
-      const skills = await repository.getSkillsByID(testSkillIDs);
+      const skills = await repository.getSkillsByIDs(testSkillIDs);
 
       expect(skills.length).toBe(2);
       expect(skills[0].name).toBe('JavaScript');
@@ -276,7 +276,7 @@ describe('Skills Repository', () => {
       ];
       (getDocs as jest.Mock).mockResolvedValueOnce(null);
 
-      await expect(repository.getSkillsByID(invalidTestIDs)).rejects.toThrow(
+      await expect(repository.getSkillsByIDs(invalidTestIDs)).rejects.toThrow(
         new Error('Skills are non-existent.'),
       );
     });

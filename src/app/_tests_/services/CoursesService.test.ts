@@ -110,6 +110,15 @@ describe('Courses Service', () => {
       expect(result).toEqual(mockCoursesObjects);
       expect(coursesRepository.getAllCourses).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return null when repository returns no courses', async () => {
+      coursesRepository.getAllCourses.mockResolvedValue([]);
+
+      const result = await coursesService.getAllCourses();
+
+      expect(result).toBeNull();
+      expect(coursesRepository.getAllCourses).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getCourseByName', () => {
@@ -137,6 +146,16 @@ describe('Courses Service', () => {
       expect(result).toEqual(mockCoursesObjects[0]);
       expect(coursesRepository.getCoursesByName).toHaveBeenCalledTimes(1);
     });
+
+    test('It should return null when the repository returns no course by name', async () => {
+      const testName = 'Course 3';
+      coursesRepository.getCoursesByName.mockResolvedValue(null);
+
+      const result = await coursesService.getCourseByName(testName);
+
+      expect(result).toBeNull();
+      expect(coursesRepository.getCoursesByName).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('getCourseByID', () => {
@@ -162,6 +181,16 @@ describe('Courses Service', () => {
       const result = await coursesService.getCourseByID(testID);
 
       expect(result).toEqual(mockCoursesObjects[1]);
+      expect(coursesRepository.getCoursesByID).toHaveBeenCalledTimes(1);
+    });
+
+    test('It should return null when the repository returns no course by ID', async () => {
+      const testID = '3';
+      coursesRepository.getCoursesByID.mockResolvedValue(null);
+
+      const result = await coursesService.getCourseByID(testID);
+
+      expect(result).toBeNull();
       expect(coursesRepository.getCoursesByID).toHaveBeenCalledTimes(1);
     });
   });

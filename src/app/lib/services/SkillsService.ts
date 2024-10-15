@@ -1,4 +1,4 @@
-import { SkillsRepository } from '../repositories/SkillsRepository';
+import SkillsRepository from '../repositories/SkillsRepository';
 import Skills from '../entities/Skills';
 
 export class SkillsService {

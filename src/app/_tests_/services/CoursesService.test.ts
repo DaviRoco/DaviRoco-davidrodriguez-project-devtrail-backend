@@ -1,5 +1,5 @@
 import { CoursesService } from '../../lib/services/CoursesService';
-import { CoursesRepository } from '../../lib/repositories/CoursesRespository';
+import CoursesRepository from '../../lib/repositories/CoursesRespository';
 import Courses from '../../lib/entities/Courses';
 import Skills from '../../lib/entities/Skills';
 import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';

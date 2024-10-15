@@ -1,5 +1,5 @@
 import { CoursesService } from '../services/CoursesService';
-import { CoursesRepository } from '../repositories/CoursesRespository';
+import CoursesRepository from '../repositories/CoursesRespository';
 import ResponseData from '../constants/api/ResponseData';
 import Courses from '../entities/Courses';
 import ApiResponseBuilder from '../utils/ApiResponseBuilder';

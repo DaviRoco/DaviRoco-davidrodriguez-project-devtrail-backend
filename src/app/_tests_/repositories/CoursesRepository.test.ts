@@ -1,4 +1,4 @@
-import { CoursesRepository } from '../../lib/repositories/CoursesRespository';
+import CoursesRepository from '../../lib/repositories/CoursesRespository';
 import { getDocs, getDoc } from 'firebase/firestore';
 import Courses from '../../lib/entities/Courses';
 

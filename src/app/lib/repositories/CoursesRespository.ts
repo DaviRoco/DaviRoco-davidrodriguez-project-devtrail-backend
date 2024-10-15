@@ -19,7 +19,7 @@ const coursesCollection = collection(db, 'courses');
  * @method getCoursesByName - Retrieves a course by its name from the courses collection.
  * @method getCoursesByID - Retrieves a course by its ID from the courses collection.
  */
-export class CoursesRepository {
+class CoursesRepository {
   async getAllCourses(): Promise<Courses[]> {
     const coursesSnapshot = await getDocs(coursesCollection);
     const courses = coursesSnapshot.docs.map((doc) => {
@@ -129,3 +129,5 @@ export class CoursesRepository {
     return course;
   }
 }
+
+export default CoursesRepository;

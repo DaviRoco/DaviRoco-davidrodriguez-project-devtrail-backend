@@ -1,5 +1,5 @@
 import { CertificationsService } from '../../lib/services/CertificationsService';
-import { CertificationsRepository } from '../../lib/repositories/CertificationsRepository';
+import CertificationsRepository from '../../lib/repositories/CertificationsRepository';
 import Certifications from '../../lib/entities/Certifications';
 import Skills from '../../lib/entities/Skills';
 import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';

@@ -1,4 +1,4 @@
-import { ProjectsRepository } from '../repositories/ProjectsRepository';
+import ProjectsRepository from '../repositories/ProjectsRepository';
 import Projects from '../entities/Projects';
 import SkillsFiller from '../utils/SkillsFiller';
 

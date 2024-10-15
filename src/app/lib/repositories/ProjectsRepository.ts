@@ -11,7 +11,7 @@ import Projects from '../entities/Projects';
 
 const projectsCollection = collection(db, 'projects');
 
-export class ProjectsRepository {
+class ProjectsRepository {
   async getAllProjects(): Promise<Projects[]> {
     const projectsSnapshot = await getDocs(projectsCollection);
     const projects = projectsSnapshot.docs.map((doc) => {

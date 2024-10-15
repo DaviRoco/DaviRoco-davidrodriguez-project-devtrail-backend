@@ -15,7 +15,7 @@ import { CollectionReference } from 'firebase/firestore';
  * @method getEducationalRecordById - Retrieves an educational record by its ID from the education collection.
  */
 
-export class RecordsRepository {
+class RecordsRepository {
   private type: string;
   private recordsCollection!: CollectionReference;
 
@@ -182,3 +182,5 @@ export class RecordsRepository {
     );
   }
 }
+
+export default RecordsRepository;

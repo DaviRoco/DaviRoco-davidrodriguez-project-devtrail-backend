@@ -1,5 +1,5 @@
 import { RecordsService } from '../services/RecordsService';
-import { RecordsRepository } from '../repositories/RecordsRepository';
+import RecordsRepository from '../repositories/RecordsRepository';
 import ResponseData from '../constants/api/ResponseData';
 import ExperienceRecords from '../entities/ExperienceRecords';
 import EducationalRecords from '../entities/EducationalRecords';

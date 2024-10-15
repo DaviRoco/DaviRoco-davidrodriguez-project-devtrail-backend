@@ -1,5 +1,5 @@
 import { getDocs, getDoc, Timestamp } from 'firebase/firestore';
-import { ProjectsRepository } from '../../lib/repositories/ProjectsRepository';
+import ProjectsRepository from '../../lib/repositories/ProjectsRepository';
 
 jest.mock('firebase/firestore', () => ({
   initializeApp: jest.fn(),

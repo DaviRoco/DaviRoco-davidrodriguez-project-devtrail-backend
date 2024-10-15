@@ -21,7 +21,7 @@ const certificationsCollection = collection(db, 'certifications');
  * @method getCertificationsByInstitution - Retrieves a certification by its institution from the certifications collection.
  * @method getCertificationsByID - Retrieves a certification by its ID from the certifications collection.
  */
-export class CertificationsRepository {
+class CertificationsRepository {
   async getAllCertifications(): Promise<Certifications[]> {
     const certificationsSnapshot = await getDocs(certificationsCollection);
     const certifications = certificationsSnapshot.docs.map((doc) => {
@@ -160,3 +160,5 @@ export class CertificationsRepository {
     );
   }
 }
+
+export default CertificationsRepository;

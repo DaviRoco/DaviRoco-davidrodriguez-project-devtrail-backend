@@ -1,5 +1,5 @@
 import { CertificationsService } from '../services/CertificationsService';
-import { CertificationsRepository } from '../repositories/CertificationsRepository';
+import CertificationsRepository from '../repositories/CertificationsRepository';
 import ResponseData from '../constants/api/ResponseData';
 import Certifications from '../entities/Certifications';
 import ApiResponseBuilder from '../utils/ApiResponseBuilder';

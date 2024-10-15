@@ -1,5 +1,5 @@
 import { RecordsService } from '../../lib/services/RecordsService';
-import { RecordsRepository } from '../../lib/repositories/RecordsRepository';
+import RecordsRepository from '../../lib/repositories/RecordsRepository';
 import ExperienceRecords from '../../lib/entities/ExperienceRecords';
 import EducationalRecords from '../../lib/entities/EducationalRecords';
 import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';

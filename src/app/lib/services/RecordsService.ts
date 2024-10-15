@@ -1,4 +1,4 @@
-import { RecordsRepository } from '../repositories/RecordsRepository';
+import RecordsRepository from '../repositories/RecordsRepository';
 import ExperienceRecords from '../entities/ExperienceRecords';
 import EducationalRecords from '../entities/EducationalRecords';
 import SkillsFiller from '../utils/SkillsFiller';

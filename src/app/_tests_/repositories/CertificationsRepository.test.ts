@@ -1,4 +1,4 @@
-import { CertificationsRepository } from '../../lib/repositories/CertificationsRepository';
+import CertificationsRepository from '../../lib/repositories/CertificationsRepository';
 import { getDocs, getDoc, Timestamp } from 'firebase/firestore';
 
 jest.mock('firebase/firestore', () => ({

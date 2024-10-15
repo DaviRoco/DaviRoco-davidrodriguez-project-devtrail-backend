@@ -12,7 +12,7 @@ import { KnowledgeLevelEnumerations } from '../constants/enumerations/KnowledgeL
 
 const skillsCollection = collection(db, 'skills');
 
-export class SkillsRepository {
+class SkillsRepository {
   async getAllSkills(): Promise<Skills[]> {
     const skillsSnapshot = await getDocs(skillsCollection);
     const skills = skillsSnapshot.docs.map((doc) => {

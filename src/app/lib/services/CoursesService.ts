@@ -1,5 +1,5 @@
 import Courses from '../entities/Courses';
-import { CoursesRepository } from '../repositories/CoursesRespository';
+import CoursesRepository from '../repositories/CoursesRespository';
 import SkillsFiller from '../utils/SkillsFiller';
 
 export class CoursesService {

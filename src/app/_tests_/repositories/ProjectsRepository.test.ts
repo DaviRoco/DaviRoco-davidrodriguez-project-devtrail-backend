@@ -242,7 +242,7 @@ describe('Projects Repository', () => {
       });
 
       await expect(repository.getProjectsByName(testName)).rejects.toThrow(
-        'Project with name Project 2 is missing mandatory fields.',
+        'Project with ID 2 is missing mandatory fields.',
       );
     });
   });

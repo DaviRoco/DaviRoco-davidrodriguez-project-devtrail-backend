@@ -6,42 +6,37 @@ import {
   getDoc,
   where,
   query,
+  DocumentData,
 } from 'firebase/firestore';
 import Projects from '../entities/Projects';
 
 const projectsCollection = collection(db, 'projects');
 
 class ProjectsRepository {
+  private validateAndMapProject(docData: DocumentData, id: string): Projects {
+    const { name, startDate, endDate, description, url, skills } = docData;
+
+    if (!name || !startDate || !endDate || !description || !url || !skills) {
+      throw new Error(`Project with ID ${id} is missing mandatory fields.`);
+    }
+
+    return new Projects(
+      id,
+      name,
+      startDate.toDate(),
+      endDate.toDate(),
+      description,
+      url,
+      skills,
+    );
+  }
+
   async getAllProjects(): Promise<Projects[]> {
     const projectsSnapshot = await getDocs(projectsCollection);
-    const projects = projectsSnapshot.docs.map((doc) => {
-      const data = doc.data();
 
-      if (
-        !data.name ||
-        !data.startDate ||
-        !data.endDate ||
-        !data.description ||
-        !data.url ||
-        !data.skills
-      ) {
-        throw new Error(
-          `Project with ID ${doc.id} is missing mandatory fields.`,
-        );
-      }
-
-      return new Projects(
-        doc.id,
-        data.name,
-        data.startDate.toDate(),
-        data.endDate.toDate(),
-        data.description,
-        data.url,
-        data.skills,
-      );
-    });
-
-    return projects;
+    return projectsSnapshot.docs.map((doc) =>
+      this.validateAndMapProject(doc.data(), doc.id),
+    );
   }
 
   async getProjectsByName(name: string): Promise<Projects | null> {
@@ -62,31 +57,10 @@ class ProjectsRepository {
       return null;
     }
 
-    const docSnapshot = querySnapshot.docs[0];
-    const docData = docSnapshot.data();
-
-    if (
-      !docData.name ||
-      !docData.startDate ||
-      !docData.endDate ||
-      !docData.description ||
-      !docData.url ||
-      !docData.skills
-    ) {
-      throw new Error(`Project with name ${name} is missing mandatory fields.`);
-    }
-
-    const project = new Projects(
-      docSnapshot.id,
-      docData.name,
-      docData.startDate.toDate(),
-      docData.endDate.toDate(),
-      docData.description,
-      docData.url,
-      docData.skills,
+    return this.validateAndMapProject(
+      querySnapshot.docs[0].data(),
+      querySnapshot.docs[0].id,
     );
-
-    return project;
   }
 
   async getProjectsByID(id: string): Promise<Projects | null> {
@@ -101,30 +75,7 @@ class ProjectsRepository {
       return null;
     }
 
-    const docData = docSnapshot.data();
-
-    if (
-      !docData.name ||
-      !docData.startDate ||
-      !docData.endDate ||
-      !docData.description ||
-      !docData.url ||
-      !docData.skills
-    ) {
-      throw new Error(`Project with ID ${id} is missing mandatory fields.`);
-    }
-
-    const project = new Projects(
-      docSnapshot.id,
-      docData.name,
-      docData.startDate.toDate(),
-      docData.endDate.toDate(),
-      docData.description,
-      docData.url,
-      docData.skills,
-    );
-
-    return project;
+    return this.validateAndMapProject(docSnapshot.data(), docSnapshot.id);
   }
 }
 

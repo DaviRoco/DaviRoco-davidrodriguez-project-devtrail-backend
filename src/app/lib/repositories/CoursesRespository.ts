@@ -38,7 +38,7 @@ class CoursesRepository {
     );
   }
 
-  async getCoursesByName(name: string): Promise<Courses | null> {
+  async getCourseByName(name: string): Promise<Courses | null> {
     if (!name || typeof name !== 'string') {
       throw new Error(
         'Invalid name provided. Name must be a non-empty string.',
@@ -62,7 +62,7 @@ class CoursesRepository {
     );
   }
 
-  async getCoursesByID(id: string): Promise<Courses | null> {
+  async getCourseByID(id: string): Promise<Courses | null> {
     if (!id || typeof id !== 'string') {
       throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }

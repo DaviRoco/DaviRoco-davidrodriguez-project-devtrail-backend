@@ -139,22 +139,22 @@ describe('Courses Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      coursesRepository.getCoursesByName.mockResolvedValue(mockCourses[0]);
+      coursesRepository.getCourseByName.mockResolvedValue(mockCourses[0]);
 
       const result = await coursesService.getCourseByName(testName);
 
       expect(result).toEqual(mockCoursesObjects[0]);
-      expect(coursesRepository.getCoursesByName).toHaveBeenCalledTimes(1);
+      expect(coursesRepository.getCourseByName).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no course by name', async () => {
       const testName = 'Course 3';
-      coursesRepository.getCoursesByName.mockResolvedValue(null);
+      coursesRepository.getCourseByName.mockResolvedValue(null);
 
       const result = await coursesService.getCourseByName(testName);
 
       expect(result).toBeNull();
-      expect(coursesRepository.getCoursesByName).toHaveBeenCalledTimes(1);
+      expect(coursesRepository.getCourseByName).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -176,22 +176,22 @@ describe('Courses Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      coursesRepository.getCoursesByID.mockResolvedValue(mockCourses[1]);
+      coursesRepository.getCourseByID.mockResolvedValue(mockCourses[1]);
 
       const result = await coursesService.getCourseByID(testID);
 
       expect(result).toEqual(mockCoursesObjects[1]);
-      expect(coursesRepository.getCoursesByID).toHaveBeenCalledTimes(1);
+      expect(coursesRepository.getCourseByID).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no course by ID', async () => {
       const testID = '3';
-      coursesRepository.getCoursesByID.mockResolvedValue(null);
+      coursesRepository.getCourseByID.mockResolvedValue(null);
 
       const result = await coursesService.getCourseByID(testID);
 
       expect(result).toBeNull();
-      expect(coursesRepository.getCoursesByID).toHaveBeenCalledTimes(1);
+      expect(coursesRepository.getCourseByID).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -121,7 +121,7 @@ describe('Projects Controller', () => {
     });
   });
 
-  describe('getProjectsByID', () => {
+  describe('getProjectByID', () => {
     const mockProject = mockProjects[0];
     test('It should return the specified project with given id on success.', async () => {
       const testID = '1';

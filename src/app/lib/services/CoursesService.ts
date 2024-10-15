@@ -20,7 +20,7 @@ export class CoursesService {
   }
 
   async getCourseByName(name: string): Promise<Omit<Courses, 'skills'> | null> {
-    const courseData = await this.coursesRepository.getCoursesByName(name);
+    const courseData = await this.coursesRepository.getCourseByName(name);
     if (!courseData) {
       return null;
     }
@@ -28,7 +28,7 @@ export class CoursesService {
   }
 
   async getCourseByID(id: string): Promise<Omit<Courses, 'skills'> | null> {
-    const courseData = await this.coursesRepository.getCoursesByID(id);
+    const courseData = await this.coursesRepository.getCourseByID(id);
     if (!courseData) {
       return null;
     }

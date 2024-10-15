@@ -53,7 +53,7 @@ describe('Skills Service', () => {
     });
   });
 
-  describe('getSkillsByName', () => {
+  describe('getSkillByName', () => {
     test('It should return the skills when the repository returns it by name', async () => {
       const testName = 'TypeScript';
       skillsRepository.getSkillByName.mockResolvedValue(mockSkills[0]);
@@ -74,7 +74,7 @@ describe('Skills Service', () => {
       expect(skillsRepository.getSkillByName).toHaveBeenCalledTimes(1);
     });
   });
-  describe('getSkillsByName', () => {
+  describe('getSkillByName', () => {
     test('It should return the skills when the repository returns it by ID', async () => {
       const testID = '2';
       skillsRepository.getSkillByID.mockResolvedValue(mockSkills[1]);

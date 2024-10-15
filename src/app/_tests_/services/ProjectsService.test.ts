@@ -125,7 +125,7 @@ describe('Projects Service', () => {
     });
   });
 
-  describe('getProjectsByName', () => {
+  describe('getProjectByName', () => {
     test('It should return the project when the repository returns it by name', async () => {
       const testName = 'Project 1';
       skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
@@ -143,26 +143,26 @@ describe('Projects Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      projectsRepository.getProjectsByName.mockResolvedValue(mockProjects[0]);
+      projectsRepository.getProjectByName.mockResolvedValue(mockProjects[0]);
 
       const result = await projectsService.getProjectByName(testName);
 
       expect(result).toEqual(mockProjectObjects[0]);
-      expect(projectsRepository.getProjectsByName).toHaveBeenCalledTimes(1);
+      expect(projectsRepository.getProjectByName).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no project', async () => {
       const testName = 'Project 3';
-      projectsRepository.getProjectsByName.mockResolvedValue(null);
+      projectsRepository.getProjectByName.mockResolvedValue(null);
 
       const result = await projectsService.getProjectByName(testName);
 
       expect(result).toBeNull();
-      expect(projectsRepository.getProjectsByName).toHaveBeenCalledTimes(1);
+      expect(projectsRepository.getProjectByName).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getProjectsByID', () => {
+  describe('getProjectByID', () => {
     test('It should return the project when the repository returns it by ID', async () => {
       const testID = '2';
       skillsRepository.getSkillsByIDs = jest.fn().mockResolvedValue([
@@ -180,22 +180,22 @@ describe('Projects Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      projectsRepository.getProjectsByID.mockResolvedValue(mockProjects[1]);
+      projectsRepository.getProjectByID.mockResolvedValue(mockProjects[1]);
 
       const result = await projectsService.getProjectByID(testID);
 
       expect(result).toEqual(mockProjectObjects[1]);
-      expect(projectsRepository.getProjectsByID).toHaveBeenCalledTimes(1);
+      expect(projectsRepository.getProjectByID).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no project', async () => {
       const testID = '3';
-      projectsRepository.getProjectsByID.mockResolvedValue(null);
+      projectsRepository.getProjectByID.mockResolvedValue(null);
 
       const result = await projectsService.getProjectByID(testID);
 
       expect(result).toBeNull();
-      expect(projectsRepository.getProjectsByID).toHaveBeenCalledTimes(1);
+      expect(projectsRepository.getProjectByID).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -153,7 +153,7 @@ describe('Projects Repository', () => {
     });
   });
 
-  describe('getProjectsByName', () => {
+  describe('getProjectByName', () => {
     test('It should retrieve the project with the specified name.', async () => {
       const testName = 'Project 2';
       (getDocs as jest.Mock).mockResolvedValueOnce({
@@ -186,7 +186,7 @@ describe('Projects Repository', () => {
         ],
       });
 
-      const project = await repository.getProjectsByName(testName);
+      const project = await repository.getProjectByName(testName);
       expect(project?.name).toBe('Project 2');
     });
 
@@ -197,14 +197,14 @@ describe('Projects Repository', () => {
         docs: [],
       });
 
-      const project = await repository.getProjectsByName(testName);
+      const project = await repository.getProjectByName(testName);
       expect(project).toBeNull();
     });
 
     test('It should handle errors when an invalid name is provided.', async () => {
       const testName = '';
 
-      await expect(repository.getProjectsByName(testName)).rejects.toThrow(
+      await expect(repository.getProjectByName(testName)).rejects.toThrow(
         'Invalid name provided. Name must be a non-empty string.',
       );
     });
@@ -241,7 +241,7 @@ describe('Projects Repository', () => {
         ],
       });
 
-      await expect(repository.getProjectsByName(testName)).rejects.toThrow(
+      await expect(repository.getProjectByName(testName)).rejects.toThrow(
         'Project with ID 2 is missing mandatory fields.',
       );
     });
@@ -277,7 +277,7 @@ describe('Projects Repository', () => {
         }),
       });
 
-      const project = await repository.getProjectsByID(testID);
+      const project = await repository.getProjectByID(testID);
       expect(project?.name).toBe('Project 1');
     });
 
@@ -289,14 +289,14 @@ describe('Projects Repository', () => {
         data: () => null,
       });
 
-      const project = await repository.getProjectsByID(testID);
+      const project = await repository.getProjectByID(testID);
       expect(project).toBeNull();
     });
 
     test('It should handle errors when an invalid ID is provided.', async () => {
       const testID = '';
 
-      await expect(repository.getProjectsByID(testID)).rejects.toThrow(
+      await expect(repository.getProjectByID(testID)).rejects.toThrow(
         'Invalid ID provided. ID must be a non-empty string.',
       );
     });
@@ -330,7 +330,7 @@ describe('Projects Repository', () => {
         }),
       });
 
-      await expect(repository.getProjectsByID(testID)).rejects.toThrow(
+      await expect(repository.getProjectByID(testID)).rejects.toThrow(
         'Project with ID 1 is missing mandatory fields.',
       );
     });

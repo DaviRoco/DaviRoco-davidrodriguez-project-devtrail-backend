@@ -22,7 +22,7 @@ export class ProjectsService {
   async getProjectByName(
     name: string,
   ): Promise<Omit<Projects, 'skills'> | null> {
-    const projectData = await this.projectsRepository.getProjectsByName(name);
+    const projectData = await this.projectsRepository.getProjectByName(name);
     if (!projectData) {
       return null;
     }
@@ -30,7 +30,7 @@ export class ProjectsService {
   }
 
   async getProjectByID(id: string): Promise<Omit<Projects, 'skills'> | null> {
-    const projectData = await this.projectsRepository.getProjectsByID(id);
+    const projectData = await this.projectsRepository.getProjectByID(id);
     if (!projectData) {
       return null;
     }

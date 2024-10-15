@@ -39,7 +39,7 @@ class ProjectsRepository {
     );
   }
 
-  async getProjectsByName(name: string): Promise<Projects | null> {
+  async getProjectByName(name: string): Promise<Projects | null> {
     if (!name || typeof name !== 'string') {
       throw new Error(
         'Invalid name provided. Name must be a non-empty string.',
@@ -63,7 +63,7 @@ class ProjectsRepository {
     );
   }
 
-  async getProjectsByID(id: string): Promise<Projects | null> {
+  async getProjectByID(id: string): Promise<Projects | null> {
     if (!id || typeof id !== 'string') {
       throw new Error('Invalid ID provided. ID must be a non-empty string.');
     }

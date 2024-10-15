@@ -98,7 +98,7 @@ describe('Skills Repository', () => {
     });
   });
 
-  describe('getSkillsByName', () => {
+  describe('getSkillByName', () => {
     test('It should retrieve the skill with the specified name.', async () => {
       const testName = 'C#';
       (getDocs as jest.Mock).mockResolvedValueOnce({
@@ -173,7 +173,7 @@ describe('Skills Repository', () => {
     });
   });
 
-  describe('getSkillsByID', () => {
+  describe('getSkillByID', () => {
     test('It should retrieve the skill with the specified ID.', async () => {
       const testID = '2';
       (getDoc as jest.Mock).mockResolvedValueOnce({
@@ -243,7 +243,7 @@ describe('Skills Repository', () => {
     });
   });
 
-  describe('getSkillsByID', () => {
+  describe('getSkillByID', () => {
     const testSkillIDs = [
       new Skills(
         '1',

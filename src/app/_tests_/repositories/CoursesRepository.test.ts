@@ -132,7 +132,7 @@ describe('Courses Repository', () => {
         ],
       });
 
-      const course = await repository.getCoursesByName('JavaScript');
+      const course = await repository.getCourseByName('JavaScript');
       expect(course).toBeInstanceOf(Courses);
       expect(course?.name).toBe('JavaScript');
     });
@@ -180,7 +180,7 @@ describe('Courses Repository', () => {
         })),
       });
 
-      await expect(repository.getCoursesByName('JavaScript')).rejects.toThrow();
+      await expect(repository.getCourseByName('JavaScript')).rejects.toThrow();
     });
 
     test('It should return null if no course is found.', async () => {
@@ -189,12 +189,12 @@ describe('Courses Repository', () => {
         docs: [],
       });
 
-      const course = await repository.getCoursesByName('JavaScript');
+      const course = await repository.getCourseByName('JavaScript');
       expect(course).toBeNull();
     });
 
     test('It should handle errors when name is invalid.', async () => {
-      await expect(repository.getCoursesByName('')).rejects.toThrow();
+      await expect(repository.getCourseByName('')).rejects.toThrow();
     });
   });
 
@@ -206,7 +206,7 @@ describe('Courses Repository', () => {
         data: () => mockCourses[0],
       });
 
-      const course = await repository.getCoursesByID('1');
+      const course = await repository.getCourseByID('1');
       expect(course).toBeInstanceOf(Courses);
       expect(course?.id).toBe('1');
     });
@@ -236,7 +236,7 @@ describe('Courses Repository', () => {
         data: () => incompleteCourse,
       });
 
-      await expect(repository.getCoursesByID('1')).rejects.toThrow(
+      await expect(repository.getCourseByID('1')).rejects.toThrow(
         'Course with ID 1 is missing mandatory fields.',
       );
     });
@@ -247,12 +247,12 @@ describe('Courses Repository', () => {
         docs: [],
       });
 
-      const course = await repository.getCoursesByID('1');
+      const course = await repository.getCourseByID('1');
       expect(course).toBeNull();
     });
 
     test('It should handle errors when ID is invalid.', async () => {
-      await expect(repository.getCoursesByID('')).rejects.toThrow();
+      await expect(repository.getCourseByID('')).rejects.toThrow();
     });
   });
 });

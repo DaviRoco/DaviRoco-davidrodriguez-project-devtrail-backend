@@ -80,7 +80,7 @@ describe('Skills Controller', () => {
       const result = await SkillsController.getSkillByName(testName);
 
       expect(result.status).toBe(200);
-      expect(result.body).toBe('No Skill fetched with name: ' + testName);
+      expect(result.body).toBe(`No Skill fetched with name: ${testName}`);
     });
 
     test('It should handle errors when no name parameter is specified', async () => {
@@ -105,9 +105,7 @@ describe('Skills Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve skill with name. Name: ' +
-          testName +
-          ' - Error: Test',
+        `Failed to retrieve skill with name. Name: ${testName} - Error: Test`,
       );
     });
   });
@@ -162,7 +160,7 @@ describe('Skills Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve skill with ID. ID: ' + testID + ' - Error: Test',
+        `Failed to retrieve skill with ID. ID: ${testID} - Error: Test`,
       );
     });
   });

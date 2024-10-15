@@ -120,9 +120,7 @@ describe('Certifications Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve certification with name. Name: ' +
-          testName +
-          ' - Error: Test',
+        `Failed to retrieve certification with name. Name: ${testName} - Error: Test`,
       );
     });
   });
@@ -162,7 +160,7 @@ describe('Certifications Controller', () => {
       (
         CertificationsService.prototype.getCertificationByID as jest.Mock
       ).mockRejectedValue(
-        new Error('Failed to retrieve certification with ID: ' + null),
+        new Error(`Failed to retrieve certification with ID: ${null}`),
       );
 
       const result = await CertificationsController.getCertificationByID('');
@@ -183,9 +181,7 @@ describe('Certifications Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve certification with ID. ID: ' +
-          testID +
-          ' - Error: Test',
+        `Failed to retrieve certification with ID. ID: ${testID} - Error: Test`,
       );
     });
   });
@@ -224,7 +220,7 @@ describe('Certifications Controller', () => {
 
       expect(result.status).toBe(200);
       expect(result.body).toBe(
-        'No Certification fetched with institution: ' + testInstitution,
+        `No Certification fetched with institution: ${testInstitution}`,
       );
     });
 
@@ -257,9 +253,7 @@ describe('Certifications Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve certification with institution. Institution: ' +
-          testInstitution +
-          ' - Error: Test',
+        `Failed to retrieve certification with institution. Institution: ${testInstitution} - Error: Test`,
       );
     });
   });

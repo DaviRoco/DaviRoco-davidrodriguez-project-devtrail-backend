@@ -203,7 +203,7 @@ describe('Records Controller', () => {
 
       expect(result.status).toBe(200);
       expect(result.body).toBe(
-        'No Experience record fetched with ID: ' + testID,
+        `No Experience record fetched with ID: ${testID}`,
       );
     });
 
@@ -211,7 +211,7 @@ describe('Records Controller', () => {
       (
         RecordsService.prototype.getExperienceRecordByID as jest.Mock
       ).mockRejectedValue(
-        new Error('Failed to retrieve experience record with ID: ' + null),
+        new Error(`Failed to retrieve experience record with ID: ${null}`),
       );
 
       const result = await RecordsController.getExperienceRecordByID('');
@@ -231,9 +231,7 @@ describe('Records Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve experience record with ID: ' +
-          testID +
-          ' - Error: Test',
+        `Failed to retrieve experience record with ID: ${testID} - Error: Test`,
       );
     });
   });
@@ -293,9 +291,7 @@ describe('Records Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve educational record with ID: ' +
-          testID +
-          ' - Error: Test',
+        `Failed to retrieve educational record with ID: ${testID} - Error: Test`,
       );
     });
   });

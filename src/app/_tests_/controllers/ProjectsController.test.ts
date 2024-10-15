@@ -96,7 +96,7 @@ describe('Projects Controller', () => {
       (
         ProjectsService.prototype.getProjectByName as jest.Mock
       ).mockRejectedValue(
-        new Error('Failed to retrieve project with name. Name: ' + null),
+        new Error(`Failed to retrieve project with name. Name: ${null}`),
       );
 
       const result = await ProjectsController.getProjectByName('');
@@ -116,9 +116,7 @@ describe('Projects Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve project with name. Name: ' +
-          testName +
-          ' - Error: Test',
+        `Failed to retrieve project with name. Name: ${testName} - Error: Test`,
       );
     });
   });
@@ -153,7 +151,7 @@ describe('Projects Controller', () => {
 
     test('It should handle errors when no id parameter is specified', async () => {
       (ProjectsService.prototype.getProjectByID as jest.Mock).mockRejectedValue(
-        new Error('Failed to retrieve project with ID: ' + null),
+        new Error(`Failed to retrieve project with ID: ${null}`),
       );
 
       const result = await ProjectsController.getProjectByID('');
@@ -173,7 +171,7 @@ describe('Projects Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve project with ID. ID: ' + testID + ' - Error: Test',
+        `Failed to retrieve project with ID. ID: ${testID} - Error: Test`,
       );
     });
   });

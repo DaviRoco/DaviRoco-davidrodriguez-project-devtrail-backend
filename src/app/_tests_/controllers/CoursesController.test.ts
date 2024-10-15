@@ -88,12 +88,12 @@ describe('Courses Controller', () => {
       const result = await CoursesController.getCourseByName(testName);
 
       expect(result.status).toBe(200);
-      expect(result.body).toBe('No Course fetched with name: ' + testName);
+      expect(result.body).toBe(`No Course fetched with name: ${testName}`);
     });
 
     test('It should handle errors when no name parameter is specified', async () => {
       (CoursesService.prototype.getCourseByName as jest.Mock).mockRejectedValue(
-        new Error('Failed to retrieve course with name: ' + null),
+        new Error(`Failed to retrieve course with name: ${null}`),
       );
 
       const result = await CoursesController.getCourseByName('');
@@ -112,9 +112,7 @@ describe('Courses Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve course with name. Name: ' +
-          testName +
-          ' - Error: Test',
+        `Failed to retrieve course with name. Name: ${testName} - Error: Test`,
       );
     });
   });
@@ -149,7 +147,7 @@ describe('Courses Controller', () => {
 
     test('It should handle errors when no id parameter is specified', async () => {
       (CoursesService.prototype.getCourseByID as jest.Mock).mockRejectedValue(
-        new Error('Failed to retrieve course with id: ' + null),
+        new Error(`Failed to retrieve course with id: ${null}`),
       );
 
       const result = await CoursesController.getCourseByID('');
@@ -168,7 +166,7 @@ describe('Courses Controller', () => {
 
       expect(result.status).toBe(500);
       expect(result.body).toBe(
-        'Failed to retrieve course with ID. ID: ' + testID + ' - Error: Test',
+        `Failed to retrieve course with ID. ID: ${testID} - Error: Test`,
       );
     });
   });

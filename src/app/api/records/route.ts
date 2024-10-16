@@ -1,6 +1,28 @@
 import { NextResponse } from 'next/server';
 import RecordsController from '../../lib/controllers/RecordsController';
 
+/**
+ * Handles GET requests for records.
+ *
+ * This function processes the incoming request, validates query parameters,
+ * and fetches records based on the provided parameters. It supports
+ * fetching records by ID or type. If no ID is provided, it fetches all records of the specified type.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Promise<Response>} - A promise that resolves to the response object.
+ *
+ * @throws {Error} - If an error occurs while fetching records.
+ *
+ * Query Parameters:
+ * - `id` (optional): The ID of the record to fetch.
+ * - `type` (required): The type of the record to fetch (e.g., 'education', 'experience').
+ *
+ * Response:
+ * - 200: Successfully fetched the records.
+ * - 400: Invalid query parameters were provided.
+ * - 500: An error occurred while fetching records.
+ */
+
 const recordHandlers = {
   education: {
     getByID: RecordsController.getEducationalRecordByID,

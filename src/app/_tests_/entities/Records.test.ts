@@ -1,3 +1,22 @@
+/**
+ * @fileoverview Unit tests for the Records entity.
+ *
+ * This file contains unit tests for the Records entity, which represents
+ * various records, including their start and end dates, descriptions,
+ * associated skills, and location. The tests verify the correct
+ * instantiation of a Records object and ensure that all properties are
+ * accurately assigned.
+ *
+ * The tests cover the following aspects:
+ *
+ * - Creation of a Records object with valid parameters.
+ *
+ * The tests ensure that the object is defined and that each property matches
+ * the expected values provided during the creation of the Records instance.
+ *
+ * @module RecordsEntityTest
+ */
+
 import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
 import Records from '../../lib/entities/Records';
 import Skills from '../../lib/entities/Skills';

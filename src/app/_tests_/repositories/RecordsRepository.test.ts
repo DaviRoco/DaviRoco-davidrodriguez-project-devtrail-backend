@@ -1,3 +1,29 @@
+/**
+ * @fileoverview Unit tests for the RecordsRepository class.
+ *
+ * This file contains unit tests for the RecordsRepository, which is responsible
+ * for interacting with the Firebase Firestore to manage experience and educational records.
+ * The tests validate the functionality of the repository methods, ensuring they
+ * correctly retrieve, handle errors, and validate the data related to records.
+ *
+ * The tests cover the following methods:
+ *
+ * - **getAllExperienceRecords**: Retrieves all experience records from Firestore.
+ * - **getAllEducationalRecords**: Retrieves all educational records from Firestore.
+ * - **getExperienceRecordByID**: Retrieves an experience record by its ID.
+ * - **getEducationalRecordByID**: Retrieves an educational record by its ID.
+ *
+ * Each test verifies the following aspects:
+ * - Successful retrieval of records.
+ * - Proper handling of scenarios when mandatory fields are missing or invalid.
+ * - Accurate return values based on the provided inputs.
+ *
+ * The tests utilize mocking to isolate the repository's functionality from the
+ * Firestore implementation, allowing for focused unit testing.
+ *
+ * @module RecordsRepositoryTest
+ */
+
 import { getDocs, doc, getDoc, Timestamp } from 'firebase/firestore';
 import RecordsRepository from '../../lib/repositories/RecordsRepository';
 

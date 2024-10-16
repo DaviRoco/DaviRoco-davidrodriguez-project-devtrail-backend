@@ -1,3 +1,11 @@
+/**
+ * CoursesController module.
+ *
+ * This module provides functions to interact with the courses service and retrieve course data.
+ *
+ * @module CoursesController
+ */
+
 import { CoursesService } from '../services/CoursesService';
 import CoursesRepository from '../repositories/CoursesRespository';
 import ResponseData from '../constants/api/ResponseData';
@@ -34,7 +42,7 @@ export const getAllCourses = async (): Promise<
 };
 
 /**
- * Retrieves courses by their name.
+ * Retrieves
  *
  * @param {string | null} name - The name of the course to retrieve. Must be a non-null string.
  * @returns {Promise<ResponseData<Courses | null> | ResponseData<string>>} - A promise that resolves to a ResponseData object containing either the course data or an error message.

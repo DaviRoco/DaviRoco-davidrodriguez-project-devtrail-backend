@@ -1,5 +1,26 @@
 import { NextResponse } from 'next/server';
 import SkillsControllers from '../../lib/controllers/SkillsController';
+/**
+ * Handles GET requests for skills.
+ *
+ * This function processes the incoming request, validates query parameters,
+ * and fetches skills based on the provided parameters. It supports
+ * fetching skills by name or ID. If no parameters are provided, it fetches all skills.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Promise<Response>} - A promise that resolves to the response object.
+ *
+ * @throws {Error} - If an error occurs while fetching skills.
+ *
+ * Query Parameters:
+ * - `name` (optional): The name of the skill to fetch.
+ * - `id` (optional): The ID of the skill to fetch.
+ *
+ * Response:
+ * - 200: Successfully fetched the skills.
+ * - 400: Invalid query parameters were provided.
+ * - 500: An error occurred while fetching skills.
+ */
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);

@@ -1,3 +1,21 @@
+/**
+ * @fileoverview Unit tests for the Experience Records entity.
+ *
+ * This file contains unit tests for the Experience Records entity, which captures
+ * details about an individual's work experience, including the company name, job title,
+ * and associated skills. The tests validate the creation of an ExperienceRecords object
+ * and ensure that all properties are correctly assigned during instantiation.
+ *
+ * The tests cover the following aspects:
+ *
+ * - Creation of an ExperienceRecords object with valid parameters.
+ *
+ * The tests verify that the object is defined and that all properties match the expected values
+ * based on the input provided during the object's creation.
+ *
+ * @module ExperienceRecordsEntityTest
+ */
+
 import ExperienceRecords from '../../lib/entities/ExperienceRecords';
 import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
 import Skills from '../../lib/entities/Skills';

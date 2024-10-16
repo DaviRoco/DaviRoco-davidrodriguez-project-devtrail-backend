@@ -1,3 +1,11 @@
+/**
+ * CertificationsController module.
+ *
+ * This module provides functions to interact with the certifications service and retrieve certification data.
+ *
+ * @module CertificationsController
+ */
+
 import { CertificationsService } from '../services/CertificationsService';
 import CertificationsRepository from '../repositories/CertificationsRepository';
 import ResponseData from '../constants/api/ResponseData';

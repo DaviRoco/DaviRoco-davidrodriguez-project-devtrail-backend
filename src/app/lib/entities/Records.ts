@@ -20,22 +20,22 @@ import Skills from './Skills';
  * @param {Skills[]} skills - The skills associated with the record.
  * @param {string} location - The location associated with the record.
  *
- * @method get id
+ * @method getId
  * @returns {string} The unique identifier of the record.
  *
- * @method get startDate
+ * @method getStartDate
  * @returns {Date} The starting date of the record.
  *
- * @method get endDate
+ * @method getEndDate
  * @returns {Date} The ending date of the record.
  *
- * @method get description
+ * @method getDescription
  * @returns {string} A brief description of the record.
  *
- * @method get skills
+ * @method getSkills
  * @returns {Skills[]} The skills associated with the record.
  *
- * @method get location
+ * @method getLocation
  * @returns {string} The location associated with the record.
  */
 

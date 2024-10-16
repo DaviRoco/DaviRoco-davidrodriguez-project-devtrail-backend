@@ -1,3 +1,33 @@
+/**
+ * @fileoverview Unit tests for the CertificationsService class.
+ *
+ * This file contains unit tests for the CertificationsService, responsible for
+ * managing certification-related data and interacting with the CertificationsRepository
+ * and SkillsRepository to retrieve and process certification and skills information.
+ *
+ * The tests validate the functionality of the service methods, ensuring they
+ * handle the data correctly, interact with the repositories as expected, and
+ * return the appropriate results based on various scenarios.
+ *
+ * The tests cover the following methods:
+ *
+ * - **getAllCertifications**: Retrieves all certifications from the repository.
+ * - **getCertificationByName**: Retrieves a certification by its name.
+ * - **getCertificationsByInstitution**: Retrieves a certification by its institution.
+ * - **getCertificationByID**: Retrieves a certification by its ID.
+ *
+ * Each test verifies the following aspects:
+ * - Successful retrieval of certifications.
+ * - Correct handling of skills associated with certifications.
+ * - Proper handling of scenarios where certifications or skills are missing or invalid.
+ * - Accurate return values based on the provided inputs, including cases where no data is found.
+ *
+ * The tests utilize Jest to mock repository dependencies, ensuring isolated and
+ * focused unit testing without needing to interact with the actual database.
+ *
+ * @module CertificationsServiceTest
+ */
+
 import { CertificationsService } from '../../lib/services/CertificationsService';
 import CertificationsRepository from '../../lib/repositories/CertificationsRepository';
 import Certifications from '../../lib/entities/Certifications';
@@ -149,7 +179,7 @@ describe('Certifications Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      certificationsRepository.getCertificationsByName.mockResolvedValue(
+      certificationsRepository.getCertificationByName.mockResolvedValue(
         mockCertifications[0],
       );
 
@@ -158,20 +188,20 @@ describe('Certifications Service', () => {
 
       expect(result).toEqual(mockCertificationsObjects[0]);
       expect(
-        certificationsRepository.getCertificationsByName,
+        certificationsRepository.getCertificationByName,
       ).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no certification', async () => {
       const testName = 'Certification 3';
-      certificationsRepository.getCertificationsByName.mockResolvedValue(null);
+      certificationsRepository.getCertificationByName.mockResolvedValue(null);
 
       const result =
         await certificationsService.getCertificationByName(testName);
 
       expect(result).toBeNull();
       expect(
-        certificationsRepository.getCertificationsByName,
+        certificationsRepository.getCertificationByName,
       ).toHaveBeenCalledTimes(1);
     });
   });
@@ -245,7 +275,7 @@ describe('Certifications Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      certificationsRepository.getCertificationsByID.mockResolvedValue(
+      certificationsRepository.getCertificationByID.mockResolvedValue(
         mockCertifications[1],
       );
 
@@ -253,19 +283,19 @@ describe('Certifications Service', () => {
 
       expect(result).toEqual(mockCertificationsObjects[1]);
       expect(
-        certificationsRepository.getCertificationsByID,
+        certificationsRepository.getCertificationByID,
       ).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no certification', async () => {
       const testID = '3';
-      certificationsRepository.getCertificationsByID.mockResolvedValue(null);
+      certificationsRepository.getCertificationByID.mockResolvedValue(null);
 
       const result = await certificationsService.getCertificationByID(testID);
 
       expect(result).toBeNull();
       expect(
-        certificationsRepository.getCertificationsByID,
+        certificationsRepository.getCertificationByID,
       ).toHaveBeenCalledTimes(1);
     });
   });

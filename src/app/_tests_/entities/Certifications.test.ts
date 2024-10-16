@@ -1,3 +1,20 @@
+/**
+ * @fileoverview Unit tests for the Certifications entity.
+ *
+ * This file contains unit tests for the Certifications entity, which represents a certification
+ * obtained by an individual. The tests validate the creation of a Certifications object and
+ * ensure that all properties are correctly assigned during instantiation.
+ *
+ * The tests cover the following aspects:
+ *
+ * - Creation of a Certifications object with valid parameters.
+ *
+ * The tests verify that the object is defined and that all properties match the expected values
+ * based on the input provided during the object's creation.
+ *
+ * @module CertificationsEntityTest
+ */
+
 import Certifications from '../../lib/entities/Certifications';
 import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
 import Skills from '../../lib/entities/Skills';

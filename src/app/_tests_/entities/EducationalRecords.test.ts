@@ -1,3 +1,21 @@
+/**
+ * @fileoverview Unit tests for the Educational Records entity.
+ *
+ * This file contains unit tests for the Educational Records entity, which represents
+ * an individual's educational history, including details about the institution, degree,
+ * and associated skills. The tests validate the creation of an EducationalRecords object
+ * and ensure that all properties are correctly assigned during instantiation.
+ *
+ * The tests cover the following aspects:
+ *
+ * - Creation of an EducationalRecords object with valid parameters.
+ *
+ * The tests verify that the object is defined and that all properties match the expected values
+ * based on the input provided during the object's creation.
+ *
+ * @module EducationalRecordsEntityTest
+ */
+
 import EducationalRecords from '../../lib/entities/EducationalRecords';
 import { KnowledgeLevelEnumerations } from '../../lib/constants/enumerations/KnowledgeLevelsEnumerations';
 import Skills from '../../lib/entities/Skills';

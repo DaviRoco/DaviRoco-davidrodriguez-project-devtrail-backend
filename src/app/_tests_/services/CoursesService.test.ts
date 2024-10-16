@@ -1,3 +1,32 @@
+/**
+ * @fileoverview Unit tests for the CoursesService class.
+ *
+ * This file contains unit tests for the CoursesService, responsible for
+ * managing course-related data and interacting with the CoursesRepository
+ * and SkillsRepository to retrieve and process course and skills information.
+ *
+ * The tests validate the functionality of the service methods, ensuring they
+ * handle the data correctly, interact with the repositories as expected, and
+ * return the appropriate results based on various scenarios.
+ *
+ * The tests cover the following methods:
+ *
+ * - **getAllCourses**: Retrieves all courses from the repository.
+ * - **getCourseByName**: Retrieves a course by its name.
+ * - **getCourseByID**: Retrieves a course by its ID.
+ *
+ * Each test verifies the following aspects:
+ * - Successful retrieval of courses.
+ * - Correct handling of skills associated with courses.
+ * - Proper handling of scenarios where courses or skills are missing or invalid.
+ * - Accurate return values based on the provided inputs, including cases where no data is found.
+ *
+ * The tests utilize Jest to mock repository dependencies, ensuring isolated and
+ * focused unit testing without needing to interact with the actual database.
+ *
+ * @module CoursesServiceTest
+ */
+
 import { CoursesService } from '../../lib/services/CoursesService';
 import CoursesRepository from '../../lib/repositories/CoursesRespository';
 import Courses from '../../lib/entities/Courses';

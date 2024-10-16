@@ -1,3 +1,29 @@
+/**
+ * @fileoverview Unit tests for the CertificationsRepository class.
+ *
+ * This file contains unit tests for the CertificationsRepository, which is responsible
+ * for interacting with the Firebase Firestore to manage certifications data.
+ * The tests validate the functionality of the repository methods, ensuring they
+ * correctly retrieve, handle errors, and validate the data related to certifications.
+ *
+ * The tests cover the following methods:
+ *
+ * - **getAllCertifications**: Retrieves all certifications from Firestore.
+ * - **getCertificationsByName**: Retrieves a certification by its name.
+ * - **getCertificationsByInstitution**: Retrieves certifications by their institution.
+ * - **getCertificationsByID**: Retrieves a certification by its ID.
+ *
+ * Each test verifies the following aspects:
+ * - Successful retrieval of certifications.
+ * - Proper handling of scenarios when mandatory fields are missing or invalid.
+ * - Accurate return values based on the provided inputs.
+ *
+ * The tests utilize mocking to isolate the repository's functionality from the
+ * Firestore implementation, allowing for focused unit testing.
+ *
+ * @module CertificationsRepositoryTest
+ */
+
 import CertificationsRepository from '../../lib/repositories/CertificationsRepository';
 import { getDocs, getDoc, Timestamp } from 'firebase/firestore';
 
@@ -152,7 +178,7 @@ describe('Certifications Repository', () => {
         ],
       });
 
-      const certification = await repository.getCertificationsByName(testName);
+      const certification = await repository.getCertificationByName(testName);
       expect(certification?.name).toBe(testName);
     });
 
@@ -163,14 +189,14 @@ describe('Certifications Repository', () => {
         docs: [],
       });
 
-      const certification = await repository.getCertificationsByName(testName);
+      const certification = await repository.getCertificationByName(testName);
       expect(certification).toBeNull();
     });
 
     test('It should handle errors when an invalid name is provided.', async () => {
       const testName = '';
       await expect(
-        repository.getCertificationsByName(testName),
+        repository.getCertificationByName(testName),
       ).rejects.toThrow();
     });
   });
@@ -251,7 +277,7 @@ describe('Certifications Repository', () => {
         }),
       });
 
-      const certification = await repository.getCertificationsByID(testID);
+      const certification = await repository.getCertificationByID(testID);
       expect(certification?.id).toBe('1');
     });
 
@@ -262,7 +288,7 @@ describe('Certifications Repository', () => {
         data: () => null,
       });
 
-      const certification = await repository.getCertificationsByID(testID);
+      const certification = await repository.getCertificationByID(testID);
       expect(certification).toBeNull();
     });
 
@@ -290,13 +316,13 @@ describe('Certifications Repository', () => {
         data: () => incompleteCertification,
       });
 
-      await expect(repository.getCertificationsByID('1')).rejects.toThrow(
+      await expect(repository.getCertificationByID('1')).rejects.toThrow(
         'Certification with ID 1 is missing mandatory fields.',
       );
     });
 
     test('It should handle errors when an invalid ID is provided.', async () => {
-      await expect(repository.getCertificationsByID('')).rejects.toThrow();
+      await expect(repository.getCertificationByID('')).rejects.toThrow();
     });
   });
 });

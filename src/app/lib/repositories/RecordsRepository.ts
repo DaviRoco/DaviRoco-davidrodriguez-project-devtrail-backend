@@ -1,3 +1,8 @@
+/**
+ * @file RecordsRepository.ts
+ * @description Repository class for managing experience and educational records in the Firestore database.
+ */
+
 import { db } from '../../firebase';
 import {
   collection,
@@ -10,26 +15,24 @@ import ExperienceRecords from '../entities/ExperienceRecords';
 import EducationalRecords from '../entities/EducationalRecords';
 import { CollectionReference } from 'firebase/firestore';
 
-/**
- * The `RecordsRepository` class provides methods to interact with the experience and education records collections.
- * It allows retrieving all records, as well as retrieving records by ID.
- *
- * @class RecordsRepository
- * @method getAllExperienceRecords - Retrieves all experience records from the experience collection.
- * @method getAllEducationalRecords - Retrieves all educational records from the education collection.
- * @method getExperienceRecordById - Retrieves an experience record by its ID from the experience collection.
- * @method getEducationalRecordById - Retrieves an educational record by its ID from the education collection.
- */
-
 class RecordsRepository {
   private type: string;
   private recordsCollection!: CollectionReference;
 
+  /**
+   * Initializes a new instance of the RecordsRepository class.
+   * @param {string} type - The type of records to manage ('experience' or 'education').
+   * @throws {Error} If an invalid record type is provided.
+   */
   constructor(type: string) {
     this.type = type;
     this.recordTypeHandler();
   }
 
+  /**
+   * Sets the Firestore collection reference based on the record type.
+   * @throws {Error} If an invalid record type is provided.
+   */
   recordTypeHandler(): void {
     if (this.type === 'experience') {
       this.recordsCollection = collection(db, 'experience');
@@ -40,6 +43,13 @@ class RecordsRepository {
     }
   }
 
+  /**
+   * Validates and maps Firestore document data to an ExperienceRecords entity.
+   * @param {DocumentData} docData - The Firestore document data.
+   * @param {string} id - The document ID.
+   * @returns {ExperienceRecords} The mapped ExperienceRecords entity.
+   * @throws {Error} If mandatory fields are missing in the document data.
+   */
   private validateAndMapExperienceRecord(
     docData: DocumentData,
     id: string,
@@ -80,6 +90,13 @@ class RecordsRepository {
     );
   }
 
+  /**
+   * Validates and maps Firestore document data to an EducationalRecords entity.
+   * @param {DocumentData} docData - The Firestore document data.
+   * @param {string} id - The document ID.
+   * @returns {EducationalRecords} The mapped EducationalRecords entity.
+   * @throws {Error} If mandatory fields are missing in the document data.
+   */
   private validateAndMapEducationalRecord(
     docData: DocumentData,
     id: string,
@@ -119,6 +136,11 @@ class RecordsRepository {
     );
   }
 
+  /**
+   * Retrieves all experience records from the Firestore collection.
+   * @returns {Promise<ExperienceRecords[]>} A promise that resolves to an array of ExperienceRecords.
+   * @throws {Error} Will throw an error if the retrieval or mapping of records fails.
+   */
   async getAllExperienceRecords(): Promise<ExperienceRecords[]> {
     const recordsSnapshot = await getDocs(this.recordsCollection);
 
@@ -127,6 +149,11 @@ class RecordsRepository {
     );
   }
 
+  /**
+   * Retrieves all educational records from the Firestore collection.
+   * @returns {Promise<EducationalRecords[]>} A promise that resolves to an array of EducationalRecords.
+   * @throws {Error} Will throw an error if the retrieval or mapping of records fails.
+   */
   async getAllEducationalRecords(): Promise<EducationalRecords[]> {
     const recordsSnapshot = await getDocs(this.recordsCollection);
 
@@ -135,6 +162,12 @@ class RecordsRepository {
     );
   }
 
+  /**
+   * Retrieves an experience record by its ID from the Firestore collection.
+   * @param {string} id - The ID of the experience record.
+   * @returns {Promise<ExperienceRecords | null>} A promise that resolves to the ExperienceRecords entity or null if not found.
+   * @throws {Error} If the ID is invalid or the retrieval fails.
+   */
   async getExperienceRecordByID(id: string): Promise<ExperienceRecords | null> {
     if (!id || typeof id !== 'string') {
       throw new Error('Invalid ID provided. ID must be a non-empty string.');
@@ -153,6 +186,12 @@ class RecordsRepository {
     );
   }
 
+  /**
+   * Retrieves an educational record by its ID from the Firestore collection.
+   * @param {string} id - The ID of the educational record.
+   * @returns {Promise<EducationalRecords | null>} A promise that resolves to the EducationalRecords entity or null if not found.
+   * @throws {Error} If the ID is invalid or the retrieval fails.
+   */
   async getEducationalRecordByID(
     id: string,
   ): Promise<EducationalRecords | null> {

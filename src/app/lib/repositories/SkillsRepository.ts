@@ -1,3 +1,8 @@
+/**
+ * @file RecordsRepository.ts
+ * @description Repository class for managing experience and educational records in the Firestore database.
+ */
+
 import { db } from '../../firebase';
 import {
   collection,
@@ -14,6 +19,12 @@ import { KnowledgeLevelEnumerations } from '../constants/enumerations/KnowledgeL
 const skillsCollection = collection(db, 'skills');
 
 class SkillsRepository {
+    /**
+   * Validates and maps Firestore document data to a Skills entity.
+   * @param {DocumentData} docData - The Firestore document data.
+   * @param {string} id - The document ID.
+   * @throws {Error} If mandatory fields are missing.
+   */
   private validateAndMapSkill(docData: DocumentData, id: string): Skills {
     const { name, description, level } = docData;
 
@@ -29,6 +40,12 @@ class SkillsRepository {
     );
   }
 
+
+  /**
+   * Retrieves all skills from the skills collection.
+   *
+   * @returns {Promise<Skills[] | null>} A promise that resolves to an array of skills if found, or null if the collection is empty.
+   */
   async getAllSkills(): Promise<Skills[] | null> {
     const skillsSnapshot = await getDocs(skillsCollection);
 
@@ -41,6 +58,14 @@ class SkillsRepository {
     );
   }
 
+
+  /**
+   * Retrieves a skill by its name from the skills collection.
+   *
+   * @param {string} name - The name of the skill to retrieve. Must be a non-empty string.
+   * @returns {Promise<Skills | null>} - A promise that resolves to the skill object if found, or null if no matching skill is found.
+   * @throws {Error} - Throws an error if the provided name is invalid (not a non-empty string).
+   */
   async getSkillByName(name: string): Promise<Skills | null> {
     if (!name || typeof name !== 'string') {
       throw new Error(
@@ -63,6 +88,14 @@ class SkillsRepository {
     return this.validateAndMapSkill(docSnapshot.data(), docSnapshot.id);
   }
 
+
+  /**
+   * Retrieves a skill by its ID from the skills collection.
+   *
+   * @param id - The ID of the skill to retrieve. Must be a non-empty string.
+   * @returns A promise that resolves to the skill object if found, or null if not found.
+   * @throws {Error} - Throws an error if the provided id is invalid (not a non-empty string).
+   */
   async getSkillByID(id: string): Promise<Skills | null> {
     if (!id || typeof id !== 'string') {
       throw new Error('Invalid ID provided. ID must be a non-empty string.');
@@ -78,6 +111,13 @@ class SkillsRepository {
     return this.validateAndMapSkill(docSnapshot.data(), docSnapshot.id);
   }
 
+  /**
+   * Retrieves a list of skills based on the provided skill IDs.
+   *
+   * @param ids - An array of skill IDs to fetch the corresponding skills.
+   * @returns A promise that resolves to an array of `Skills` objects.
+   * @throws {Error} - Throws an error if the skills do not exist.
+   */
   async getSkillsByIDs(ids: Skills[]): Promise<Skills[]> {
     const skills: Skills[] = [];
 

@@ -26,7 +26,7 @@ export class CertificationsService {
     name: string,
   ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
-      await this.certificationsRepository.getCertificationsByName(name);
+      await this.certificationsRepository.getCertificationByName(name);
     if (!certificationData) {
       return null;
     }
@@ -50,7 +50,7 @@ export class CertificationsService {
     id: string,
   ): Promise<Omit<Certifications, 'skills'> | null> {
     const certificationData =
-      await this.certificationsRepository.getCertificationsByID(id);
+      await this.certificationsRepository.getCertificationByID(id);
     if (!certificationData) {
       return null;
     }

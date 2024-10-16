@@ -179,7 +179,7 @@ describe('Certifications Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      certificationsRepository.getCertificationsByName.mockResolvedValue(
+      certificationsRepository.getCertificationByName.mockResolvedValue(
         mockCertifications[0],
       );
 
@@ -188,20 +188,20 @@ describe('Certifications Service', () => {
 
       expect(result).toEqual(mockCertificationsObjects[0]);
       expect(
-        certificationsRepository.getCertificationsByName,
+        certificationsRepository.getCertificationByName,
       ).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no certification', async () => {
       const testName = 'Certification 3';
-      certificationsRepository.getCertificationsByName.mockResolvedValue(null);
+      certificationsRepository.getCertificationByName.mockResolvedValue(null);
 
       const result =
         await certificationsService.getCertificationByName(testName);
 
       expect(result).toBeNull();
       expect(
-        certificationsRepository.getCertificationsByName,
+        certificationsRepository.getCertificationByName,
       ).toHaveBeenCalledTimes(1);
     });
   });
@@ -275,7 +275,7 @@ describe('Certifications Service', () => {
           knowledgeLevel: KnowledgeLevelEnumerations.High,
         },
       ]);
-      certificationsRepository.getCertificationsByID.mockResolvedValue(
+      certificationsRepository.getCertificationByID.mockResolvedValue(
         mockCertifications[1],
       );
 
@@ -283,19 +283,19 @@ describe('Certifications Service', () => {
 
       expect(result).toEqual(mockCertificationsObjects[1]);
       expect(
-        certificationsRepository.getCertificationsByID,
+        certificationsRepository.getCertificationByID,
       ).toHaveBeenCalledTimes(1);
     });
 
     test('It should return null when the repository returns no certification', async () => {
       const testID = '3';
-      certificationsRepository.getCertificationsByID.mockResolvedValue(null);
+      certificationsRepository.getCertificationByID.mockResolvedValue(null);
 
       const result = await certificationsService.getCertificationByID(testID);
 
       expect(result).toBeNull();
       expect(
-        certificationsRepository.getCertificationsByID,
+        certificationsRepository.getCertificationByID,
       ).toHaveBeenCalledTimes(1);
     });
   });

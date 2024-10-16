@@ -178,7 +178,7 @@ describe('Certifications Repository', () => {
         ],
       });
 
-      const certification = await repository.getCertificationsByName(testName);
+      const certification = await repository.getCertificationByName(testName);
       expect(certification?.name).toBe(testName);
     });
 
@@ -189,14 +189,14 @@ describe('Certifications Repository', () => {
         docs: [],
       });
 
-      const certification = await repository.getCertificationsByName(testName);
+      const certification = await repository.getCertificationByName(testName);
       expect(certification).toBeNull();
     });
 
     test('It should handle errors when an invalid name is provided.', async () => {
       const testName = '';
       await expect(
-        repository.getCertificationsByName(testName),
+        repository.getCertificationByName(testName),
       ).rejects.toThrow();
     });
   });
@@ -277,7 +277,7 @@ describe('Certifications Repository', () => {
         }),
       });
 
-      const certification = await repository.getCertificationsByID(testID);
+      const certification = await repository.getCertificationByID(testID);
       expect(certification?.id).toBe('1');
     });
 
@@ -288,7 +288,7 @@ describe('Certifications Repository', () => {
         data: () => null,
       });
 
-      const certification = await repository.getCertificationsByID(testID);
+      const certification = await repository.getCertificationByID(testID);
       expect(certification).toBeNull();
     });
 
@@ -316,13 +316,13 @@ describe('Certifications Repository', () => {
         data: () => incompleteCertification,
       });
 
-      await expect(repository.getCertificationsByID('1')).rejects.toThrow(
+      await expect(repository.getCertificationByID('1')).rejects.toThrow(
         'Certification with ID 1 is missing mandatory fields.',
       );
     });
 
     test('It should handle errors when an invalid ID is provided.', async () => {
-      await expect(repository.getCertificationsByID('')).rejects.toThrow();
+      await expect(repository.getCertificationByID('')).rejects.toThrow();
     });
   });
 });

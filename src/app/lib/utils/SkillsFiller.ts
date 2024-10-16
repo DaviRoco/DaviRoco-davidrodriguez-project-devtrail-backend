@@ -8,10 +8,21 @@ interface HasSkills {
 class SkillsFiller<T extends HasSkills> {
   private skillsRepository: SkillsRepository;
 
+  /**
+   * Constructs an instance of the SkillsFiller class.
+   * Initializes the skills repository by creating a new instance of SkillsRepository.
+   */
   constructor() {
     this.skillsRepository = new SkillsRepository();
   }
 
+  /**
+   * Retrieves an object with its associated skills populated.
+   *
+   * @template T - The type of the object.
+   * @param {T | null} objectData - The object data which contains skill IDs.
+   * @returns {Promise<Omit<T, 'skills'> | null>} - A promise that resolves to the object with populated skills or null if the input is null.
+   */
   public async getObjectWithSkills(
     objectData: T | null,
   ): Promise<Omit<T, 'skills'> | null> {
@@ -28,6 +39,13 @@ class SkillsFiller<T extends HasSkills> {
     return null;
   }
 
+  /**
+   * Retrieves objects with their associated skills populated.
+   *
+   * @template T - The type of the objects being processed.
+   * @param {T[] | null} objects - An array of objects or null.
+   * @returns {Promise<Omit<T, 'skills'>[] | null>} A promise that resolves to an array of objects with their skills populated, or null if the input is null.
+   */
   public async getObjectsWithSkills(
     objects: T[] | null,
   ): Promise<Omit<T, 'skills'>[] | null> {

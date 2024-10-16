@@ -19,7 +19,7 @@ import { KnowledgeLevelEnumerations } from '../constants/enumerations/KnowledgeL
 const skillsCollection = collection(db, 'skills');
 
 class SkillsRepository {
-    /**
+  /**
    * Validates and maps Firestore document data to a Skills entity.
    * @param {DocumentData} docData - The Firestore document data.
    * @param {string} id - The document ID.
@@ -40,7 +40,6 @@ class SkillsRepository {
     );
   }
 
-
   /**
    * Retrieves all skills from the skills collection.
    *
@@ -57,7 +56,6 @@ class SkillsRepository {
       this.validateAndMapSkill(doc.data(), doc.id),
     );
   }
-
 
   /**
    * Retrieves a skill by its name from the skills collection.
@@ -87,7 +85,6 @@ class SkillsRepository {
 
     return this.validateAndMapSkill(docSnapshot.data(), docSnapshot.id);
   }
-
 
   /**
    * Retrieves a skill by its ID from the skills collection.

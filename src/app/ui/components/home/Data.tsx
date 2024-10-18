@@ -28,11 +28,8 @@ const Data = () => {
 
       <h3 className="home-subtitle">Fullstack Developer/Engineer</h3>
       <p className="home-description">
-        I&#39;m a software developer with specialization in both client-side and
-        server-side development, creating full-stack solutions using the latest
-        and greatest tech stacks. I thrive in collaborative, agile environments
-        and bring a strong focus on clean, testable code and continuous
-        learning. Let&#39;s connect!
+        I&apos;m a passionate software developer who thrives on innovating code
+        and creating solutions for everyday challenges. Let&apos;s connect!
       </p>
 
       <a href="#contact" className="button button--flex">

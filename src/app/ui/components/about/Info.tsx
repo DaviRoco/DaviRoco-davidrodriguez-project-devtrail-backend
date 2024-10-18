@@ -44,7 +44,7 @@ const Info = () => {
     [],
   );
 
-  const fetchExperienceRecords = async () => {
+  const fetchExperienceRecords = useCallback(async () => {
     try {
       const records = await AboutService.getAllExperienceRecords();
       const totalExperience = calculateTotalExperience(records);
@@ -52,7 +52,7 @@ const Info = () => {
     } catch (error) {
       console.error('Error fetching experience records:', error);
     }
-  };
+  }, [calculateTotalExperience]);
 
   const fetchProjectsCount = async () => {
     try {
@@ -66,26 +66,29 @@ const Info = () => {
   useEffect(() => {
     fetchExperienceRecords();
     fetchProjectsCount();
-  });
+  }, [fetchExperienceRecords]);
 
   return (
     <div>
       <div className="about-info grid">
         <div className="about-box">
+          <i className="bx bx-award about-icon"></i>
           <h3 className="about-title">Experience</h3>
           <span className="about-subtitle">
-            {experienceData.totalExperience} of Working Experience
+            {experienceData.totalExperience}
           </span>
         </div>
 
         <div className="about-box">
+          <i className="bx bx-briefcase-alt about-icon"></i>
           <h3 className="about-title">Completed</h3>
           <span className="about-subtitle">{projectsCount} + Projects</span>
         </div>
 
         <div className="about-box">
-          <h3 className="about-title"></h3>
-          <span className="about-subtitle"></span>
+          <i className="bx bx-support about-icon"></i>
+          <h3 className="about-title">Support</h3>
+          <span className="about-subtitle">Online 24/7</span>
         </div>
       </div>
     </div>

@@ -187,8 +187,16 @@ img {
 }
 
 @media screen and (max-width: 768px) {
+  body {
+    margin: 0 0 var(--header-height) 0;
+  }
+
   .section {
     padding: 2rem 0 4rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: var(--mb-3);
   }
 }
 
@@ -201,4 +209,16 @@ img {
     margin-left: var(--mb-1);
     margin-right: var(--mb-1);
   }
+}
+/* Templates */
+@media screen and (max-width: 992) {
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media screen and (max-width: 576) {
+}
+
+@media screen and (max-width: 350px) {
 }

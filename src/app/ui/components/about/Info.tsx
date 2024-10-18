@@ -11,6 +11,8 @@ const Info = () => {
     totalExperience: '',
   });
 
+  const [projectsCount, setProjectsCount] = useState<number>(0);
+
   const calculateTotalExperience = useCallback(
     (records: ExperienceRecords[]): string => {
       let totalYears = 0;
@@ -42,19 +44,29 @@ const Info = () => {
     [],
   );
 
-  useEffect(() => {
-    const fetchExperienceRecords = async () => {
-      try {
-        const records = await AboutService.getAllExperienceRecords();
-        const totalExperience = calculateTotalExperience(records);
-        setExperienceData({ records, totalExperience });
-      } catch (error) {
-        console.error('Error fetching experience records:', error);
-      }
-    };
+  const fetchExperienceRecords = async () => {
+    try {
+      const records = await AboutService.getAllExperienceRecords();
+      const totalExperience = calculateTotalExperience(records);
+      setExperienceData({ records, totalExperience });
+    } catch (error) {
+      console.error('Error fetching experience records:', error);
+    }
+  };
 
+  const fetchProjectsCount = async () => {
+    try {
+      const count = await AboutService.getAllProjectsCount();
+      setProjectsCount(count);
+    } catch (error) {
+      console.error('Error fetching projects count:', error);
+    }
+  };
+
+  useEffect(() => {
     fetchExperienceRecords();
-  }, [calculateTotalExperience]);
+    fetchProjectsCount();
+  });
 
   return (
     <div>
@@ -62,13 +74,13 @@ const Info = () => {
         <div className="about-box">
           <h3 className="about-title">Experience</h3>
           <span className="about-subtitle">
-            {experienceData.totalExperience} Working Experience
+            {experienceData.totalExperience} of Working Experience
           </span>
         </div>
 
         <div className="about-box">
-          <h3 className="about-title">Education</h3>
-          <span className="about-subtitle"></span>
+          <h3 className="about-title">Completed</h3>
+          <span className="about-subtitle">{projectsCount} + Projects</span>
         </div>
 
         <div className="about-box">

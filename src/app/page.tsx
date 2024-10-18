@@ -1,7 +1,7 @@
 import styles from './page.module.css';
-import Header from './components/header/Header';
-import Home from './components/home/Home';
-import About from './components/about/About';
+import Header from './ui/components/header/Header';
+import Home from './ui/components/home/Home';
+import About from './ui/components/about/About';
 
 export default function App() {
   return (

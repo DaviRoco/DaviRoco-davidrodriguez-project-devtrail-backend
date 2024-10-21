@@ -131,51 +131,6 @@ class SkillsRepository {
 
     return skills;
   }
-
-  /**
-   * Retrieves all front-end skills from the skills collection.
-   *
-   * @returns {Promise<Skills[] | null>} A promise that resolves to an array of front-end skills or null if no skills are found.
-   *
-   * @throws {FirebaseError} If there is an error while querying the database.
-   */
-  async getAllFrontEndSkills(): Promise<Skills[] | null> {
-    const frontEndSkillsQuery = query(
-      skillsCollection,
-      where('description', '==', 'Front-End'),
-    );
-    const querySnapshot = await getDocs(frontEndSkillsQuery);
-
-    if (querySnapshot.empty) {
-      return null;
-    }
-
-    return querySnapshot.docs.map((doc) =>
-      this.validateAndMapSkill(doc.data(), doc.id),
-    );
-  }
-  /**
-   * Retrieves all back-end skills from the skills collection.
-   *
-   * @returns {Promise<Skills[] | null>} A promise that resolves to an array of back-end skills or null if no skills are found.
-   *
-   * @throws {FirebaseError} If there is an error while querying the database.
-   */
-  async getAllBackEndSkills(): Promise<Skills[] | null> {
-    const backEndSkillsQuery = query(
-      skillsCollection,
-      where('description', '==', 'Back-End'),
-    );
-    const querySnapshot = await getDocs(backEndSkillsQuery);
-
-    if (querySnapshot.empty) {
-      return null;
-    }
-
-    return querySnapshot.docs.map((doc) =>
-      this.validateAndMapSkill(doc.data(), doc.id),
-    );
-  }
 }
 
 export default SkillsRepository;

@@ -14,8 +14,6 @@
  * - **getAllSkills**: Retrieves all skills from the repository.
  * - **getSkillByName**: Retrieves a skill by its name.
  * - **getSkillByID**: Retrieves a skill by its ID.
- * - **getAllFrontEndSkills**: Retrieves all front-end skills.
- * - **getAllBackEndSkills**: Retrieves all back-end skills.
  *
  * Each test verifies the following aspects:
  * - Successful retrieval of skills.
@@ -124,46 +122,6 @@ describe('Skills Service', () => {
 
       expect(result).toBeNull();
       expect(skillsRepository.getSkillByID).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getAllFrontEndSkills', () => {
-    test('It should return all front-end skills when repository returns front-end skills', async () => {
-      skillsRepository.getAllFrontEndSkills.mockResolvedValue(mockSkills);
-
-      const result = await skillsService.getAllFrontEndSkills();
-
-      expect(result).toEqual(mockSkills);
-      expect(skillsRepository.getAllFrontEndSkills).toHaveBeenCalledTimes(1);
-    });
-
-    test('It should return an empty array when repository returns an empty array', async () => {
-      skillsRepository.getAllFrontEndSkills.mockResolvedValue(null);
-
-      const result = await skillsService.getAllFrontEndSkills();
-
-      expect(result).toBeNull();
-      expect(skillsRepository.getAllFrontEndSkills).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getAllBackEndSkills', () => {
-    test('It should return all back-end skills when repository returns back-end skills', async () => {
-      skillsRepository.getAllBackEndSkills.mockResolvedValue(mockSkills);
-
-      const result = await skillsService.getAllBackEndSkills();
-
-      expect(result).toEqual(mockSkills);
-      expect(skillsRepository.getAllBackEndSkills).toHaveBeenCalledTimes(1);
-    });
-
-    test('It should return an empty array when repository returns an empty array', async () => {
-      skillsRepository.getAllBackEndSkills.mockResolvedValue(null);
-
-      const result = await skillsService.getAllBackEndSkills();
-
-      expect(result).toBeNull();
-      expect(skillsRepository.getAllBackEndSkills).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -16,7 +16,6 @@ import SkillsControllers from '../../lib/controllers/SkillsController';
  * Query Parameters:
  * - `name` (optional): The name of the skill to fetch.
  * - `id` (optional): The ID of the skill to fetch.
- * - `type` (optional): The type of skills to fetch. Possible values are `frontend` or `backend`.
  *
  * Response:
  * - 200: Successfully fetched the skills.
@@ -47,7 +46,6 @@ export async function GET(req: Request) {
 
   const name = searchParams.get('name');
   const id = searchParams.get('id');
-  const type = searchParams.get('type');
   try {
     let response;
 
@@ -55,10 +53,6 @@ export async function GET(req: Request) {
       response = await SkillsControllers.getSkillByName(name);
     } else if (id) {
       response = await SkillsControllers.getSkillByID(id);
-    } else if (type === 'frontend') {
-      response = await SkillsControllers.getAllFrontEndSkills();
-    } else if (type === 'backend') {
-      response = await SkillsControllers.getAllBackEndSkills();
     } else {
       response = await SkillsControllers.getAllSkills();
     }

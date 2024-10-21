@@ -53,6 +53,34 @@ export class SkillsService {
     }
     return skillData;
   }
+
+  /**
+   * Retrieves all frontend skills from the repository.
+   *
+   * @returns {Promise<Skills[] | null>} A promise that resolves to an array of frontend skills,
+   * or null if no skills are found.
+   */
+  async getAllFrontEndSkills(): Promise<Skills[] | null> {
+    const frontendSkills = await this.skillsRepository.getAllFrontEndSkills();
+    if (!frontendSkills || frontendSkills.length === 0) {
+      return null;
+    }
+    return frontendSkills;
+  }
+
+  /**
+   * Retrieves all backend skills from the repository.
+   *
+   * @returns {Promise<Skills[] | null>} A promise that resolves to an array of backend skills,
+   * or null if no backend skills are found.
+   */
+  async getAllBackEndSkills(): Promise<Skills[] | null> {
+    const backendSkills = await this.skillsRepository.getAllBackEndSkills();
+    if (!backendSkills || backendSkills.length === 0) {
+      return null;
+    }
+    return backendSkills;
+  }
 }
 
 export default SkillsService;

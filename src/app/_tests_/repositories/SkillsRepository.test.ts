@@ -12,6 +12,8 @@
  * - **getSkillByName**: Retrieves a skill by its name.
  * - **getSkillByID**: Retrieves a skill by its ID.
  * - **getSkillsByIDs**: Retrieves multiple skills by their IDs.
+ * - **getAllFrontEndSkills**: Retrieves all front-end skills.
+ * - **getAllBackEndSkills**: Retrieves all back-end skills.
  *
  * Each test verifies the following aspects:
  * - Successful retrieval of skills.
@@ -318,6 +320,64 @@ describe('Skills Repository', () => {
       await expect(repository.getSkillsByIDs(invalidTestIDs)).rejects.toThrow(
         new Error('Skills are non-existent.'),
       );
+    });
+  });
+
+  describe('getAllFrontEndSkills', () => {
+    test('It should retrieve all front-end skills.', async () => {
+      (getDocs as jest.Mock).mockResolvedValueOnce({
+        docs: mockSkills.map((skill) => ({
+          id: skill.id,
+          data: () => skill,
+        })),
+      });
+
+      const frontendSkills = await repository.getAllFrontEndSkills();
+      expect(frontendSkills?.length).toBe(2);
+
+      if (frontendSkills) {
+        expect(frontendSkills[0].name).toBe('JavaScript');
+        expect(frontendSkills[1].name).toBe('TypeScript');
+      }
+    });
+
+    test('It should handle errors when no front-end skills are available.', async () => {
+      (getDocs as jest.Mock).mockResolvedValueOnce({
+        empty: true,
+        docs: [],
+      });
+
+      const frontendSkills = await repository.getAllFrontEndSkills();
+      expect(frontendSkills).toBeNull();
+    });
+  });
+
+  describe('getAllBackEndSkills', () => {
+    test('It should retrieve all back-end skills.', async () => {
+      (getDocs as jest.Mock).mockResolvedValueOnce({
+        docs: mockSkills.map((skill) => ({
+          id: skill.id,
+          data: () => skill,
+        })),
+      });
+
+      const backendSkills = await repository.getAllBackEndSkills();
+      expect(backendSkills?.length).toBe(2);
+
+      if (backendSkills) {
+        expect(backendSkills[0].name).toBe('JavaScript');
+        expect(backendSkills[1].name).toBe('TypeScript');
+      }
+    });
+
+    test('It should handle errors when no back-end skills are available.', async () => {
+      (getDocs as jest.Mock).mockResolvedValueOnce({
+        empty: true,
+        docs: [],
+      });
+
+      const backendSkills = await repository.getAllBackEndSkills();
+      expect(backendSkills).toBeNull();
     });
   });
 });

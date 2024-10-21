@@ -109,10 +109,64 @@ export const getSkillByID = async (
   }
 };
 
+/**
+ * Retrieves all front-end skills.
+ *
+ * @returns {Promise<ResponseData<Skills[] | string>>} A promise that resolves to a ResponseData object containing either an array of Skills or a string message.
+ *
+ * @throws Will return an error response if the retrieval of front-end skills fails.
+ */
+export const getAllFrontEndSkills = async (): Promise<
+  ResponseData<Skills[] | string>
+> => {
+  try {
+    const frontEndSkills = await skillsService.getAllFrontEndSkills();
+    if (!frontEndSkills) {
+      return ApiResponseBuilder.createSuccessResponse(
+        'No Front-End Skills fetched',
+      );
+    }
+    return ApiResponseBuilder.createSuccessResponse(frontEndSkills);
+  } catch (error) {
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      'Failed to retrieve front-end skills',
+    );
+  }
+};
+
+/**
+ * Retrieves all back-end skills.
+ *
+ * @returns {Promise<ResponseData<Skills[] | string>>} A promise that resolves to a response containing either an array of back-end skills or a message indicating no skills were fetched.
+ *
+ * @throws {Error} If there is an error while retrieving the back-end skills, an error response is returned.
+ */
+export const getAllBackEndSkills = async (): Promise<
+  ResponseData<Skills[] | string>
+> => {
+  try {
+    const backEndSkills = await skillsService.getAllBackEndSkills();
+    if (!backEndSkills) {
+      return ApiResponseBuilder.createSuccessResponse(
+        'No Back-End Skills fetched',
+      );
+    }
+    return ApiResponseBuilder.createSuccessResponse(backEndSkills);
+  } catch (error) {
+    return ApiResponseBuilder.createErrorResponse(
+      error as Error,
+      'Failed to retrieve back-end skills',
+    );
+  }
+};
+
 const SkillsController = {
   getAllSkills,
   getSkillByName,
   getSkillByID,
+  getAllFrontEndSkills,
+  getAllBackEndSkills,
 };
 
 export default SkillsController;

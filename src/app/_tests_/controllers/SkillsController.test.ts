@@ -181,4 +181,78 @@ describe('Skills Controller', () => {
       );
     });
   });
+
+  describe('getAllFrontEndSkills', () => {
+    test('It should return all front-end skills on success.', async () => {
+      (
+        SkillsService.prototype.getAllFrontEndSkills as jest.Mock
+      ).mockResolvedValue(mockSkills);
+
+      const result = await SkillsController.getAllFrontEndSkills();
+
+      expect(result.status).toBe(200);
+      expect(result.body).toEqual(mockSkills);
+    });
+
+    test('It should return a message if no front-end skills are found.', async () => {
+      (
+        SkillsService.prototype.getAllFrontEndSkills as jest.Mock
+      ).mockResolvedValue(null);
+
+      const result = await SkillsController.getAllFrontEndSkills();
+
+      expect(result.status).toBe(200);
+      expect(result.body).toBe('No Front-End Skills fetched');
+    });
+
+    test('It should handle errors', async () => {
+      (
+        SkillsService.prototype.getAllFrontEndSkills as jest.Mock
+      ).mockRejectedValue(new Error('Test'));
+
+      const result = await SkillsController.getAllFrontEndSkills();
+
+      expect(result.status).toBe(500);
+      expect(result.body).toBe(
+        'Failed to retrieve front-end skills - Error: Test',
+      );
+    });
+  });
+
+  describe('getAllBackEndSkills', () => {
+    test('It should return all back-end skills on success.', async () => {
+      (
+        SkillsService.prototype.getAllBackEndSkills as jest.Mock
+      ).mockResolvedValue(mockSkills);
+
+      const result = await SkillsController.getAllBackEndSkills();
+
+      expect(result.status).toBe(200);
+      expect(result.body).toEqual(mockSkills);
+    });
+
+    test('It should return a message if no back-end skills are found.', async () => {
+      (
+        SkillsService.prototype.getAllBackEndSkills as jest.Mock
+      ).mockResolvedValue(null);
+
+      const result = await SkillsController.getAllBackEndSkills();
+
+      expect(result.status).toBe(200);
+      expect(result.body).toBe('No Back-End Skills fetched');
+    });
+
+    test('It should handle errors', async () => {
+      (
+        SkillsService.prototype.getAllBackEndSkills as jest.Mock
+      ).mockRejectedValue(new Error('Test'));
+
+      const result = await SkillsController.getAllBackEndSkills();
+
+      expect(result.status).toBe(500);
+      expect(result.body).toBe(
+        'Failed to retrieve back-end skills - Error: Test',
+      );
+    });
+  });
 });

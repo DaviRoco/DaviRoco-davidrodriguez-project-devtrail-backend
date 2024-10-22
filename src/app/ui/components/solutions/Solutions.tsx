@@ -40,38 +40,37 @@ const Solutions = () => {
 
               <h3 className="services-modal-title">Software Development</h3>
               <p className="services-modal-description">
-                Solutions with more than 1 year of experience. Providing quality
-                work to clients and companies
+                Over 1 year of experience delivering high-quality software
+                solutions.
               </p>
 
               <ul className="services-modal-services grid">
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Full-Stack Web Development, Design and Maintenance.
+                    Focus on delivering reliable, efficient, and scalable
+                    systems.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    AI integration for websites and apps.
+                    Comprehensive front-end and back-end development for web
+                    applications.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Database Design and Optimization.
+                    Skilled in building responsive and user-friendly interfaces.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Agile Project Coordination.
+                    Expertise in integrating databases, APIs, and server-side
+                    functionality.
                   </p>
-                </li>
-                <li className="services-modal-service">
-                  <i className="uil uil-check-circle services-modal-icon"></i>
-                  <p className="services-modal-info">Consulting Services</p>
                 </li>
               </ul>
             </div>
@@ -81,7 +80,7 @@ const Solutions = () => {
         <div className="services-content">
           <div>
             <i className="uil uil-arrow services-icon"></i>
-            <h3 className="services-title">Product Design</h3>
+            <h3 className="services-title">Project Coordination</h3>
           </div>
 
           <span className="services-button" onClick={() => toggleTab(2)}>
@@ -102,40 +101,39 @@ const Solutions = () => {
                 className="uil uil-times services-modal-close"
               ></i>
 
-              <h3 className="services-modal-title">Product Design</h3>
+              <h3 className="services-modal-title">Project Coordination</h3>
               <p className="services-modal-description">
-                Solutions with more than 1 year of experience. Providing quality
-                work to clients and companies
+                Help teams streamline development processes for better
+                collaboration and faster delivery.
               </p>
 
               <ul className="services-modal-services grid">
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Full-Stack Web Development, Design and Maintenance.
+                    Coordinating development tasks within agile teams using
+                    Scrum methodologies.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    AI integration for websites and apps.
+                    Leading pull request processes, code reviews, and ensuring
+                    adherence to coding standards.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Database Design and Optimization.
+                    Mentoring junior developers and interns, fostering knowledge
+                    sharing and growth.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Agile Project Coordination.
+                    Creating Technical and Onboarding Documentation.
                   </p>
-                </li>
-                <li className="services-modal-service">
-                  <i className="uil uil-check-circle services-modal-icon"></i>
-                  <p className="services-modal-info">Consulting Services</p>
                 </li>
               </ul>
             </div>
@@ -166,40 +164,34 @@ const Solutions = () => {
                 className="uil uil-times services-modal-close"
               ></i>
 
-              <h3 className="services-modal-title">Project Management</h3>
+              <h3 className="services-modal-title">Consulting Services</h3>
               <p className="services-modal-description">
-                Solutions with more than 1 year of experience. Providing quality
-                work to clients and companies
+                Offer consulting services to guide clients through the
+                complexities of software development, from architecture design
+                to best coding practices.
               </p>
 
               <ul className="services-modal-services grid">
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Full-Stack Web Development, Design and Maintenance.
+                    Offering tailored advice on software architecture and best
+                    practices.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    AI integration for websites and apps.
+                    Specializing in development workflows for frontend (React,
+                    Angular) and backend (Node.js, Spring Boot) systems.
                   </p>
                 </li>
                 <li className="services-modal-service">
                   <i className="uil uil-check-circle services-modal-icon"></i>
                   <p className="services-modal-info">
-                    Database Design and Optimization.
+                    Guidance on optimizing code, enhancing performance, and
+                    maintaining scalability.
                   </p>
-                </li>
-                <li className="services-modal-service">
-                  <i className="uil uil-check-circle services-modal-icon"></i>
-                  <p className="services-modal-info">
-                    Agile Project Coordination.
-                  </p>
-                </li>
-                <li className="services-modal-service">
-                  <i className="uil uil-check-circle services-modal-icon"></i>
-                  <p className="services-modal-info">Consulting Services</p>
                 </li>
               </ul>
             </div>

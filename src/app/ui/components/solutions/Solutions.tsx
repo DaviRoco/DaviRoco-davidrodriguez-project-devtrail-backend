@@ -143,7 +143,7 @@ const Solutions = () => {
         <div className="services-content">
           <div>
             <i className="uil uil-edit services-icon"></i>
-            <h3 className="services-title">Project Management</h3>
+            <h3 className="services-title">Consulting Services</h3>
           </div>
 
           <span className="services-button" onClick={() => toggleTab(3)}>

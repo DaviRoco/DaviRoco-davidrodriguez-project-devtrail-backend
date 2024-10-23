@@ -4,6 +4,7 @@ import Home from './ui/components/home/Home';
 import About from './ui/components/about/About';
 import Skills from './ui/components/skills/Skills';
 import Solutions from './ui/components/solutions/Solutions';
+import Qualification from './ui/components/qualification/Qualification';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <About />
         <Skills />
         <Solutions />
+        <Qualification />
       </main>
     </div>
   );

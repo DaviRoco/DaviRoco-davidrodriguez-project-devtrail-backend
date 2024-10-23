@@ -16,6 +16,17 @@ export interface ExperienceRecords {
   _location: string;
 }
 
+export interface EducationalRecords {
+  _id: string;
+  _startDate: Date;
+  _endDate: Date;
+  _description: string;
+  _skills: Skills[];
+  _institutionName: string;
+  _degree: string;
+  _location: string;
+}
+
 export interface Projects {
   _id: string;
   _name: string;

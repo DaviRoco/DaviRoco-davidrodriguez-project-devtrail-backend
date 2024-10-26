@@ -2,11 +2,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './qualification.css';
 import { QualificationService } from '../../services/QualificationService';
-import type { ExperienceRecords } from '../../types/types';
+import { EducationalRecords, type ExperienceRecords } from '../../types/types';
 const Qualification = () => {
   const [toggleState, setToggleState] = useState(1);
   const [experienceRecords, setExperienceRecords] = useState<
     ExperienceRecords[]
+  >([]);
+
+  const [educationalRecords, setEducationalRecords] = useState<
+    EducationalRecords[]
   >([]);
 
   const fetchExperienceRecords = useCallback(async () => {
@@ -18,13 +22,23 @@ const Qualification = () => {
     }
   }, []);
 
+  const fetchEducationalRecords = useCallback(async () => {
+    try {
+      const response = await QualificationService.getAllEducationalRecords();
+      setEducationalRecords(response);
+    } catch (error) {
+      console.error('Error fetching educational records:', error);
+    }
+  }, []);
+
   const toggleTab = (index: number) => {
     setToggleState(index);
   };
 
   useEffect(() => {
     fetchExperienceRecords();
-  }, [fetchExperienceRecords]);
+    fetchEducationalRecords();
+  }, [fetchExperienceRecords, fetchEducationalRecords]);
 
   return (
     <section className="qualification section">
@@ -66,73 +80,63 @@ const Qualification = () => {
                 : 'qualification-content'
             }
           >
-            <div className="qualification-data">
-              <div>
-                <h3 className="qualification-title">TEST Development</h3>
-                <span className="qualification-subtitle">
-                  Spain - Institute
-                </span>
-                <div className="qualification-calendar">
-                  <i className="uil uil-calendar-alt"></i> 2021 - Present
+            {educationalRecords.map((record, index) =>
+              index % 2 === 0 ? (
+                <div key={index} className="qualification-data">
+                  <div>
+                    <h3 className="qualification-title">{record._degree}</h3>
+                    <span className="qualification-subtitle">
+                      {record._institutionName} - {record._location}
+                    </span>
+                    <div className="qualification-calendar">
+                      <i className="uil uil-calendar-alt"></i>
+                      {new Date(record._startDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                      })}
+                      {' - '}
+                      {new Date(record._endDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                      })}
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="qualification-rounder"></span>
+                    <span className="qualification-line"></span>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div key={index} className="qualification-data">
+                  <div></div>
 
-              <div>
-                <span className="qualification-rounder"></span>
-                <span className="qualification-line"></span>
-              </div>
-            </div>
+                  <div>
+                    <span className="qualification-rounder"></span>
+                    <span className="qualification-line"></span>
+                  </div>
 
-            <div className="qualification-data">
-              <div></div>
-
-              <div>
-                <span className="qualification-rounder"></span>
-                <span className="qualification-line"></span>
-              </div>
-
-              <div>
-                <h3 className="qualification-title">Test Title</h3>
-                <span className="qualification-subtitle">Test subtitle</span>
-                <div className="qualification-calendar">
-                  <i className="uil uil-calendar-alt"></i> 2021 - Present
+                  <div>
+                    <h3 className="qualification-title">{record._degree}</h3>
+                    <span className="qualification-subtitle">
+                      {record._institutionName} - {record._location}
+                    </span>
+                    <div className="qualification-calendar">
+                      <i className="uil uil-calendar-alt"></i>
+                      {new Date(record._startDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                      })}
+                      {' - '}
+                      {new Date(record._endDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="qualification-data">
-              <div>
-                <h3 className="qualification-title">Web Development</h3>
-                <span className="qualification-subtitle">
-                  Spain - Institute
-                </span>
-                <div className="qualification-calendar">
-                  <i className="uil uil-calendar-alt"></i> 2021 - Present
-                </div>
-              </div>
-
-              <div>
-                <span className="qualification-rounder"></span>
-                <span className="qualification-line"></span>
-              </div>
-            </div>
-
-            <div className="qualification-data">
-              <div></div>
-
-              <div>
-                <span className="qualification-rounder"></span>
-                <span className="qualification-line"></span>
-              </div>
-
-              <div>
-                <h3 className="qualification-title">Test Title</h3>
-                <span className="qualification-subtitle">Test subtitle</span>
-                <div className="qualification-calendar">
-                  <i className="uil uil-calendar-alt"></i> 2021 - Present
-                </div>
-              </div>
-            </div>
+              ),
+            )}
           </div>
 
           <div

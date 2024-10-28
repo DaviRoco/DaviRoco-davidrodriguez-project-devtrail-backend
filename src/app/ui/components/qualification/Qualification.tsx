@@ -41,7 +41,7 @@ const Qualification = () => {
   }, [fetchExperienceRecords, fetchEducationalRecords]);
 
   return (
-    <section className="qualification section">
+    <section className="qualification section" id="qualification">
       <h2 className="section-title">Qualification</h2>
       <span className="section-subtitle">My Personal Journey</span>
 

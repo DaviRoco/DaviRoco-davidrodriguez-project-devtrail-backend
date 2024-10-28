@@ -6,7 +6,7 @@ import Skills from './ui/components/skills/Skills';
 import Solutions from './ui/components/solutions/Solutions';
 import Qualification from './ui/components/qualification/Qualification';
 import Contact from './ui/components/contact/Contact';
-
+import Footer from './ui/components/footer/Footer';
 export default function App() {
   return (
     <div className={styles.page}>
@@ -18,6 +18,7 @@ export default function App() {
         <Solutions />
         <Qualification />
         <Contact />
+        <Footer />
       </main>
     </div>
   );

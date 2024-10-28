@@ -12,6 +12,7 @@
     "check": "prettier --write . && next lint && jest --coverage"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "axios": "^1.7.7",
     "firebase": "^10.14.0",
     "next": "14.2.13",

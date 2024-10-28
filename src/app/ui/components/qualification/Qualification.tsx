@@ -16,7 +16,11 @@ const Qualification = () => {
   const fetchExperienceRecords = useCallback(async () => {
     try {
       const response = await QualificationService.getAllExperienceRecords();
-      setExperienceRecords(response);
+      const sortedResponse = response.sort(
+        (a, b) =>
+          new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
+      );
+      setExperienceRecords(sortedResponse);
     } catch (error) {
       console.error('Error fetching experience records:', error);
     }
@@ -25,7 +29,11 @@ const Qualification = () => {
   const fetchEducationalRecords = useCallback(async () => {
     try {
       const response = await QualificationService.getAllEducationalRecords();
-      setEducationalRecords(response);
+      const sortedResponse = response.sort(
+        (a, b) =>
+          new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
+      );
+      setEducationalRecords(sortedResponse);
     } catch (error) {
       console.error('Error fetching educational records:', error);
     }
@@ -55,10 +63,9 @@ const Qualification = () => {
             }
             onClick={() => toggleTab(1)}
           >
-            <i className="uil uil-graduation-cap qualification-icon"></i>
-            Education
+            <i className="uil uil-briefcase-alt qualification-icon"></i>
+            Experience
           </div>
-
           <div
             className={
               toggleState === 2
@@ -67,8 +74,8 @@ const Qualification = () => {
             }
             onClick={() => toggleTab(2)}
           >
-            <i className="uil uil-briefcase-alt qualification-icon"></i>
-            Experience
+            <i className="uil uil-graduation-cap qualification-icon"></i>
+            Education
           </div>
         </div>
 
@@ -80,16 +87,16 @@ const Qualification = () => {
                 : 'qualification-content'
             }
           >
-            {educationalRecords.map((record, index) =>
+            {experienceRecords.map((record, index) =>
               index % 2 === 0 ? (
                 <div key={index} className="qualification-data">
                   <div>
-                    <h3 className="qualification-title">{record._degree}</h3>
+                    <h3 className="qualification-title">{record._title}</h3>
                     <span className="qualification-subtitle">
-                      {record._institutionName} - {record._location}
+                      {record._companyName}
                     </span>
                     <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt"></i>
+                      <i className="uil uil-calendar-alt qualification-calendar-icon"></i>
                       {new Date(record._startDate).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
@@ -117,12 +124,12 @@ const Qualification = () => {
                   </div>
 
                   <div>
-                    <h3 className="qualification-title">{record._degree}</h3>
+                    <h3 className="qualification-title">{record._title}</h3>
                     <span className="qualification-subtitle">
-                      {record._institutionName} - {record._location}
+                      {record._companyName}
                     </span>
                     <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt"></i>
+                      <i className="uil uil-calendar-alt qualification-calendar-icon"></i>
                       {new Date(record._startDate).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
@@ -146,7 +153,7 @@ const Qualification = () => {
                 : 'qualification-content'
             }
           >
-            {experienceRecords.map((record, index) =>
+            {educationalRecords.map((record, index) =>
               index % 2 === 0 ? (
                 <div key={index} className="qualification-data">
                   <div></div>
@@ -157,12 +164,12 @@ const Qualification = () => {
                   </div>
 
                   <div>
-                    <h3 className="qualification-title">{record._title}</h3>
+                    <h3 className="qualification-title">{record._degree}</h3>
                     <span className="qualification-subtitle">
-                      {record._companyName} - {record._location}
+                      {record._institutionName}
                     </span>
                     <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt qualification-calendar-icon"></i>
+                      <i className="uil uil-calendar-alt"></i>
                       {new Date(record._startDate).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
@@ -178,12 +185,12 @@ const Qualification = () => {
               ) : (
                 <div key={index} className="qualification-data">
                   <div>
-                    <h3 className="qualification-title">{record._title}</h3>
+                    <h3 className="qualification-title">{record._degree}</h3>
                     <span className="qualification-subtitle">
-                      {record._companyName} - {record._location}
+                      {record._institutionName}
                     </span>
                     <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt qualification-calendar-icon"></i>
+                      <i className="uil uil-calendar-alt"></i>
                       {new Date(record._startDate).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',

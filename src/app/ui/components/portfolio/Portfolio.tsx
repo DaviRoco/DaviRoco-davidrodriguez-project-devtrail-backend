@@ -10,6 +10,11 @@ import { Pagination } from 'swiper/modules';
 
 const Portfolio = () => {
   const [projects, setProjects] = useState<Projects[]>([]);
+  const [toggleState, setToggleState] = useState('0');
+
+  const toggleTab = (index: string) => {
+    setToggleState(index);
+  };
   const fetchProjects = useCallback(async () => {
     try {
       const response = await PortfolioService.getAllProjects();
@@ -53,26 +58,84 @@ const Portfolio = () => {
       >
         {projects.map((project) => (
           <SwiperSlide className="portfolio-card" key={project._id}>
-            <h3 className="portfolio-name">{project._name}</h3>
+            <h3 className="portfolio-name">
+              {project._name}
+              <i className="uil uil-github portfolio-button-name-icon"></i>
+            </h3>
             <p className="portfolio-description">
-              <i className="uil uil-calendar-alt qualification-calendar-icon"></i>{' '}
-              {new Date(project._startDate).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-              })}
-              {' - '}
-              {new Date(project._endDate).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-              })}
-            </p>
-            <p className="portfolio-description">
-              <i className="uil uil-lightbulb qualification-calendar-icon"></i>{' '}
-              Skills: {project._skills.map((skill) => skill._name).join(', ')}
+              <span
+                className="services-button"
+                onClick={() => toggleTab(project._id)}
+              >
+                View More
+                <i className="uil uil-arrow-right portfolio-button-icon"></i>
+              </span>
             </p>
           </SwiperSlide>
         ))}
       </Swiper>
+      {projects.map((project) => (
+        <div
+          key={project._id}
+          className={
+            toggleState === project._id
+              ? 'portfolio-modal active-modal'
+              : 'portfolio-modal'
+          }
+        >
+          <div className="portfolio-modal-content">
+            <i
+              onClick={() => toggleTab('0')}
+              className="uil uil-times portfolio-modal-close"
+            ></i>
+
+            <h3 className="portfolio-modal-title">{project._name}</h3>
+            <p className="portfolio-modal-description">
+              {project._description}
+            </p>
+
+            <ul className="portfolio-modal-projects grid">
+              <li className="portfolio-modal-project">
+                <i className="uil uil-calendar-alt portfolio-modal-icon"></i>
+                <p className="portfolio-modal-info">
+                  {new Date(project._startDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                  {' - '}
+                  {new Date(project._endDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                </p>
+              </li>
+              <li className="portfolio-modal-project">
+                <i className="uil uil-lightbulb-alt portfolio-modal-icon"></i>
+                <p className="portfolio-modal-info">
+                  {project._skills.map((skill) => skill._name).join(', ')}
+                </p>
+              </li>
+              <li className="portfolio-modal-project">
+                <i className="uil uil-globe portfolio-modal-icon"></i>
+                <p className="portfolio-modal-info">
+                  {project._url != 'N/A' ? (
+                    <a
+                      href={project._url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="portfolio-modal-link"
+                    >
+                      {project._url}
+                    </a>
+                  ) : (
+                    project._url
+                  )}
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ))}
     </section>
   );
 };

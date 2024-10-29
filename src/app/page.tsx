@@ -8,6 +8,7 @@ import Qualification from './ui/components/qualification/Qualification';
 import Contact from './ui/components/contact/Contact';
 import Footer from './ui/components/footer/Footer';
 import ScrollUp from './ui/components/scrollup/ScrollUp';
+import Portfolio from './ui/components/portfolio/Portfolio';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <About />
         <Skills />
         <Solutions />
+        <Portfolio />
         <Qualification />
         <Contact />
       </main>

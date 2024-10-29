@@ -36,3 +36,13 @@ export interface Projects {
   _url: string;
   _skills: Skills[];
 }
+
+export interface Projects {
+  _id: string;
+  _name: string;
+  _startDate: Date;
+  _endDate: Date;
+  _description: string;
+  _url: string;
+  _skills: Skills[];
+}

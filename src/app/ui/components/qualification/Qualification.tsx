@@ -13,6 +13,12 @@ const Qualification = () => {
     EducationalRecords[]
   >([]);
 
+  const [toggleModal, setToggleModal] = useState('0');
+
+  const toggleModalRecords = (index: string) => {
+    setToggleModal(index);
+  };
+
   const fetchExperienceRecords = useCallback(async () => {
     try {
       const response = await QualificationService.getAllExperienceRecords();
@@ -95,17 +101,14 @@ const Qualification = () => {
                     <span className="qualification-subtitle">
                       {record._companyName}
                     </span>
-                    <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt qualification-calendar-icon"></i>
-                      {new Date(record._startDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
-                      {' - '}
-                      {new Date(record._endDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
+                    <div className="qualification-more-details">
+                      <span
+                        className="qualification-more-button"
+                        onClick={() => toggleModalRecords(record._id)}
+                      >
+                        More Details
+                        <i className="uil uil-plus-circle qualification-button-icon"></i>
+                      </span>
                     </div>
                   </div>
 
@@ -128,17 +131,14 @@ const Qualification = () => {
                     <span className="qualification-subtitle">
                       {record._companyName}
                     </span>
-                    <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt qualification-calendar-icon"></i>
-                      {new Date(record._startDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
-                      {' - '}
-                      {new Date(record._endDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
+                    <div className="qualification-more-details">
+                      <span
+                        className="qualification-more-button"
+                        onClick={() => toggleModalRecords(record._id)}
+                      >
+                        More Details
+                        <i className="uil uil-plus-circle qualification-button-icon"></i>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -168,17 +168,14 @@ const Qualification = () => {
                     <span className="qualification-subtitle">
                       {record._institutionName}
                     </span>
-                    <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt"></i>
-                      {new Date(record._startDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
-                      {' - '}
-                      {new Date(record._endDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
+                    <div className="qualification-more-details">
+                      <span
+                        className="qualification-more-button"
+                        onClick={() => toggleModalRecords(record._id)}
+                      >
+                        More Details
+                        <i className="uil uil-plus-circle qualification-button-icon"></i>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -189,17 +186,14 @@ const Qualification = () => {
                     <span className="qualification-subtitle">
                       {record._institutionName}
                     </span>
-                    <div className="qualification-calendar">
-                      <i className="uil uil-calendar-alt"></i>
-                      {new Date(record._startDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
-                      {' - '}
-                      {new Date(record._endDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                      })}
+                    <div className="qualification-more-details">
+                      <span
+                        className="qualification-more-button"
+                        onClick={() => toggleModalRecords(record._id)}
+                      >
+                        More Details
+                        <i className="uil uil-plus-circle qualification-button-icon"></i>
+                      </span>
                     </div>
                   </div>
 
@@ -213,6 +207,136 @@ const Qualification = () => {
           </div>
         </div>
       </div>
+      {experienceRecords.map((record) => (
+        <div
+          key={record._id}
+          className={
+            toggleModal === record._id
+              ? 'qualification-modal active-modal'
+              : 'qualification-modal'
+          }
+        >
+          <div className="qualification-modal-content">
+            <i
+              onClick={() => toggleModalRecords('0')}
+              className="uil uil-times qualification-modal-close"
+            ></i>
+
+            <h3 className="qualification-modal-title">{record._title}</h3>
+            <ul className="qualification-modal-services grid">
+              {record._description.split(' || ').map((item, index) => (
+                <li key={index} className="qualification-modal-project">
+                  <i className="uil uil-briefcase qualification-modal-icon"></i>
+                  <p className="qualification-modal-info">{item}</p>
+                </li>
+              ))}
+            </ul>
+            <br />
+            <ul className="qualification-modal-services grid">
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-calendar-alt qualification-modal-extra-icon"></i>
+                  Duration
+                </h3>
+                <p className="qualification-modal-info">
+                  {new Date(record._startDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                  {' - '}
+                  {new Date(record._endDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                </p>
+              </li>
+
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-lightbulb-alt qualification-modal-extra-icon"></i>
+                  Skills
+                </h3>
+                <p className="qualification-modal-info">
+                  {record._skills.map((skill) => skill._name).join(', ')}
+                </p>
+              </li>
+
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-map-marker qualification-modal-extra-icon"></i>
+                  Location
+                </h3>
+                <p className="qualification-modal-info">{record._location}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ))}
+      {educationalRecords.map((record) => (
+        <div
+          key={record._id}
+          className={
+            toggleModal === record._id
+              ? 'qualification-modal active-modal'
+              : 'qualification-modal'
+          }
+        >
+          <div className="qualification-modal-content">
+            <i
+              onClick={() => toggleModalRecords('0')}
+              className="uil uil-times qualification-modal-close"
+            ></i>
+
+            <h3 className="qualification-modal-title">{record._degree}</h3>
+            <ul className="qualification-modal-services grid">
+              {record._description.split(' || ').map((item, index) => (
+                <li key={index} className="qualification-modal-project">
+                  <i className="uil uil-graduation-cap qualification-modal-icon"></i>
+                  <p className="qualification-modal-info">{item}</p>
+                </li>
+              ))}
+            </ul>
+            <br />
+            <ul className="qualification-modal-services grid">
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-calendar-alt qualification-modal-extra-icon"></i>
+                  Duration
+                </h3>
+                <p className="qualification-modal-info">
+                  {new Date(record._startDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                  {' - '}
+                  {new Date(record._endDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                </p>
+              </li>
+
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-lightbulb-alt qualification-modal-extra-icon"></i>
+                  Skills
+                </h3>
+                <p className="qualification-modal-info">
+                  {record._skills.map((skill) => skill._name).join(', ')}
+                </p>
+              </li>
+
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-map-marker qualification-modal-extra-icon"></i>
+                  Location
+                </h3>
+                <p className="qualification-modal-info">{record._location}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ))}
     </section>
   );
 };

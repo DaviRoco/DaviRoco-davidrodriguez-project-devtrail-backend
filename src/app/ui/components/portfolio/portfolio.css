@@ -117,6 +117,19 @@
   column-gap: 0.25rem;
   cursor: pointer;
 }
+.portfolio-modal-subtitle {
+  display: flex;
+  align-items: center;
+  font-size: var(--normal-font-size);
+  font-weight: bold;
+  color: var(--title-color);
+}
+
+.portfolio-modal-extra-icon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+}
 
 @media screen and (max-width: 992px) {
   .portfolio-container {

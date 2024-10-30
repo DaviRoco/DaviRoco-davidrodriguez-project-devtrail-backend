@@ -96,7 +96,10 @@ const Portfolio = () => {
 
             <ul className="portfolio-modal-projects grid">
               <li className="portfolio-modal-project">
-                <i className="uil uil-calendar-alt portfolio-modal-icon"></i>
+                <h3 className="portfolio-modal-subtitle">
+                  <i className="uil uil-calendar-alt portfolio-modal-extra-icon"></i>
+                  Duration
+                </h3>
                 <p className="portfolio-modal-info">
                   {new Date(project._startDate).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -110,13 +113,19 @@ const Portfolio = () => {
                 </p>
               </li>
               <li className="portfolio-modal-project">
-                <i className="uil uil-lightbulb-alt portfolio-modal-icon"></i>
+                <h3 className="portfolio-modal-subtitle">
+                  <i className="uil uil-lightbulb-alt portfolio-modal-extra-icon"></i>
+                  Skills
+                </h3>
                 <p className="portfolio-modal-info">
                   {project._skills.map((skill) => skill._name).join(', ')}
                 </p>
               </li>
               <li className="portfolio-modal-project">
-                <i className="uil uil-globe portfolio-modal-icon"></i>
+                <h3 className="portfolio-modal-subtitle">
+                  <i className="uil uil-map-marker portfolio-modal-extra-icon"></i>
+                  Location
+                </h3>
                 <p className="portfolio-modal-info">
                   {project._url != 'N/A' ? (
                     <a

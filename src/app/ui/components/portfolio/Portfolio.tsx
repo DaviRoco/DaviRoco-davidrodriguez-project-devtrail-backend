@@ -64,7 +64,7 @@ const Portfolio = () => {
             </h3>
             <p className="portfolio-description">
               <span
-                className="services-button"
+                className="portfolio-button"
                 onClick={() => toggleTab(project._id)}
               >
                 View More

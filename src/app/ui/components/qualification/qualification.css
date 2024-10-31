@@ -267,6 +267,13 @@
 }
 
 @media screen and (max-width: 350px) {
+  .qualification-sections {
+    grid-template-columns: initial;
+  }
+  .qualification-icon {
+    display: none;
+  }
+
   .qualification-data {
     gap: 0.5rem;
   }

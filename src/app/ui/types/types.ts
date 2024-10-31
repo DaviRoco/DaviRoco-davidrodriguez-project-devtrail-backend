@@ -46,3 +46,13 @@ export interface Projects {
   _url: string;
   _skills: Skills[];
 }
+
+export interface Certifications {
+  _id: string;
+  _name: string;
+  _institution: string;
+  _date: Date;
+  _credentialID: string;
+  _url: string;
+  _skills: Skills[];
+}

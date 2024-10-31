@@ -2,7 +2,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './qualification.css';
 import { QualificationService } from '../../services/QualificationService';
-import { EducationalRecords, type ExperienceRecords } from '../../types/types';
+import {
+  Certifications,
+  EducationalRecords,
+  type ExperienceRecords,
+} from '../../types/types';
 const Qualification = () => {
   const [toggleState, setToggleState] = useState(1);
   const [experienceRecords, setExperienceRecords] = useState<
@@ -12,6 +16,8 @@ const Qualification = () => {
   const [educationalRecords, setEducationalRecords] = useState<
     EducationalRecords[]
   >([]);
+
+  const [certifications, setCertifications] = useState<Certifications[]>([]);
 
   const [toggleModal, setToggleModal] = useState('0');
 
@@ -45,6 +51,15 @@ const Qualification = () => {
     }
   }, []);
 
+  const fetchCertifications = useCallback(async () => {
+    try {
+      const response = await QualificationService.getAllCertifications();
+      setCertifications(response);
+    } catch (error) {
+      console.error('Error fetching certifications:', error);
+    }
+  }, []);
+
   const toggleTab = (index: number) => {
     setToggleState(index);
   };
@@ -52,7 +67,8 @@ const Qualification = () => {
   useEffect(() => {
     fetchExperienceRecords();
     fetchEducationalRecords();
-  }, [fetchExperienceRecords, fetchEducationalRecords]);
+    fetchCertifications();
+  }, [fetchExperienceRecords, fetchEducationalRecords, fetchCertifications]);
 
   return (
     <section className="qualification section" id="qualification">
@@ -82,6 +98,17 @@ const Qualification = () => {
           >
             <i className="uil uil-graduation-cap qualification-icon"></i>
             Education
+          </div>
+          <div
+            className={
+              toggleState === 3
+                ? 'qualification-button qualification-active button--flex'
+                : 'qualification-button button--flex'
+            }
+            onClick={() => toggleTab(3)}
+          >
+            <i className="uil uil-award qualification-icon"></i>
+            Certifications
           </div>
         </div>
 
@@ -200,6 +227,70 @@ const Qualification = () => {
                   <div>
                     <span className="qualification-rounder"></span>
                     <span className="qualification-line"></span>
+                  </div>
+                </div>
+              ),
+            )}
+          </div>
+
+          <div
+            className={
+              toggleState === 3
+                ? 'qualification-content qualification-content-active'
+                : 'qualification-content'
+            }
+          >
+            {certifications.map((certification, index) =>
+              index % 2 === 0 ? (
+                <div key={index} className="qualification-data">
+                  <div>
+                    <h3 className="qualification-title">
+                      {certification._name}
+                    </h3>
+                    <span className="qualification-subtitle">
+                      {certification._institution}
+                    </span>
+                    <div className="qualification-more-details">
+                      <span
+                        className="qualification-more-button"
+                        onClick={() => toggleModalRecords(certification._id)}
+                      >
+                        More Details
+                        <i className="uil uil-plus-circle qualification-button-icon"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="qualification-rounder"></span>
+                    <span className="qualification-line"></span>
+                  </div>
+                </div>
+              ) : (
+                <div key={index} className="qualification-data">
+                  <div></div>
+
+                  <div>
+                    <span className="qualification-rounder"></span>
+                    <span className="qualification-line"></span>
+                  </div>
+
+                  <div>
+                    <h3 className="qualification-title">
+                      {certification._name}
+                    </h3>
+                    <span className="qualification-subtitle">
+                      {certification._institution}
+                    </span>
+                    <div className="qualification-more-details">
+                      <span
+                        className="qualification-more-button"
+                        onClick={() => toggleModalRecords(certification._id)}
+                      >
+                        More Details
+                        <i className="uil uil-plus-circle qualification-button-icon"></i>
+                      </span>
+                    </div>
                   </div>
                 </div>
               ),
@@ -332,6 +423,66 @@ const Qualification = () => {
                   Location
                 </h3>
                 <p className="qualification-modal-info">{record._location}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ))}
+      {certifications.map((certification) => (
+        <div
+          key={certification._id}
+          className={
+            toggleModal === certification._id
+              ? 'qualification-modal active-modal'
+              : 'qualification-modal'
+          }
+        >
+          <div className="qualification-modal-content">
+            <i
+              onClick={() => toggleModalRecords('0')}
+              className="uil uil-times qualification-modal-close"
+            ></i>
+
+            <h3 className="qualification-modal-title">{certification._name}</h3>
+            <ul className="qualification-modal-services grid">
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-file-check qualification-modal-extra-icon"></i>
+                  Credential ID
+                </h3>
+                <p className="qualification-modal-info">
+                  {certification._credentialID}
+                </p>
+              </li>
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-calendar-alt qualification-modal-extra-icon"></i>
+                  Issued
+                </h3>
+                <p className="qualification-modal-info">
+                  {new Date(certification._date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                </p>
+              </li>
+
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-lightbulb-alt qualification-modal-extra-icon"></i>
+                  Skills
+                </h3>
+                <p className="qualification-modal-info">
+                  {certification._skills.map((skill) => skill._name).join(', ')}
+                </p>
+              </li>
+
+              <li className="qualification-modal-project">
+                <h3 className="qualification-modal-subtitle">
+                  <i className="uil uil-globe qualification-modal-extra-icon"></i>
+                  URL
+                </h3>
+                <p className="qualification-modal-info">{certification._url}</p>
               </li>
             </ul>
           </div>

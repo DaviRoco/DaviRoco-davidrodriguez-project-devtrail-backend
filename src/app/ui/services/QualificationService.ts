@@ -1,9 +1,10 @@
 import axios from "axios";
-import { ExperienceRecords } from "../types/types";
+import { Certifications, ExperienceRecords } from "../types/types";
 import { EducationalRecords } from "../types/types";
 
 let cachedExperienceRecords: ExperienceRecords[] | null = null;
 let cachedEducationalRecords: EducationalRecords[] | null = null;
+let cachedCertifications: Certifications[] | null = null;
 
 export class QualificationService {
     private static experienceRecordsApiUrl = '/api/records?type=experience';
@@ -32,6 +33,19 @@ export class QualificationService {
             const response = await axios.get<EducationalRecords[]>(this.educationalRecordsApiUrl);
             cachedEducationalRecords = response.data;
             return cachedEducationalRecords;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public static async getAllCertifications(): Promise<Certifications[]> {
+        if(cachedCertifications) {
+            return cachedCertifications;
+        }
+        
+        try {
+            const response = await axios.get<Certifications[]>('/api/certifications');
+            return response.data;
         } catch (error) {
             throw error;
         }

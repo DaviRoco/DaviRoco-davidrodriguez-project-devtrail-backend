@@ -18,10 +18,12 @@ const Portfolio = () => {
   const fetchProjects = useCallback(async () => {
     try {
       const response = await PortfolioService.getAllProjects();
-      const sortedResponse = response.sort(
-        (a, b) =>
-          new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
-      );
+      const sortedResponse = Array.isArray(response)
+        ? response.sort(
+            (a, b) =>
+              new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
+          )
+        : [];
       setProjects(sortedResponse);
     } catch (error) {
       console.error('Error fetching projects:', error);

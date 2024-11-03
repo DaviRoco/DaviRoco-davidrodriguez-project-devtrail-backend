@@ -10,9 +10,9 @@ const Skills = () => {
   const fetchSkills = useCallback(async () => {
     try {
       const skills = await SkillsService.getAllSkills();
-      const sortedSkills = skills.sort((a, b) =>
-        a._name.localeCompare(b._name),
-      );
+      const sortedSkills = Array.isArray(skills)
+        ? skills.sort((a, b) => a._name.localeCompare(b._name))
+        : [];
       setSkills(sortedSkills);
     } catch (error) {
       console.error('Error fetching skills:', error);

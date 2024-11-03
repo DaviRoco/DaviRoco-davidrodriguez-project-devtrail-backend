@@ -28,10 +28,12 @@ const Qualification = () => {
   const fetchExperienceRecords = useCallback(async () => {
     try {
       const response = await QualificationService.getAllExperienceRecords();
-      const sortedResponse = response.sort(
-        (a, b) =>
-          new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
-      );
+      const sortedResponse = Array.isArray(response)
+        ? response.sort(
+            (a, b) =>
+              new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
+          )
+        : [];
       setExperienceRecords(sortedResponse);
     } catch (error) {
       console.error('Error fetching experience records:', error);
@@ -41,10 +43,12 @@ const Qualification = () => {
   const fetchEducationalRecords = useCallback(async () => {
     try {
       const response = await QualificationService.getAllEducationalRecords();
-      const sortedResponse = response.sort(
-        (a, b) =>
-          new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
-      );
+      const sortedResponse = Array.isArray(response)
+        ? response.sort(
+            (a, b) =>
+              new Date(b._endDate).getTime() - new Date(a._endDate).getTime(),
+          )
+        : [];
       setEducationalRecords(sortedResponse);
     } catch (error) {
       console.error('Error fetching educational records:', error);
@@ -54,7 +58,12 @@ const Qualification = () => {
   const fetchCertifications = useCallback(async () => {
     try {
       const response = await QualificationService.getAllCertifications();
-      setCertifications(response);
+      const sortedResponse = Array.isArray(response)
+        ? response.sort(
+            (a, b) => new Date(b._date).getTime() - new Date(a._date).getTime(),
+          )
+        : [];
+      setCertifications(sortedResponse);
     } catch (error) {
       console.error('Error fetching certifications:', error);
     }

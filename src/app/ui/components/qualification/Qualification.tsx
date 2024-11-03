@@ -491,7 +491,16 @@ const Qualification = () => {
                   <i className="uil uil-globe qualification-modal-extra-icon"></i>
                   URL
                 </h3>
-                <p className="qualification-modal-info">{certification._url}</p>
+                <p className="qualification-modal-info">
+                  <a
+                    href={certification._url}
+                    className="qualification-more-button"
+                    target="_blank"
+                    style={{ textDecoration: 'underline' }}
+                  >
+                    {certification._name}
+                  </a>
+                </p>
               </li>
             </ul>
           </div>

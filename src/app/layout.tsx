@@ -22,6 +22,7 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
         ></link>
+        <link rel="icon" href="/icon.png" />
       </head>
       <body>{children}</body>
     </html>

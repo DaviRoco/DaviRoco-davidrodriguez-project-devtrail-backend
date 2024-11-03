@@ -102,7 +102,8 @@ describe('Skills Service', () => {
       expect(skillsRepository.getSkillByName).toHaveBeenCalledTimes(1);
     });
   });
-  describe('getSkillByName', () => {
+
+  describe('getSkillByID', () => {
     test('It should return the skills when the repository returns it by ID', async () => {
       const testID = '2';
       skillsRepository.getSkillByID.mockResolvedValue(mockSkills[1]);

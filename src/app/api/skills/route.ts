@@ -6,6 +6,7 @@ import SkillsControllers from '../../lib/controllers/SkillsController';
  * This function processes the incoming request, validates query parameters,
  * and fetches skills based on the provided parameters. It supports
  * fetching skills by name or ID. If no parameters are provided, it fetches all skills.
+ * It also supports fetching frontend or backend skills based on the `type` query parameter.
  *
  * @param {Request} req - The incoming request object.
  * @returns {Promise<Response>} - A promise that resolves to the response object.
@@ -25,7 +26,7 @@ import SkillsControllers from '../../lib/controllers/SkillsController';
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 
-  const validParams = ['name', 'id'];
+  const validParams = ['name', 'id', 'type'];
   const invalidParams: string[] = [];
 
   searchParams.forEach((_, key) => {

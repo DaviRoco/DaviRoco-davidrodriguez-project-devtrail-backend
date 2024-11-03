@@ -12,6 +12,8 @@
  * - **getSkillByName**: Retrieves a skill by its name.
  * - **getSkillByID**: Retrieves a skill by its ID.
  * - **getSkillsByIDs**: Retrieves multiple skills by their IDs.
+ * - **getAllFrontEndSkills**: Retrieves all front-end skills.
+ * - **getAllBackEndSkills**: Retrieves all back-end skills.
  *
  * Each test verifies the following aspects:
  * - Successful retrieval of skills.

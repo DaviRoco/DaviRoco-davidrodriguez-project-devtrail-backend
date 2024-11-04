@@ -120,13 +120,16 @@ const Portfolio = () => {
                   Skills
                 </h3>
                 <p className="portfolio-modal-info">
-                  {project._skills.map((skill) => skill._name).join(', ')}
+                  {project._skills
+                    .sort((a, b) => a._name.localeCompare(b._name))
+                    .map((skill) => skill._name)
+                    .join(', ')}
                 </p>
               </li>
               <li className="portfolio-modal-project">
                 <h3 className="portfolio-modal-subtitle">
-                  <i className="uil uil-map-marker portfolio-modal-extra-icon"></i>
-                  Location
+                  <i className="uil uil-globe portfolio-modal-extra-icon"></i>
+                  URL
                 </h3>
                 <p className="portfolio-modal-info">
                   {project._url != 'N/A' ? (

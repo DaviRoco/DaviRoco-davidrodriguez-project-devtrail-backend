@@ -357,7 +357,10 @@ const Qualification = () => {
                   Skills
                 </h3>
                 <p className="qualification-modal-info">
-                  {record._skills.map((skill) => skill._name).join(', ')}
+                  {record._skills
+                    .sort((a, b) => a._name.localeCompare(b._name))
+                    .map((skill) => skill._name)
+                    .join(', ')}
                 </p>
               </li>
 
@@ -422,7 +425,10 @@ const Qualification = () => {
                   Skills
                 </h3>
                 <p className="qualification-modal-info">
-                  {record._skills.map((skill) => skill._name).join(', ')}
+                  {record._skills
+                    .sort((a, b) => a._name.localeCompare(b._name))
+                    .map((skill) => skill._name)
+                    .join(', ')}
                 </p>
               </li>
 
@@ -482,7 +488,10 @@ const Qualification = () => {
                   Skills
                 </h3>
                 <p className="qualification-modal-info">
-                  {certification._skills.map((skill) => skill._name).join(', ')}
+                  {certification._skills
+                    .sort((a, b) => a._name.localeCompare(b._name))
+                    .map((skill) => skill._name)
+                    .join(', ')}
                 </p>
               </li>
 

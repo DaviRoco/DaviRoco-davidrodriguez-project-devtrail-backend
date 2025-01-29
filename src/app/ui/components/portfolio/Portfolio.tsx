@@ -137,7 +137,7 @@ const Portfolio = () => {
                       href={project._url}
                       target="_blank"
                       rel="noreferrer"
-                      className="portfolio-modal-link"
+                      className="portfolio-modal-subtitle"
                     >
                       {project._url}
                     </a>

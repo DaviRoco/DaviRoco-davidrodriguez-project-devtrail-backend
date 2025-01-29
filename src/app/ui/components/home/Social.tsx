@@ -18,6 +18,15 @@ const Social = () => {
       >
         <i className="uil uil-github-alt"></i>
       </a>
+
+      <a
+        href="https://x.com/DevRoco"
+        className="home-social-icon"
+        target="_blank"
+      >
+        <i className="uil uil-twitter-alt"></i>
+      </a>
+
     </div>
   );
 };
